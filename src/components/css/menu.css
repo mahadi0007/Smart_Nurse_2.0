@@ -1,0 +1,32 @@
+.mybar{
+    background-color: rgb(18, 18, 78);
+
+}
+
+.customLink li{
+    padding-left: 15px;
+    color: white;
+}
+
+
+.customLink li a{
+    float: right !important; 
+    color: white;
+    
+}
+
+
+
+.loginBtn{
+    
+    padding: 0px 30px 0px 30px ;
+    margin-left: 15px;
+    
+    color: rgb(18, 18, 78);
+    background-color: white;
+    border-radius: 200px;
+    
+}
+
+
+

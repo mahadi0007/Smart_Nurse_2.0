@@ -1,0 +1,12 @@
+.footer{
+    height: 18vh;
+    width: 100%;
+    background-color: rgb(18,18,78);
+}
+
+.ftrtxt{
+    float: left;
+    color: rgb(154, 200, 235);
+    font-size: 17px;
+    margin-top: 40px;
+}

@@ -1,0 +1,35 @@
+
+
+.sec_5{
+    height: auto;
+    width: 100%;
+    background-color: rgba(18, 18, 78);
+    
+    background-image: linear-gradient(rgba(18, 18, 78,1)45%,rgba(255, 255, 255, 0.5));
+    margin-top: 150px;
+    color: white;
+    padding-top: 100px;
+
+}
+
+.appAddBox{
+   margin-top: 50px;
+
+}
+
+.appAddText{
+    margin-left: 40px;
+    margin-top: 60px;
+}
+.appAddText p{
+    margin-top: 25px;
+    font-size: 21px;
+    
+}
+
+.img{
+    
+    height:100%;
+    width: 100%;
+
+}
