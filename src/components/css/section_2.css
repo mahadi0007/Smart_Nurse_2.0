@@ -13,8 +13,8 @@
 .serviceBox{
     background-color:white;
     margin-top: 150px;
-    margin-left:50px ;
-    margin-right: 50px;
+    
+    
    
     border-radius: 10px;
     box-shadow: 1px 1px 8px 8px rgba(18, 18, 78, 0.4);
@@ -26,8 +26,8 @@
 .serviceBox:active{
     background-color:white;
     margin-top: 150px;
-    margin-left:50px ;
-    margin-right: 50px;
+   
+    
    
     border-radius: 10px;
     box-shadow: 1px 1px 8px 8px rgba(200, 0, 0, 0.35);

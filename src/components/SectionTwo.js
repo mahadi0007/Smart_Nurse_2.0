@@ -10,7 +10,7 @@ class SectionTwo extends React.Component{
                 <h1 className="text-center ourSrvcs">Our Services</h1>
 
                     <div className="row">
-                        <div className="col-sm serviceBox">
+                        <div className="col-10 offset-1 col-sm-3 serviceBox">
                             
                             <div className="text-center">
                                 <img src={serviceIcon} alt={"serviceIcon"} height="90px" width="90px"></img>
@@ -20,7 +20,7 @@ class SectionTwo extends React.Component{
                             
 
                         </div>
-                        <div className="col-sm serviceBox">
+                        <div className="col-10 offset-1 col-sm-3 serviceBox">
                         
                         <div className="text-center">
                                 <img src={serviceIcon} alt={"serviceIcon"} height="90px" width="90px"></img>
@@ -29,7 +29,7 @@ class SectionTwo extends React.Component{
                             </div>
 
                         </div>
-                        <div className="col-sm serviceBox">
+                        <div className="col-10 offset-1 col-sm-3 serviceBox">
                         
                         <div className="text-center">
                                 <img src={serviceIcon} alt={"serviceIcon"} height="90px" width="90px"></img>

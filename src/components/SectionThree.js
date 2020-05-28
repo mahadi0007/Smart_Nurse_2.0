@@ -7,7 +7,7 @@ class SectionThree extends React.Component{
         return(
             
                 <div className="sec_3">
-                    <div className="container">
+                    <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm text-center sec3Box">
                                 <h1>What is Smart Nurse</h1>
