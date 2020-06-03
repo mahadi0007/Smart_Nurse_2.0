@@ -9,7 +9,7 @@ class SectionThree extends React.Component{
                 <div className="sec_3">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-sm text-center sec3Box">
+                            <div className="col-10 offset-1 col-sm-6 text-center sec3Box">
                                 <h1>What is Smart Nurse</h1>
                                 <h2>&mdash;</h2>
                                 <p className="WhtIsSmNurse">Teresa is an online platform where you can<br></br>
@@ -21,8 +21,8 @@ class SectionThree extends React.Component{
                                 </p>
 
                             </div>
-                            <div className="col-sm">
-                            <img className="sec3img" src={Sec3img} alt="sec3img" height="75%" width="100%" ></img>
+                            <div className="col-12 col-sm-5">
+                                <img className="sec3img" src={Sec3img} alt="sec3img" height="75%" width="100%" ></img>
                                 
                             </div>
                         </div>

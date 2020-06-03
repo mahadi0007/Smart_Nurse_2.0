@@ -13,7 +13,16 @@ class SectionSix extends React.Component{
                         <p className="howItWork">How it work</p>
                         <div className="row no-border process">
                             <img src={icon} alt="icon" height="70px" width="70px"></img>
-                            <h4>Download app or visit website</h4>
+                            <h4>Visit website</h4>
+                        </div>
+                        <div className="processDetails">
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type
+                            </p>
+                        </div>
+                        <div className="row no-border process">
+                            <img src={icon} alt="icon" height="70px" width="70px"></img>
+                            <h4>Download app</h4>
                         </div>
                         <div className="processDetails">
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown

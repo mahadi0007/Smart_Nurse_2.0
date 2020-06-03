@@ -16,11 +16,11 @@ class menu extends React.Component{
                             <img src={logo} alt={"logo"} style={{width:'100px',height:'80px'}}/>
                         </a>
                         
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">                                
-                            <span class="navbar-toggler-icon"></span>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">                                
+                            <span className="navbar-toggler-icon"></span>
                         </button>
 
-                        <div class="collapse navbar-collapse customLink" id="Navbar">
+                        <div className="collapse navbar-collapse customLink" id="Navbar">
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item"><a className="nav-link" href="#">Home</a></li>
                                 <li className="nav-item"><a className="nav-link" href="#">Service</a></li>
