@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import Menu from "../Shared/Components/Menu";
+
+import NavigationBar from "../Shared/Components/NavigationBar";
+import Slider from "./components/Slider";
 
 class Homepage extends Component {
   render() {
     return (
       <div className="Home-elements">
-        <Menu />
+        <NavigationBar />
+        <Slider />
       </div>
     );
   }

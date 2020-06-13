@@ -37,6 +37,7 @@ const Menu = () => {
               My Health Record
             </Nav.Link>
           </Nav.Item>
+
           <NavDropdown
             className="justify-content-center"
             title={
@@ -55,7 +56,7 @@ const Menu = () => {
               className="justify-content-lg-center text-white"
               href="/upload-prescription"
             >
-              Upload Prescription
+              Service
             </NavDropdown.Item>
             <NavDropdown.Item className="justify-content-lg-center text-white">
               Medicine
