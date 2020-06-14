@@ -27,8 +27,7 @@ export default class NavigationBar extends Component {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
             <Nav.Link className="text-light" href="#features">
               Home
             </Nav.Link>
@@ -74,7 +73,6 @@ export default class NavigationBar extends Component {
                 alt="Login Button"
               />
             </Nav.Link>
-          </Navbar.Collapse>
         </Navbar.Collapse>
       </Navbar>
     );
