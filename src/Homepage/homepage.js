@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Fade from "react-reveal/Fade";
 
 import NavigationBar from "../Shared/Components/NavigationBar";
 import Slider from "./components/Slider";
@@ -13,11 +14,15 @@ class Homepage extends Component {
     return (
       <div className="Home-elements">
         <NavigationBar />
-        <Slider />
-        <Service />
-        <AboutTeresa />
-        <AboutApp />
-        <Process />
+        <Fade top cascade>
+          <Slider />
+          <Service />
+
+          <AboutTeresa />
+
+          <AboutApp />
+          <Process />
+        </Fade>
 
         <Footer />
       </div>

@@ -7,7 +7,7 @@ import "./Slider.css";
 
 const Slider = () => {
   return (
-    <Carousel>
+    <Carousel data-aos="fade-down">
       <Carousel.Item>
         <img className="d-block sliderimage" src={Slider1} alt="First slide" />
         <Carousel.Caption>

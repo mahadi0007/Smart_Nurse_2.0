@@ -1,135 +1,91 @@
-import React from "react";
+import React, { Component } from "react";
 import { Card } from "react-bootstrap";
-import AddGuardianIcon from "../../Shared/img/addGuardianIcon.png";
-import PatientRoutineIcon from "../../Shared/img/patientRoutineIcon.png";
-import NotificationIcon from "../../Shared/img/notificationIcon.png";
-import MedicineShopIcon from "../../Shared/img/medicineShopIcon.png";
-import ActivityManagementIcon from "../../Shared/img/activityManagementIcon.png";
+import AddPatientIcon from "../../Shared/img/Add-Patient.jpg";
+import PatientRoutineIcon from "../../Shared/img/Patient-Routine.jpg";
+import NotificationIcon from "../../Shared/img/Real-Time-Notification.jpg";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import "./Service.css";
 
-const Service = () => {
-  return (
-    <div className="container mb-5 mt-2 pt-5">
-      <p
-        className="h1 text-center font-weight-bold mb-5"
-        style={{ color: "#19184E" }}
-      >
-        Our Services
-      </p>
-      <div className="row">
-        <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
-          <Card className="serviceCard p-2 my-5">
-            <Card.Img
-              className="mx-auto"
-              variant="top"
-              src={AddGuardianIcon}
-              alt="Add Guardian Icon"
-              style={{ width: "80px", height: "65px" }}
-            ></Card.Img>
-            <Card.Body>
-              <Card.Title className="text-left">
-                <p className="h4 font-weight-bold">Add Guardian</p>
-              </Card.Title>
-              <Card.Text className="text-left">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, ised in the 1960s with the release of
-                Letraset sheets containing Lorem
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
-          <Card className="serviceCard p-2 my-5">
-            <Card.Img
-              className="mx-auto"
-              variant="top"
-              src={PatientRoutineIcon}
-              alt="Patient Routine Icon"
-              style={{ width: "60px", height: "60px" }}
-            ></Card.Img>
-            <Card.Body>
-              <Card.Title className="text-left">
-                <p className="h4 font-weight-bold">Patient Routine</p>
-              </Card.Title>
-              <Card.Text className="text-left">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, ised in the 1960s with the release of
-                Letraset sheets containing Lorem
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
-          <Card className="serviceCard p-2 my-5">
-            <Card.Img
-              className="mx-auto"
-              variant="top"
-              src={NotificationIcon}
-              alt="Notification Icon"
-              style={{ width: "50px", height: "50px" }}
-            ></Card.Img>
-            <Card.Body>
-              <Card.Title className="text-left">
-                <p className="h4 font-weight-bold">Real Time Notification</p>
-              </Card.Title>
-              <Card.Text className="text-left">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, ised in the 1960s with the release of
-                Letraset sheets containing Lorem
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
-          <Card className="serviceCard p-2 my-5">
-            <Card.Img
-              className="mx-auto"
-              variant="top"
-              src={MedicineShopIcon}
-              alt="Medicine Shop Icon"
-              style={{ width: "70px", height: "60px" }}
-            ></Card.Img>
-            <Card.Body>
-              <Card.Title className="text-left">
-                <p className="h4 font-weight-bold">Medicine Shop</p>
-              </Card.Title>
-              <Card.Text className="text-left">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, ised in the 1960s with the release of
-                Letraset sheets containing Lorem
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
-          <Card className="serviceCard p-2 my-5">
-            <Card.Img
-              className="mx-auto"
-              variant="top"
-              src={ActivityManagementIcon}
-              alt="Activity Managemnet Icon"
-              style={{ width: "70px", height: "60px" }}
-            ></Card.Img>
-            <Card.Body>
-              <Card.Title className="text-left">
-                <p className="h4 font-weight-bold">Activity Managemnet</p>
-              </Card.Title>
-              <Card.Text className="text-left">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, ised in the 1960s with the release of
-                Letraset sheets containing Lorem
-              </Card.Text>
-            </Card.Body>
-          </Card>
+class Service extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    AOS.init({
+      duration: 2000,
+    });
+  }
+
+  render() {
+    return (
+      <div data-aos="fade-up" className="container mb-5 mt-2 pt-5">
+        <p
+          className="h1 text-center font-weight-bold mb-5"
+          style={{ color: "#19184E" }}
+        >
+          Our Services
+        </p>
+
+        <div className="row">
+          <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
+            <Card className="serviceCard my-5">
+              <img
+                src={AddPatientIcon}
+                alt="AddPatientIcon"
+                class="card-image"
+              />
+              <div class="overlay">
+                <div class="text">
+                  You can search with name or email address of your patient. if
+                  he/she doesn't have any account, manually add him with proper
+                  information. Or you can add yourself as a patient to act as
+                  your guardian.
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
+            <Card className="serviceCard my-5">
+              <img
+                src={PatientRoutineIcon}
+                alt="PatientRoutineIcon"
+                class="card-image"
+              />
+              <div class="overlay">
+                <div class="text">
+                  You can add your medicine, food or other activity routines for
+                  your patient. We'll keep your schedules organized so that you
+                  never miss any.
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <div className="col-xs-6 col-md-6 col-lg-4 d-flex px-5 px-sm-4 align-items-stretch">
+            <Card className="serviceCard my-5">
+              <img
+                src={NotificationIcon}
+                alt="NotificationIcon"
+                class="card-image"
+              />
+              <div class="overlay">
+                <div class="text">
+                  We'll add your schedules as google calender event so that you
+                  can get all your upcoming events on the homescreen. You have
+                  to strictly maintain your schedules as we'll notify your
+                  guardian about your status.
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Service;

@@ -6,7 +6,7 @@ import "./AboutApp.css";
 const AboutApp = () => {
   return (
     <div className="container-fluid" style={{ backgroundColor: "#020624" }}>
-      <div className="container">
+      <div data-aos="zoom-in" className="container">
         <p className="app-section-header-text text-center font-weight-bold text-white mt-5 p-3">
           Our App Is On The Way
         </p>

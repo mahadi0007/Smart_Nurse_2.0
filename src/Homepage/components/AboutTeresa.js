@@ -4,7 +4,11 @@ import "./AboutTeresa.css";
 
 const AboutTeresa = () => {
   return (
-    <div className="container-fluid" style={{ backgroundColor: "#F1F5F8" }}>
+    <div
+      data-aos="fade-down"
+      className="container-fluid"
+      style={{ backgroundColor: "#F1F5F8" }}
+    >
       <div className="container">
         <img
           className="d-block about-teresa"
