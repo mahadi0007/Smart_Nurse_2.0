@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "./Homepage/homepage";
+import LoginPage from "./Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -10,8 +11,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" component={HomePage} exact />
-
-          <Redirect to="/"></Redirect>
+          <Route path="/login" component={LoginPage} exact />
         </Switch>
       </BrowserRouter>
     </React.Fragment>

@@ -5,7 +5,7 @@ import "./AboutTeresa.css";
 const AboutTeresa = () => {
   return (
     <div
-      data-aos="fade-down"
+      data-aos="fade-up"
       className="container-fluid"
       style={{ backgroundColor: "#F1F5F8" }}
     >

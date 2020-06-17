@@ -27,52 +27,55 @@ export default class NavigationBar extends Component {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
-            <Nav.Link className="text-light" href="#features">
-              Home
-            </Nav.Link>
+        <Navbar.Collapse
+          className="justify-content-end"
+          id="responsive-navbar-nav"
+        >
+          <Nav.Link className="text-light" href="#features">
+            Home
+          </Nav.Link>
 
-            <NavDropdown
-              className="justify-content-center"
-              title={
-                <span
-                  className="dropdown-toggle text-white"
-                  data-toggle="dropdown"
-                  style={{ backgroundColor: "#020624" }}
-                >
-                  Service
-                  <i className="fa fa-angle-down ml-1"></i>
-                </span>
-              }
-              id="basic-nav-dropdown"
-            >
-              <NavDropdown.Item
-                className="justify-content-lg-center text-white"
-                href="/upload-prescription"
+          <NavDropdown
+            className="justify-content-center"
+            title={
+              <span
+                className="dropdown-toggle text-white"
+                data-toggle="dropdown"
+                style={{ backgroundColor: "#020624" }}
               >
-                Add Patient
-              </NavDropdown.Item>
-              <NavDropdown.Item className="justify-content-lg-center text-white">
-                Patinent Routine
-              </NavDropdown.Item>
-              <NavDropdown.Item className="justify-content-lg-center text-white"></NavDropdown.Item>
-            </NavDropdown>
+                Service
+                <i className="fa fa-angle-down ml-1"></i>
+              </span>
+            }
+            id="basic-nav-dropdown"
+          >
+            <NavDropdown.Item
+              className="justify-content-lg-center text-white"
+              href="/upload-prescription"
+            >
+              Add Patient
+            </NavDropdown.Item>
+            <NavDropdown.Item className="justify-content-lg-center text-white">
+              Patinent Routine
+            </NavDropdown.Item>
+            <NavDropdown.Item className="justify-content-lg-center text-white"></NavDropdown.Item>
+          </NavDropdown>
 
-            <Nav.Link className="text-light" href="#features">
-              About
-            </Nav.Link>
+          <Nav.Link className="text-light" href="#features">
+            About
+          </Nav.Link>
 
-            <Nav.Link className="text-light" href="#features">
-              Contact
-            </Nav.Link>
+          <Nav.Link className="text-light" href="#features">
+            Contact
+          </Nav.Link>
 
-            <Nav.Link className="text-light mt-lg-n2" href="/login">
-              <img
-                src={LoginButton}
-                className="ml-n2 ml-lg-0 login-button"
-                alt="Login Button"
-              />
-            </Nav.Link>
+          <Nav.Link className="text-light mt-lg-n2" href="/login">
+            <img
+              src={LoginButton}
+              className="ml-n2 ml-lg-0 login-button"
+              alt="Login Button"
+            />
+          </Nav.Link>
         </Navbar.Collapse>
       </Navbar>
     );
