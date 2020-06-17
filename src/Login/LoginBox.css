@@ -80,9 +80,7 @@ input {
 input:invalid {
   outline: 0;
 }
-input:focus,
-input:valid {
-}
+
 input:focus ~ label,
 input:valid ~ label,
 input:not([value=""]) ~ label {
