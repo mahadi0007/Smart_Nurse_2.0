@@ -56,6 +56,7 @@ export default class LoginBox extends Component {
                 />
                 <br />
               </div>
+
               <p className="active text-center font-weight-bold login-text">
                 Log In
               </p>
