@@ -18,17 +18,10 @@
   margin-left: auto;
   margin-right: auto;
 }
-
-/*
-
 .form-group {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-left: auto;
+  margin-right: auto;
 }
-
-*/
-
 .main_box {
   padding-top: 20px;
   padding-bottom: 20px;
