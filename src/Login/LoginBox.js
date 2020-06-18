@@ -63,7 +63,7 @@ export default class LoginBox extends Component {
               <br />
 
               <div className="form-group">
-                <div class="input-field">
+                <div className="input-field">
                   <input
                     type="email"
                     className="form-control rounded-pill   form-input-background "
@@ -71,12 +71,15 @@ export default class LoginBox extends Component {
                     value={this.state.email}
                     onInput={this.handleInput}
                     id="name"
+                    onChange={(e) => this.setState({
+                      email: e.target.value
+                    })}
                     required
                   />
-                  <label for="name">Email</label>
+                  <label htmlFor="name">Email</label>
                 </div>
 
-                <div class="input-field ">
+                <div className="input-field ">
                   <input
                     type="password"
                     className="form-control rounded-pill   form-input-background "
@@ -84,9 +87,12 @@ export default class LoginBox extends Component {
                     value={this.state.password}
                     onInput={this.handleInput}
                     id="password"
+                    onChange={(e) => this.setState({
+                      password: e.target.value
+                    })}
                     required
                   />
-                  <label for="password">Password</label>
+                  <label htmlFor="password">Password</label>
                 </div>
 
                 <p className="Forgot_pass">
