@@ -108,20 +108,21 @@ const Footer = () => {
           </div>
 
           <div className="col-6">
-            <ButtonGroup className="float-right" aria-label="Basic example">
-              <Button className="footer-icon">
-                <i className="fab fa-youtube"></i>
-              </Button>
-              <Button className="footer-icon">
-                <i className="fab fa-facebook-f"></i>
-              </Button>
-              <Button className="footer-icon">
-                <i className="fab fa-instagram"></i>
-              </Button>
-              <Button className="footer-icon">
-                <i className="fab fa-twitter"></i>
-              </Button>
-            </ButtonGroup>
+            
+
+          <div className="float-right">
+            <a class="btn-floating btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f blue-text"></i></a>
+
+            <a class="btn-floating btn-lg btn-yt" type="button" role="button"><i class="fab fa-youtube red-text"></i></a>
+
+            <a class="btn-floating btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter cyan-text"></i></a>
+
+            <a class="btn-floating btn-lg btn-gplus" type="button" role="button"><i class="fab fa-google-plus-g red-text"></i></a>
+
+          </div>
+            
+        
+
           </div>
         </div>
       </div>
