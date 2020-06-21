@@ -77,7 +77,9 @@ export default class LoginBox extends Component {
                     }
                     required
                   />
-                  <label htmlFor="name">Email</label>
+                  <label className="login-input-label" htmlFor="name">
+                    Email
+                  </label>
                 </div>
 
                 <div className="input-field ">
@@ -95,7 +97,9 @@ export default class LoginBox extends Component {
                     }
                     required
                   />
-                  <label htmlFor="password">Password</label>
+                  <label className="login-input-label" htmlFor="password">
+                    Password
+                  </label>
                 </div>
 
                 <p className="Forgot_pass">

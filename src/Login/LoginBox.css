@@ -38,8 +38,8 @@
   background-color: #e6e6e6 !important;
 }
 
-form {
-  margin: 100px;
+.form-group {
+  margin-top: 100px;
 }
 .input-field {
   margin-top: 30px;
@@ -50,7 +50,8 @@ form {
   margin-left: auto;
   margin-right: auto;
 }
-label {
+
+.login-input-label {
   position: absolute;
   top: -0.15vw;
 
@@ -60,6 +61,7 @@ label {
   cursor: text;
   padding-left: 15px;
 }
+
 input {
   width: 100%;
   border: 0;
@@ -74,9 +76,9 @@ input:invalid {
   outline: 0;
 }
 
-input:focus ~ label,
-input:valid ~ label,
-input:not([value=""]) ~ label {
+input:focus ~ .login-input-label,
+input:valid ~ .login-input-label,
+input:not([value=""]) ~ .login-input-label {
   font-size: 16px;
   top: -38px;
 

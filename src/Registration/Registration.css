@@ -38,19 +38,19 @@
   background-color: #e6e6e6 !important;
 }
 
-form {
-  margin: 70px;
+.form-group-reg {
+  margin: 20px;
 }
-.input-field {
+.input-field-reg {
   margin-top: 30px;
   position: relative;
-  width: 250px;
-  height: 44px;
+
   line-height: 40px;
   margin-left: auto;
   margin-right: auto;
 }
-label {
+
+.input-label {
   position: absolute;
   top: -0.25vw;
 
@@ -60,6 +60,7 @@ label {
   cursor: text;
   padding-left: 15px;
 }
+
 input {
   width: 100%;
   border: 0;
@@ -74,37 +75,45 @@ input:invalid {
   outline: 0;
 }
 
-input:focus ~ label,
-input:valid ~ label,
-input:not([value=""]) ~ label {
+input:focus ~ .input-label,
+input:valid ~ .input-label,
+input:not([value=""]) ~ .input-label {
   font-size: 16px;
   top: -38px;
 
   color: #585757;
 }
-
-label[for="userRole"] {
-  position: absolute;
-  top: +35vw !important;
-
-  width: 100%;
-  color: #706b6b;
+.radio-btn {
+  margin-top: 15px;
 }
 
 input[type="radio"]:focus ~ label,
 input[type="radio"]:valid ~ label,
 input[type="radio"] ~ label {
-  font-size: 16px;
-  top: -18px;
+  font-size: 30px !important;
+  position: relative;
+  margin-top: 50px;
 
   color: #585757;
 }
 
 #gender {
-  margin-top: 30px;
+  margin-top: 8px;
+}
+.Gender_Label {
+  position: relative;
+  top: +3px;
+  margin-left: 15px;
+  margin-bottom: -10px !important;
+  color: #585757;
 }
 
-.Gender_Label {
-  top: +3px;
-  transition: 0.2s all;
+.abc {
+  margin-top: 10px;
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+.Register-as {
+  margin-top: 20px;
 }

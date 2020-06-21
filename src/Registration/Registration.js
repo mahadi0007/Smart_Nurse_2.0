@@ -6,6 +6,7 @@ import Doctor from "../Shared/img/Dr.jpg";
 import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { Dropdown } from "react-bootstrap";
+import { Last } from "react-bootstrap/PageItem";
 
 export default class Registration extends Component {
   constructor() {
@@ -86,10 +87,10 @@ export default class Registration extends Component {
                   Create Account
                 </p>
 
-                <form className="form-group" onSubmit={this.sendForm}>
+                <form className="form-group-reg" onSubmit={this.sendForm}>
                   <div className="form-row">
                     <MDBCol sm="6">
-                      <div className="input-field">
+                      <div className="input-field-reg">
                         <input
                           type="text"
                           className="form-control rounded-pill   form-input-background "
@@ -104,12 +105,14 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="f_name">First Name</label>
+                        <label className="input-label" htmlFor="f_name">
+                          First Name
+                        </label>
                       </div>
                     </MDBCol>
 
                     <MDBCol sm="6">
-                      <div className="input-field">
+                      <div className="input-field-reg">
                         <input
                           type="text"
                           className="form-control rounded-pill   form-input-background "
@@ -124,12 +127,17 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="l_name">Last Name</label>
+                        <label className="input-label" htmlFor="l_name">
+                          Last Name
+                        </label>
                       </div>
                     </MDBCol>
                   </div>
                   <div className="form-row">
                     <MDBCol sm="6">
+                      <label className="Gender_Label" htmlFor="gender">
+                        {this.state.gender == "" ? "" : "Gender"}
+                      </label>
                       <select
                         defaultValue="Gender"
                         id="gender"
@@ -145,13 +153,10 @@ export default class Registration extends Component {
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                       </select>
-                      <label className="Gender_Label" htmlFor="gender">
-                        {this.state.gender == "" ? "" : "Gender"}
-                      </label>
                     </MDBCol>
 
                     <MDBCol sm="6">
-                      <div className="input-field">
+                      <div className="input-field-reg">
                         <input
                           type="number"
                           className="form-control rounded-pill   form-input-background "
@@ -166,13 +171,15 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="age">Age</label>
+                        <label className="input-label" htmlFor="age">
+                          Age
+                        </label>
                       </div>
                     </MDBCol>
                   </div>
                   <div className="form-row">
                     <MDBCol sm="6">
-                      <div className="input-field">
+                      <div className="input-field-reg">
                         <input
                           type="email"
                           className="form-control rounded-pill   form-input-background "
@@ -187,12 +194,14 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="name">Email</label>
+                        <label className="input-label" htmlFor="name">
+                          Email
+                        </label>
                       </div>
                     </MDBCol>
 
                     <MDBCol sm="6">
-                      <div className="input-field ">
+                      <div className="input-field-reg ">
                         <input
                           type="password"
                           className="form-control rounded-pill   form-input-background "
@@ -207,13 +216,15 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="password">Password</label>
+                        <label className="input-label" htmlFor="password">
+                          Password
+                        </label>
                       </div>
                     </MDBCol>
                   </div>
                   <div className="form-row">
                     <MDBCol sm="6">
-                      <div className="input-field ">
+                      <div className="input-field-reg ">
                         <input
                           type="password"
                           className="form-control rounded-pill   form-input-background "
@@ -228,14 +239,17 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="confirm_password">
+                        <label
+                          className="input-label"
+                          htmlFor="confirm_password"
+                        >
                           Confirm Password
                         </label>
                       </div>
                     </MDBCol>
 
                     <MDBCol sm="6">
-                      <div className="input-field">
+                      <div className="input-field-reg">
                         <input
                           type="tel"
                           className="form-control rounded-pill   form-input-background "
@@ -250,13 +264,15 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="phone">Phone Number</label>
+                        <label className="input-label" htmlFor="phone">
+                          Phone Number
+                        </label>
                       </div>
                     </MDBCol>
                   </div>
                   <div className="form-row">
                     <MDBCol sm="6">
-                      <div className="input-field ">
+                      <div className="input-field-reg">
                         <input
                           type="number"
                           className="form-control rounded-pill   form-input-background "
@@ -271,12 +287,14 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="height">Height</label>
+                        <label className="input-label" htmlFor="height">
+                          Height
+                        </label>
                       </div>
                     </MDBCol>
 
                     <MDBCol sm="6">
-                      <div className="input-field">
+                      <div className="input-field-reg">
                         <input
                           type="number"
                           className="form-control rounded-pill   form-input-background "
@@ -291,19 +309,43 @@ export default class Registration extends Component {
                           }
                           required
                         />
-                        <label htmlFor="weight">Weight</label>
+                        <label className="input-label" htmlFor="weight">
+                          Weight
+                        </label>
                       </div>
                     </MDBCol>
                   </div>
 
+                  <label className="Register-as">Register As</label>
+
                   <div className="form-row">
-                    <input
-                      type="radio"
-                      value="MALE"
-                      name="gender"
-                      id="userRole"
-                    />
-                    <label htmlFor="userRole">Patient</label>
+                    <MDBCol size="1">
+                      <input
+                        className="radio-btn"
+                        type="radio"
+                        value="Guardian"
+                        name="userRole"
+                        id="userRole"
+                      />
+                    </MDBCol>
+
+                    <MDBCol size="2" className="abc">
+                      <label htmlFor="userRole">Guardian</label>
+                    </MDBCol>
+
+                    <MDBCol size="1">
+                      <input
+                        className="radio-btn"
+                        type="radio"
+                        value="MALE"
+                        name="gender"
+                        id="userRole"
+                      />
+                    </MDBCol>
+
+                    <MDBCol size="2" className="abc">
+                      <label htmlFor="userRole">Patient</label>
+                    </MDBCol>
                   </div>
 
                   <br />
