@@ -103,7 +103,7 @@ export default class LoginBox extends Component {
                 </div>
 
                 <p className="Forgot_pass">
-                  <a href="/forgetPassword" style={{ color: "#2D2E6A" }}>
+                  <a href="/forgot_password" style={{ color: "#2D2E6A" }}>
                     Forgot Password
                   </a>
                 </p>
