@@ -70,6 +70,7 @@ export default class Forgot_Password extends Component {
                     We will email you a link to reset your password
                   </p>
                 </div>
+                <br />
 
                 <form className="form-group-fPass" onSubmit={this.sendForm}>
                   <div className="input-field">
@@ -96,7 +97,7 @@ export default class Forgot_Password extends Component {
                     type="submit"
                     className="btn btn-block text-white text-center"
                     style={{
-                      marginTop: "10px",
+                      marginTop: "15px",
                       marginBottom: "20px",
                       marginLeft: "auto",
                       marginRight: "auto",
@@ -109,10 +110,6 @@ export default class Forgot_Password extends Component {
                   >
                     SEND
                   </button>
-
-                  <p className="h6  text-center" style={{ color: "#292A67" }}>
-                    Don't have an account?
-                  </p>
                 </form>
               </MDBCol>
             </div>
