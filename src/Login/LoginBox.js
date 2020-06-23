@@ -20,7 +20,8 @@ export default class LoginBox extends Component {
     });
   };
 
-  sendForm = () => {
+  sendForm = (e) => {
+    e.preventDefault();
     console.log(this.state.email);
     console.log(this.state.password);
   };
