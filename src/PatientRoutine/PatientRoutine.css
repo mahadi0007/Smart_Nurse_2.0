@@ -1,0 +1,14 @@
+
+.headline{
+    margin-left: 100px;
+    margin-top: -60px;
+    z-index: 1;
+    color: white; 
+}
+
+@media only screen and (max-width: 765px){
+    .banner{
+        height: 150px;
+    }
+    
+}
