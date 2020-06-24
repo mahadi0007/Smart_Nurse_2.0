@@ -5,6 +5,7 @@ import LoginPage from "./Login/Login";
 import registrationPage from "./Registration/Registration";
 import ForgotPassPage from "./Forgot Password/Forgot_Password";
 import ResetPassPage from "./Reset Password/Reset_Password";
+import EditProfilePage from "./Edit Profile/Edit_Profile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" component={registrationPage} exact />
           <Route path="/forgot_password" component={ForgotPassPage} exact />
           <Route path="/reset_password" component={ResetPassPage} exact />
+          <Route path="/edit_profile" component={EditProfilePage} exact />
         </Switch>
       </BrowserRouter>
     </React.Fragment>
