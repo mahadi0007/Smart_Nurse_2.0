@@ -1,33 +1,51 @@
 .forLabel{
     margin-left: 90px;
 }
-.forInput{
-    margin-left: 90px;
+
+.inputBckColor{
+    background-color: #e6e6e6 !important;
 }
-.addBtn{
-    margin-left: 250px;
-}
+
+.login-input-label-two {
+    position: relative;
+    top: -0.15vw;
+  
+    width: 100%;
+    color: #706b6b;
+    transition: 0.2s all;
+    cursor: text;
+    padding-left: 15px;
+  }
+
+  .input-field-two {
+    margin-top: 30px;
+    position: relative;
+    width: 250px;
+    height: 44px;
+    line-height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .routineBtn{
+      margin-top: 100px;
+  }
+
+
+
 
 
 
 
 @media only screen and (max-width: 765px){
    .input1 {
-        margin-top: 20px;        
+        margin-top: 10px;
+                
     }
     .forLabel{
-        margin-left: 60px;
+        margin-left: 90px;
     }
-    .forInput{
-        margin-left: 60px;
-        
-    }
-    .forInputXs{
-        margin-left:60px;
-    }
-    .addBtn{
-        margin-left: 60px;
-    }
+
 }
 
 

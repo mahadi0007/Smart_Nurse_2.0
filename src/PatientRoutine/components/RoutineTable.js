@@ -1,5 +1,6 @@
 import React from "react";
 import {Table} from "react-bootstrap";
+import "./RoutineTable.css";
 
 
 class RoutineTable extends React.Component{
@@ -7,8 +8,8 @@ class RoutineTable extends React.Component{
         return(
             <div>
                 <div className="container tableDesign">
-                <Table className="table table-striped table-bordered table-hover table-responsive">
-                    <thead>
+                <table className="table table-striped table-hover table-responsive">
+                    <thead className="thead-dark">
                         <tr>
                             <th>Routine Item</th>
                             <th>Item Name</th>
@@ -23,19 +24,19 @@ class RoutineTable extends React.Component{
                     </thead>
                     <tbody>
                     <tr>
-                            <th>medicine</th>
-                            <th>napa</th>
-                            <th>1</th>
-                            <th>1/06/2020</th>
-                            <th>1/07/2020</th>
-                            <th>maam</th>
-                            <th>before meal</th>
-                            <th>30</th>
-                            <th>before 15 mins</th>
+                            <td>medicine</td>
+                            <td>napa</td>
+                            <td>1</td>
+                            <td>1/06/2020</td>
+                            <td>1/07/2020</td>
+                            <td>maam</td>
+                            <td>before meal</td>
+                            <td>30</td>
+                            <td>before 15 mins</td>
                         </tr>
                     </tbody>
 
-                </Table>
+                </table>
                 </div>
             </div>
         );

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDom from "react-dom"
 import { Form, FormGroup, FormLabel,Table} from "react-bootstrap";
 import "./PatientRoutineForm.css";
+//import "./PatientRtnAnimtn.css";
 import { FormRow } from "react-bootstrap/Form";
 
 
@@ -11,7 +12,7 @@ class PatientRoutineForm extends React.Component{
         routineItem:"",
         item_name: "",
         unit: "",
-        s_date:"",e_date:"",community:"",meal_time:"",time:"",notification:""
+        s_date:"",e_date:"",community:"",meal_time:"",time:"",notification:"",notify_to:""
     };
 
     onSubmitForm=(event)=>{
@@ -26,20 +27,21 @@ class PatientRoutineForm extends React.Component{
         console.log(this.state.meal_time);
         console.log(this.state.time);
         console.log(this.state.notification);
+        console.log(this.state.notify_to);
 
     };
 
     render(){
         return(
-            <div>
-                <Form onSubmit={this.onSubmitForm}>
+            <div className="container" >
+                <form onSubmit={this.onSubmitForm}>
                     
                 <Form.Group className="grp1" >
                         <Form.Row>
                             <Form.Label className="forLabel"><h4>Routine Item</h4></Form.Label>
                             <Form.Control
                                 as="select"
-                                className="col-8 col-sm-4 offset-2 rounded-pill input1"
+                                className="col-10 col-sm-4 offset-1 rounded-pill input1 inputBckColor"
                                 value={this.state.routineItem}
                                 onChange={(e) => this.setState({routineItem:e.target.value})}
                                 custom
@@ -54,114 +56,218 @@ class PatientRoutineForm extends React.Component{
                 </Form.Group>
                 <div className="row">
                     <div className="col-sm-6">
-                        <Form.Group>
-                        <Form.Label className="forLabel">Item name</Form.Label>
-                        <Form.Control className="col-8 col-sm-6 rounded-pill forInput" type="text"
-                        value={this.state.item_name}
-                        onChange={(e)=>this.setState({item_name:e.target.value})} placeholder="" />
-                        </Form.Group>
+                        <div className="input-field">
+                            <input
+                            type="text"
+                            className="form-control rounded-pill   form-input-background "
+                            name="itemName"
+                            value={this.state.item_name}
+                            
+                            id="itemName"
+                            onChange={(e) =>
+                                this.setState({
+                                item_name: e.target.value,
+                                })
+                            }
+                            required
+                            />
+                            <label className="login-input-label" htmlFor="itemName">
+                            Item Name
+                            </label>
+                        </div>
                     </div>
                     <div className="col-sm-6">
-                        <Form.Group className="forInputXs">
-                        <Form.Label>Unit</Form.Label>
-                        <Form.Control className="col-8 col-sm-6 rounded-pill" type="text"
-                        value={this.state.unit}
-                        onChange={(e) => this.setState({unit:e.target.value})} placeholder="" />
-                        </Form.Group>
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-sm-6">
-                        <Form.Group>
-                        <Form.Label className="forLabel">Start Date</Form.Label>
-                        <Form.Control className="col-8 col-sm-6 rounded-pill forInput" type="date"
-                        value={this.state.s_date}
-                        onChange={(e) => this.setState({s_date:e.target.value})} placeholder="" />
-                        </Form.Group>
-                    </div>
-                    <div className="col-sm-6">
-                        <Form.Group className="forInputXs">
-                        <Form.Label>End Date</Form.Label>
-                        <Form.Control className="col-8 col-sm-6 rounded-pill" type="date"
-                        value={this.state.e_date}
-                        onChange={(e) => this.setState({e_date:e.target.value})} placeholder="" />
-                        </Form.Group>
-                    </div>
-                </div>
-
-                <div className="row">
-                    <div className="col-sm-6">
-                        <Form.Group>
-                        <Form.Label className="forLabel">Community</Form.Label>
-                        <Form.Control className="col-8 col-sm-6 rounded-pill forInput" type="text"
-                            value={this.state.community}
-                            onChange={(e) => this.setState({community:e.target.value})} placeholder="" />
-                        </Form.Group>
-                    </div>
-                    <div className="col-sm-6">
-                        <Form.Group className="forInputXs">
-                            <div className="">
-                                <Form.Label>Before/After meal</Form.Label>
-                            </div>
-                        
-                        <div className="">
-                            <Form.Control
-                                    as="select"
-                                    className="col-8 col-sm-6 rounded-pill"
-                                    value={this.state.meal_time}
-                                    onChange={(e) => this.setState({meal_time:e.target.value})}
-                                    custom
-                                    >
-                                        <option value="Before meal">Before meal</option>
-                                        <option value="After meal">After meal</option>
-                                        
-
-                            </Form.Control>
+                    
+                        <div className="input-field">
+                            <input
+                                type="text"
+                                className="form-control rounded-pill   form-input-background "
+                                name="unit"
+                                value={this.state.unit}
+                                
+                                id="unit"
+                                onChange={(e) => this.setState({unit:e.target.value})}
+                                required
+                            />
+                            <label className="login-input-label" htmlFor="unit">
+                                Unit
+                            </label>
                         </div>
                         
-                        </Form.Group>
+                       
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-sm-6">
-                        <Form.Group>
-                        <Form.Label className="forLabel">Time</Form.Label>
-                        <Form.Control className="col-8 col-sm-6 rounded-pill forInput" type="text"
-                        value={this.state.time}
-                        onChange={(e) => this.setState({time:e.target.value})} placeholder="" />
+                        <div className="input-field">
+                            <input
+                                type="date"
+                                className="form-control rounded-pill   form-input-background "
+                                name="startDate"
+                                value={this.state.s_date}
+                                
+                                id="startDate"
+                                onChange={(e) => this.setState({s_date:e.target.value})}
+                                required
+                            />
+                            <label className="login-input-label" htmlFor="startDate">
+                                Start Date
+                            </label>
+                        </div>
                         
-                        </Form.Group>
                     </div>
                     <div className="col-sm-6">
-                        <Form.Group className="forInputXs">
-                            <div className="">
-                                <Form.Label>Notification</Form.Label>
-                            </div>
+                    <div className="input-field">
+                            <input
+                                type="date"
+                                className="form-control rounded-pill   form-input-background "
+                                name="endDate"
+                                value={this.state.e_date}
+                                
+                                id="endDate"
+                                onChange={(e) => this.setState({e_date:e.target.value})}
+                                required
+                            />
+                            <label className="login-input-label" htmlFor="endDate">
+                                End Date
+                            </label>
+                        </div>
+
                         
-                        <div className="">
-                            <Form.Control
-                                    as="select"
-                                    className="col-8 col-sm-6 rounded-pill"
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-sm-6">
+                    <div className="input-field">
+                            <input
+                                type="text"
+                                className="form-control rounded-pill   form-input-background "
+                                name="community"
+                                value={this.state.community}
+                                
+                                id="community"
+                                onChange={(e) => this.setState({community:e.target.value})}
+                                required
+                            />
+                            <label className="login-input-label" htmlFor="community">
+                                Community
+                            </label>
+                        </div>
+
+                        
+                    </div>
+                    <div className="col-sm-6">
+                        
+
+                        <div className="input-field-two">
+                                
+                            <select className="form-control rounded-pill   form-input-background "
+                                name="mealTime"
+                                value={this.state.meal_time}
+                                
+                                id="mealTime"
+                                onChange={(e) => this.setState({meal_time:e.target.value})}
+                                custom>
+                                <option value="before meal">Before meal</option>
+                                <option value="after meal">After meal</option>
+                            </select>
+                        </div>
+                        
+                                            
+                    </div>
+                </div>
+
+
+
+
+
+                <div className="row">
+                    <div className="col-sm-6">
+                    <div className="input-field">
+                            <input
+                                type="text"
+                                className="form-control rounded-pill   form-input-background "
+                                name="time"
+                                value={this.state.time}
+                                
+                                id="time"
+                                onChange={(e) => this.setState({time:e.target.value})}
+                                required
+                            />
+                            <label className="login-input-label" htmlFor="time">
+                                Time
+                            </label>
+                        </div>
+
+                        
+                    </div>
+                    <div className="col-sm-6">
+                    <div className="input-field-two">
+                                
+                                <select className="form-control rounded-pill   form-input-background "
+                                    name="notification"
                                     value={this.state.notification}
+                                    
+                                    id="notification"
                                     onChange={(e) => this.setState({notification:e.target.value})}
-                                    custom
-                                    >
-                                        <option value="Before 15 mins">Before 15 mins</option>
-                                        <option value="Before 30 mins">Before 30 mins</option>
-                                        <option value="Before 1 hour">Before 1 hour</option>
-
-                            </Form.Control>
-                        </div>
+                                    custom>
+                                    <option value="before 15 mins">Before 15 mins</option>
+                                    <option value="before 30 mins">Before 30 mins</option>
+                                    <option value="before 1 hour">Before 1 hour</option>
+                                </select>
+                            </div>
                         
-                        </Form.Group>
                     </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-sm-6">
+                            <div class="input-field">
+                                <label htmlfor="notifyTo" class="col-12 col-sm-6"><h3>Notification</h3></label>
+                                <div class="col-sm-10" 
+                                    name="notifyTo"
+                                    value={this.state.notify_to}
+                                    
+                                    id="notifyTo"
+                                    onChange={(e) => this.setState({notify_to:e.target.value})}>
+                                    <label class="mr-2"><input type="radio" value="me"/> Me</label>
+                                    <label class="mr-2"><input type="radio" value="gaurdian"/> Gaurdian</label>
+                                          
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                            
+                            
+                            
+                
+                
+                <div className="row routineBtn">
+                <button
+                    type="submit"
+                    className="btn btn-block text-white text-center"
+                    style={{
+                      marginTop: "15px",
+                      marginBottom: "20px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      width: "150px",
+                      borderRadius: "1em",
+                      height: "35px",
+                      backgroundColor: "#0C0C52",
+                      fontSize: "14px",
+                    }}
+                  >
+                    ADD
+                  </button>
                 </div>
     
-                <button className="btn addBtn" type="submit">ADD</button>
+                
   
-                </Form>
+                </form>
 
                 
                 

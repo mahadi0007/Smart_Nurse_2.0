@@ -5,10 +5,21 @@
     z-index: 1;
     color: white; 
 }
+.routineImg{
+    margin-top: 80px;
+}
 
-@media only screen and (max-width: 765px){
+@media only screen and (max-width: 767px){
     .banner{
         height: 150px;
     }
     
 }
+
+
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+    .routineImg{
+        margin-top: 200px;
+    }
+  }

@@ -21,7 +21,7 @@ export default class Forgot_Password extends Component {
 
   sendForm = () => {
     console.log(this.state.email);
-  };
+  }; 
 
   render() {
     return (
