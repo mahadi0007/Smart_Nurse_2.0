@@ -55,7 +55,7 @@ export default class NavigationBar extends Component {
             >
               Add Patient
             </NavDropdown.Item>
-            <NavDropdown.Item className="justify-content-lg-center text-white">
+            <NavDropdown.Item className="justify-content-lg-center text-white" href="/patientroutine">
               Patinent Routine
             </NavDropdown.Item>
             <NavDropdown.Item className="justify-content-lg-center text-white"></NavDropdown.Item>

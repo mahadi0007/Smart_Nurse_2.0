@@ -29,7 +29,7 @@ export default class Registration extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  };
+  }; 
 
   sendForm = (e) => {
     e.preventDefault();

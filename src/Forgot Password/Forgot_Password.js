@@ -23,7 +23,7 @@ export default class Forgot_Password extends Component {
   sendForm = (e) => {
     e.preventDefault();
     console.log(this.state.email);
-  };
+  }; 
 
   render() {
     return (
