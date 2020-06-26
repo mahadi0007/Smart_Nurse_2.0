@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Logo from "../Shared/img/teresa.png";
 import "./Reset_Password.css";
 import Doctor from "../Shared/img/Nurse.png";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { Helmet } from "react-helmet";
 export default class Reset_Password extends Component {

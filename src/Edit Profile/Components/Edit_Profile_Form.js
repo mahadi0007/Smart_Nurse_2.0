@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Edit_Profile_Form.css";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 
 export default class extends Component {
   constructor() {

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import NavigationBar from "../Shared/Components/NavigationBar";
 import EditProfileForm from "./Components/Edit_Profile_Form";
 import "./Edit_Profile.css";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import Footer from "../Shared/Components/Footer";
 import avater from "../Shared/img/profile-pic.png";
@@ -31,7 +31,7 @@ export default class Edit_Profile extends Component {
 
         <div className="container-fluid pl-5 pr-5">
           <div className="row">
-            <MDBCol sm="4" className="profile_column">
+            <MDBCol lg="4" className="profile_column">
               <img
                 className="d-block mx-auto rounded-circle"
                 style={{ width: "250px", height: "250px" }}
@@ -58,7 +58,7 @@ export default class Edit_Profile extends Component {
               </button>
             </MDBCol>
 
-            <MDBCol sm="8" className="Edit_profile_column  pl-5">
+            <MDBCol lg="8" className="Edit_profile_column  pl-5">
               <EditProfileForm />
             </MDBCol>
           </div>

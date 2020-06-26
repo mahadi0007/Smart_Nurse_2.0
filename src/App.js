@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./Homepage/homepage";
 import LoginPage from "./Login/Login";
 import registrationPage from "./Registration/Registration";
@@ -27,7 +27,6 @@ function App() {
           <Route path="/edit_profile" component={EditProfilePage} exact />
 
           <Route path="/patientroutine" component={PatientRoutine} exact />
-
         </Switch>
       </BrowserRouter>
     </React.Fragment>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Logo from "../Shared/img/teresa.png";
 import "./Forgot_Passwprd.css";
 import Doctor from "../Shared/img/Nurse.png";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { Helmet } from "react-helmet";
 
@@ -23,7 +23,7 @@ export default class Forgot_Password extends Component {
   sendForm = (e) => {
     e.preventDefault();
     console.log(this.state.email);
-  }; 
+  };
 
   render() {
     return (
