@@ -3,7 +3,7 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Logo from "../img/logo.png";
 import Avatar from "../img/avatar.png";
 import LoginButton from "../img/Login Button.png";
-import NotificationIcon from "../img/Notification Icon.png";
+
 import "./NavigationBar.css";
 
 export default class NavigationBar extends Component {
@@ -55,7 +55,10 @@ export default class NavigationBar extends Component {
             >
               Add Patient
             </NavDropdown.Item>
-            <NavDropdown.Item className="justify-content-lg-center text-white" href="/patientroutine">
+            <NavDropdown.Item
+              className="justify-content-lg-center text-white"
+              href="/patientroutine"
+            >
               Patinent Routine
             </NavDropdown.Item>
             <NavDropdown.Item className="justify-content-lg-center text-white"></NavDropdown.Item>

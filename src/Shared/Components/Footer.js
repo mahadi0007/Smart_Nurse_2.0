@@ -1,6 +1,5 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
+
 import ListGroup from "react-bootstrap/ListGroup";
 import "./Footer.css";
 
@@ -108,21 +107,43 @@ const Footer = () => {
           </div>
 
           <div className="col-6">
-            
+            <div className="float-right">
+              <a
+                class="btn-floating btn-lg btn-fb"
+                href="#!"
+                type="button"
+                role="button"
+              >
+                <i class="fab fa-facebook-f blue-text"></i>
+              </a>
 
-          <div className="float-right">
-            <a class="btn-floating btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f blue-text"></i></a>
+              <a
+                class="btn-floating btn-lg btn-yt"
+                href="#!"
+                type="button"
+                role="button"
+              >
+                <i class="fab fa-youtube red-text"></i>
+              </a>
 
-            <a class="btn-floating btn-lg btn-yt" type="button" role="button"><i class="fab fa-youtube red-text"></i></a>
+              <a
+                class="btn-floating btn-lg btn-tw"
+                href="#!"
+                type="button"
+                role="button"
+              >
+                <i class="fab fa-twitter cyan-text"></i>
+              </a>
 
-            <a class="btn-floating btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter cyan-text"></i></a>
-
-            <a class="btn-floating btn-lg btn-gplus" type="button" role="button"><i class="fab fa-google-plus-g red-text"></i></a>
-
-          </div>
-            
-        
-
+              <a
+                class="btn-floating btn-lg btn-gplus"
+                href="#!"
+                type="button"
+                role="button"
+              >
+                <i class="fab fa-google-plus-g red-text"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>

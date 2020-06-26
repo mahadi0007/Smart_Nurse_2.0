@@ -3,10 +3,8 @@ import { Helmet } from "react-helmet";
 import "./Registration.css";
 import Logo from "../Shared/img/teresa.png";
 import Doctor from "../Shared/img/Dr.jpg";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
-import { Dropdown } from "react-bootstrap";
-import { Last } from "react-bootstrap/PageItem";
 
 export default class Registration extends Component {
   constructor() {
@@ -29,7 +27,7 @@ export default class Registration extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  }; 
+  };
 
   sendForm = (e) => {
     e.preventDefault();
@@ -136,7 +134,7 @@ export default class Registration extends Component {
                   <div className="form-row">
                     <MDBCol sm="6">
                       <label className="Gender_Label" htmlFor="gender">
-                        {this.state.gender == "" ? "" : "Gender"}
+                        {this.state.gender === "" ? "" : "Gender"}
                       </label>
                       <select
                         defaultValue="Gender"

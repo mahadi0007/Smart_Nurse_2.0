@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import NavigationBar from "../Shared/Components/NavigationBar";
 import EditProfileForm from "./Components/Edit_Profile_Form";
 import "./Edit_Profile.css";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import Footer from "../Shared/Components/Footer";
 import avater from "../Shared/img/profile-pic.png";

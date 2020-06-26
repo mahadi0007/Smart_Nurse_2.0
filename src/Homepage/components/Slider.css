@@ -1,36 +1,35 @@
-.sliderimage{
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	width: 100%;
-	height: auto;
+.sliderimage {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
 }
 
-.marginSliderButton{
-	margin-top: 2vw!important;
-	margin-left: -1vw!important;
-	font-size: 1.4vw!important;
-	padding: 0.55vw 0.8vw!important;
+.marginSliderButton {
+  margin-top: 2vw !important;
+  margin-left: -1vw !important;
+  font-size: 1.4vw !important;
+  padding: 0.55vw 0.8vw !important;
 }
 
-@media only screen and (min-width: 576px) and (max-width: 767px){
-	.marginSliderButton{
-		margin-top: -8vw!important;
-		margin-left: -1vw!important;
-		font-size: 1.4vw!important;
-		padding: 0.55vw 0.8vw!important;
-	}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .marginSliderButton {
+    margin-top: -8vw !important;
+    margin-left: -1vw !important;
+    font-size: 1.4vw !important;
+    padding: 0.55vw 0.8vw !important;
+  }
 }
 
-@media only screen and (min-width: 768px){
-	.marginSliderButton{
-		margin-top: -11vw!important;
-		margin-left: -1vw!important;
-		font-size: 1.4vw!important;
-		padding: 0.55vw 0.8vw!important;
-	}
+@media only screen and (min-width: 768px) {
+  .marginSliderButton {
+    margin-top: -11vw !important;
+    margin-left: -1vw !important;
+    font-size: 1.4vw !important;
+    padding: 0.55vw 0.8vw !important;
+  }
 }
-
 
 /*@media only screen and (min-width: 1500px) and (max-width: 2100px){
 	.marginSliderButton{

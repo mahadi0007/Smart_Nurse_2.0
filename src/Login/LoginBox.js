@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Logo from "../Shared/img/teresa.png";
 import "./LoginBox.css";
 import Doctor from "../Shared/img/Dr.jpg";
-import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 
 export default class LoginBox extends Component {
