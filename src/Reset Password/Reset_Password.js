@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import Logo from "../Shared/img/teresa.png";
-import "./Forgot_Passwprd.css";
+import "./Reset_Password.css";
 import Doctor from "../Shared/img/Nurse.png";
 import { MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { Helmet } from "react-helmet";
-
-export default class Forgot_Password extends Component {
+export default class Reset_Password extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
+      password: "",
+      confirm_password: "",
     };
   }
 
@@ -22,15 +22,15 @@ export default class Forgot_Password extends Component {
 
   sendForm = (e) => {
     e.preventDefault();
-    console.log(this.state.email);
-  }; 
-
+    console.log(this.state.password);
+    console.log(this.state.confirm_password);
+  };
   render() {
     return (
       <div>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Forgot Passowrd</title>
+          <title>Reset Passowrd</title>
         </Helmet>
         <div className="container-fluid login_background">
           <br />
@@ -64,38 +64,56 @@ export default class Forgot_Password extends Component {
                 </div>
 
                 <p className="active text-center font-weight-bold login-text">
-                  Forgot Password
+                  Reset Password
                 </p>
                 <div className="col-lg-8 forgot-pass-text">
                   <p className="h5  text-center" style={{ color: "#292A67" }}>
-                    Enter the email address associated with your account
+                    Enter your new password
                   </p>
                   <br />
-
-                  <p className="h6  text-center" style={{ color: "#292A67" }}>
-                    We will email you a link to reset your password
-                  </p>
                 </div>
-                <br />
 
                 <form className="form-group-fPass" onSubmit={this.sendForm}>
                   <div className="input-field">
                     <input
-                      type="email"
+                      type="password"
                       className="form-control rounded-pill   form-input-background "
-                      name="email"
-                      value={this.state.email}
+                      name="password"
+                      value={this.state.password}
                       onInput={this.handleInput}
-                      id="name"
+                      id="password"
                       onChange={(e) =>
                         this.setState({
-                          email: e.target.value,
+                          password: e.target.value,
                         })
                       }
                       required
                     />
-                    <label className="login-input-label" htmlFor="name">
-                      Email
+                    <label className="login-input-label" htmlFor="password">
+                      Password
+                    </label>
+                  </div>
+
+                  <div className="input-field">
+                    <input
+                      type="password"
+                      className="form-control rounded-pill   form-input-background "
+                      name="confirm_password"
+                      value={this.state.confirm_password}
+                      onInput={this.handleInput}
+                      id="confirm_password"
+                      onChange={(e) =>
+                        this.setState({
+                          confirm_password: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                    <label
+                      className="login-input-label"
+                      htmlFor="confirm_password"
+                    >
+                      Confirm Password
                     </label>
                   </div>
 

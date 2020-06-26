@@ -51,7 +51,7 @@ export default class NavigationBar extends Component {
           >
             <NavDropdown.Item
               className="justify-content-lg-center text-white"
-              href="/upload-prescription"
+              href="/add_patient"
             >
               Add Patient
             </NavDropdown.Item>
@@ -73,6 +73,13 @@ export default class NavigationBar extends Component {
             <img
               src={LoginButton}
               className="ml-n2 ml-lg-0 login-button"
+              alt="Login Button"
+            />
+          </Nav.Link>
+          <Nav.Link className="text-light mt-lg-n2" href="/edit_profile">
+            <img
+              src={Avatar}
+              className="ml-n2 ml-lg-0 profile"
               alt="Login Button"
             />
           </Nav.Link>
