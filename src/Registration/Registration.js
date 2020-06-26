@@ -5,6 +5,7 @@ import Logo from "../Shared/img/teresa.png";
 import Doctor from "../Shared/img/Dr.jpg";
 import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
+
 import RegisterForm from "./Components/Register_Form";
 
 export default class Registration extends Component {
