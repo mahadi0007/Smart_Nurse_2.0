@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Logo from "../Shared/img/teresa.png";
+import axios from 'axios'
 import "./LoginBox.css";
 import Doctor from "../Shared/img/Dr.jpg";
 import { MDBCol } from "mdbreact";
@@ -20,10 +21,19 @@ export default class LoginBox extends Component {
     });
   };
 
-  sendForm = (e) => {
+  sendForm = async (e) => {
     e.preventDefault();
     console.log(this.state.email);
     console.log(this.state.password);
+    try {
+      const response = await axios.post('https://smart-nurse-test.herokuapp.com/login', {
+        email: this.state.email,
+        password: this.state.password
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   render() {

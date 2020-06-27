@@ -117,3 +117,7 @@ input[type="radio"] ~ label {
 .Register-as {
   margin-top: 20px;
 }
+
+.spinner-border {
+  display: block !important;
+}
