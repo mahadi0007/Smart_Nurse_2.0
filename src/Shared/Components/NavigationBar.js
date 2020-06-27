@@ -51,7 +51,11 @@ export default class NavigationBar extends Component {
           >
             <NavDropdown.Item
               className="justify-content-lg-center text-white"
+<<<<<<< HEAD
               href="/upload-prescription"
+=======
+              href="/addpatient"
+>>>>>>> 268e745... add patient page _mahadi
             >
               Add Patient
             </NavDropdown.Item>
