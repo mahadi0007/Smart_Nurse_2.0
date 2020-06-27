@@ -10,11 +10,11 @@ class PatientRoutineForm extends React.Component {
     unit: "",
     s_date: "",
     e_date: "",
-    community: "",
+    continuity: "",
     meal_time: "",
     time: "",
     notification: "",
-    notify_to: "",
+    notify_to: ""
   };
 
   onSubmitForm = (event) => {
@@ -25,7 +25,7 @@ class PatientRoutineForm extends React.Component {
     console.log(this.state.unit);
     console.log(this.state.s_date);
     console.log(this.state.e_date);
-    console.log(this.state.community);
+    console.log(this.state.continuity);
     console.log(this.state.meal_time);
     console.log(this.state.time);
     console.log(this.state.notification);
@@ -48,7 +48,7 @@ class PatientRoutineForm extends React.Component {
                 onChange={(e) => this.setState({ routineItem: e.target.value })}
                 custom
               >
-                <option value="Medicine">Medicine</option>
+                <option value="Medicine" selected>Medicine</option>
                 <option value="Food">Food</option>
                 <option value="Excercise">Excercise</option>
               </Form.Control>
@@ -114,11 +114,12 @@ class PatientRoutineForm extends React.Component {
               <div className="input-field">
                 <input
                   type="date"
-                  className="form-control rounded-pill   form-input-background "
+                  className="form-control rounded-pill form-input-background "
                   name="endDate"
                   value={this.state.e_date}
                   id="endDate"
                   onChange={(e) => this.setState({ e_date: e.target.value })}
+                  placeholder="End Date"
                   required
                 />
                 <label className="login-input-label" htmlFor="endDate">
@@ -134,14 +135,14 @@ class PatientRoutineForm extends React.Component {
                 <input
                   type="text"
                   className="form-control rounded-pill   form-input-background "
-                  name="community"
-                  value={this.state.community}
-                  id="community"
-                  onChange={(e) => this.setState({ community: e.target.value })}
+                  name="continuity"
+                  value={this.state.continuity}
+                  id="continuity"
+                  onChange={(e) => this.setState({continuity:e.target.value})}
                   required
                 />
-                <label className="login-input-label" htmlFor="community">
-                  Community
+                <label className="login-input-label" htmlFor="continuity">
+                Continuity
                 </label>
               </div>
             </div>
@@ -155,7 +156,7 @@ class PatientRoutineForm extends React.Component {
                   onChange={(e) => this.setState({ meal_time: e.target.value })}
                   custom
                 >
-                  <option value="before meal">Before meal</option>
+                  <option value="before meal" selected>Before meal</option>
                   <option value="after meal">After meal</option>
                 </select>
               </div>
@@ -191,13 +192,15 @@ class PatientRoutineForm extends React.Component {
                   }
                   custom
                 >
-                  <option value="before 15 mins">Before 15 mins</option>
+                  <option value="before 15 mins" selected>Before 15 mins</option>
                   <option value="before 30 mins">Before 30 mins</option>
                   <option value="before 1 hour">Before 1 hour</option>
                 </select>
               </div>
             </div>
           </div>
+
+          
 
           <div className="row">
             <div className="col-sm-6">
@@ -212,12 +215,20 @@ class PatientRoutineForm extends React.Component {
                   id="notifyTo"
                   onChange={(e) => this.setState({ notify_to: e.target.value })}
                 >
-                  <label class="mr-2">
-                    <input type="radio" value="me" /> Me
-                  </label>
-                  <label class="mr-2">
-                    <input type="radio" value="gaurdian" /> Gaurdian
-                  </label>
+                  
+                    <label className="mr-2">
+                      <input type="radio" name="radio" id="radio1" value="me" /> Me
+                    </label>
+                  
+                  
+                    <label className="mr-2">
+                      <input type="radio" name="radio" id="radio2" value="gaurdian" /> Gaurdian
+                    </label>
+                  
+                  
+                  
+                  
+                  
                 </div>
               </div>
             </div>

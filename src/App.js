@@ -9,6 +9,7 @@ import ResetPassPage from "./Reset Password/Reset_Password";
 import EditProfilePage from "./Edit Profile/Edit_Profile";
 
 import PatientRoutine from "./PatientRoutine/PatientRoutine";
+import AddPatient from "./AddPatient/AddPatient";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -27,6 +28,7 @@ function App() {
           <Route path="/edit_profile" component={EditProfilePage} exact />
 
           <Route path="/patientroutine" component={PatientRoutine} exact />
+          <Route path="/addpatient" component={AddPatient} exact />
         </Switch>
       </BrowserRouter>
     </React.Fragment>
