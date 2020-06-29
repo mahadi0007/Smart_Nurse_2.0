@@ -10,6 +10,7 @@ import EditProfilePage from "./Edit Profile/Edit_Profile";
 
 import PatientRoutine from "./PatientRoutine/PatientRoutine";
 import AddPatient from "./AddPatient/AddPatient";
+import VerifyUser from "./Verify User/verifyUser";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -29,6 +30,7 @@ function App() {
 
           <Route path="/patientroutine" component={PatientRoutine} exact />
           <Route path="/addpatient" component={AddPatient} exact />
+          <Route path="/confirmation/:token" component={VerifyUser} exact />
         </Switch>
       </BrowserRouter>
     </React.Fragment>

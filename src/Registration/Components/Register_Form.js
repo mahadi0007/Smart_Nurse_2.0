@@ -3,11 +3,16 @@ import "../Registration.css";
 import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 
+import ErrorModal from "../../Shared/Components/ErrorModal";
+
+import axios from "axios";
+
 export default class Register_Form extends Component {
   constructor() {
     super();
     this.state = {
       showSpinner: false,
+      showSignUpBtn: true,
       f_name: "",
       l_name: "",
       email: "",
@@ -19,8 +24,15 @@ export default class Register_Form extends Component {
       height: "",
       weight: "",
       userType: "",
+      responseMessage: "",
     };
   }
+
+  errorHandler = () => {
+    this.setState({
+      responseMessage: "", //clear response message
+    });
+  };
 
   handleInput = (e) => {
     this.setState({
@@ -28,7 +40,7 @@ export default class Register_Form extends Component {
     });
   };
 
-  sendForm = (e) => {
+  sendForm = async (e) => {
     e.preventDefault();
     console.log(this.state.email);
     console.log(this.state.password);
@@ -41,14 +53,74 @@ export default class Register_Form extends Component {
     console.log(this.state.height);
     console.log(this.state.weight);
     console.log(this.state.userType);
+
     this.setState({
+      showSignUpBtn: false,
       showSpinner: true,
+    });
+
+    try {
+      const response = await axios.post(
+        //"https://smart-nurse-test.herokuapp.com/register",
+        "http://localhost:5000/register",
+
+        {
+          firstname: this.state.f_name,
+          lastname: this.state.l_name,
+          gender: this.state.gender,
+          age: this.state.age,
+          email: this.state.email,
+          password: this.state.password,
+          password2: this.state.confirm_password,
+          phone: this.state.phone,
+          height: this.state.height,
+          weight: this.state.weight,
+          userType: this.state.userType,
+        }
+      );
+
+      this.setState({
+        responseMessage: response.data.message,
+        f_name: "",
+        l_name: "",
+        email: "",
+        gender: "",
+        age: "",
+        password: "",
+        confirm_password: "",
+        phone: "",
+        height: "",
+        weight: "",
+        userType: "",
+      });
+
+      //alert(response.data.message);
+      console.log(response.data.message);
+    } catch (error) {
+      this.setState({
+        responseMessage: error.response.data,
+      });
+
+      //alert(error.response.data);
+      console.log(error.response.data);
+    }
+
+    this.setState({
+      showSpinner: false,
+      showSignUpBtn: true,
     });
   };
 
   render() {
     return (
       <form className="form-group-reg" onSubmit={this.sendForm}>
+        {this.state.responseMessage && (
+          <ErrorModal
+            message={this.state.responseMessage}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
+
         <div className="form-row">
           <div className="col-10 offset-1 col-sm-6 offset-sm-0">
             <div className="input-field-reg">
@@ -94,9 +166,7 @@ export default class Register_Form extends Component {
             </div>
           </div>
         </div>
-
         {/* --------------------- First Input Row finish -------------------------------- */}
-
         <div className="form-row pt-2">
           <div className="col-10 offset-1 col-sm-6 offset-sm-0">
             <label className="Gender_Label" htmlFor="gender">
@@ -141,9 +211,7 @@ export default class Register_Form extends Component {
             </div>
           </div>
         </div>
-
         {/* --------------------- 2nd Input Row finish -------------------------------- */}
-
         <div className="form-row pt-2">
           <div className="col-10 offset-1 col-sm-6 offset-sm-0">
             <div className="input-field-reg">
@@ -189,9 +257,7 @@ export default class Register_Form extends Component {
             </div>
           </div>
         </div>
-
         {/* --------------------- 3rd Input Row finish -------------------------------- */}
-
         <div className="form-row pt-2">
           <div className="col-10 offset-1 col-sm-6 offset-sm-0">
             <div className="input-field-reg ">
@@ -237,9 +303,7 @@ export default class Register_Form extends Component {
             </div>
           </div>
         </div>
-
         {/* --------------------- 4th Input Row finish -------------------------------- */}
-
         <div className="form-row pt-2">
           <div className="col-10 offset-1 col-sm-6 offset-sm-0">
             <div className="input-field-reg">
@@ -285,11 +349,8 @@ export default class Register_Form extends Component {
             </div>
           </div>
         </div>
-
         {/* --------------------- 5th Input Row finish -------------------------------- */}
-
         <label className="Register-as pl-2">Register As</label>
-
         <div className="form-row pl-2">
           <MDBCol size="1">
             <input
@@ -329,7 +390,6 @@ export default class Register_Form extends Component {
             <label htmlFor="userRole2">Patient</label>
           </MDBCol>
         </div>
-
         {/* --------------------- 6th Input Row finish -------------------------------- */}
 
         <br />
@@ -339,27 +399,30 @@ export default class Register_Form extends Component {
           </div>
         ) : null}
 
-        <button
-          type="submit"
-          className="btn btn-block text-white text-center"
-          style={{
-            marginTop: "10px",
-            marginBottom: "20px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            width: "150px",
-            borderRadius: "1em",
-            height: "35px",
-            backgroundColor: "#0C0C52",
-            fontSize: "14px",
-          }}
-        >
-          SIGN UP
-        </button>
+        <br />
+        {this.state.showSignUpBtn ? (
+          <button
+            type="submit"
+            className="btn btn-block text-white text-center"
+            style={{
+              marginTop: "10px",
+              marginBottom: "20px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              width: "150px",
+              borderRadius: "1em",
+              height: "35px",
+              backgroundColor: "#0C0C52",
+              fontSize: "14px",
+            }}
+          >
+            SIGN UP
+          </button>
+        ) : null}
+
         <p className="h6  text-center" style={{ color: "#292A67" }}>
           Already have an account?
         </p>
-
         <a
           href="/login"
           className="btn btn-block text-white text-center"

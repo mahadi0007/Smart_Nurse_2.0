@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import Logo from "../Shared/img/teresa.png";
-import axios from 'axios'
+import axios from "axios";
 import "./LoginBox.css";
 import Doctor from "../Shared/img/Dr.jpg";
 import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
+import auth from "../Shared/Auth/auth";
+import ErrorModal from "../Shared/Components/ErrorModal";
 
 export default class LoginBox extends Component {
   constructor() {
     super();
+
     this.state = {
+      showSpinner: false,
+      showLoginBtn: true,
       email: "",
       password: "",
+      response_message: "",
     };
   }
 
@@ -21,24 +27,66 @@ export default class LoginBox extends Component {
     });
   };
 
+  errorHandler = () => {
+    auth.authMessage = null; //clear auth message that comes from auth function
+    this.setState({
+      response_message: "", //clear API response message after clicking okay
+    });
+  };
+
   sendForm = async (e) => {
     e.preventDefault();
     console.log(this.state.email);
     console.log(this.state.password);
+
+    this.setState({
+      showLoginBtn: false, //starts laoding
+      showSpinner: true,
+    });
+
     try {
-      const response = await axios.post('https://smart-nurse-test.herokuapp.com/login', {
-        email: this.state.email,
-        password: this.state.password
-      });
-      console.log(response.data);
+      const response = await axios.post(
+        "https://smart-nurse-test.herokuapp.com/login", //API Call
+        {
+          email: this.state.email,
+          password: this.state.password,
+        }
+      );
+
+      alert(response.data.message); //login success
+      console.log(response.data.message);
     } catch (error) {
-      console.log(error.response.data);
+      this.setState({
+        response_message: error.response.data.message, //error message store
+      });
+
+      console.log(error.response.data.message);
+      //alert(error.response.data.message);
     }
+
+    this.setState({
+      showSpinner: false, //loading off
+      showLoginBtn: true,
+    });
   };
 
   render() {
     return (
       <div className="container-fluid login_background">
+        {auth.authMessage && ( //message dialogue from auth
+          <ErrorModal
+            message={auth.authMessage}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
+
+        {this.state.response_message && ( //error message
+          <ErrorModal
+            message={this.state.response_message}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
+
         <br />
         <br />
         <div className="container shadow">
@@ -119,23 +167,31 @@ export default class LoginBox extends Component {
                   </a>
                 </p>
 
-                <button
-                  type="submit"
-                  className="btn btn-block text-white text-center"
-                  style={{
-                    marginTop: "10px",
-                    marginBottom: "20px",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    width: "150px",
-                    borderRadius: "1em",
-                    height: "35px",
-                    backgroundColor: "#0C0C52",
-                    fontSize: "14px",
-                  }}
-                >
-                  LOG IN
-                </button>
+                {this.state.showSpinner ? (
+                  <div class="spinner-border m-auto" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                ) : null}
+
+                {this.state.showLoginBtn ? (
+                  <button
+                    type="submit"
+                    className="btn btn-block text-white text-center"
+                    style={{
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      width: "150px",
+                      borderRadius: "1em",
+                      height: "35px",
+                      backgroundColor: "#0C0C52",
+                      fontSize: "14px",
+                    }}
+                  >
+                    LOG IN
+                  </button>
+                ) : null}
 
                 <p className="h6  text-center" style={{ color: "#292A67" }}>
                   Don't have an account?
