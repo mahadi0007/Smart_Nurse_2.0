@@ -98,7 +98,7 @@ export default class Register_Form extends Component {
       console.log(response.data.message);
     } catch (error) {
       this.setState({
-        responseMessage: error.response.data,
+        responseMessage: error.response.data.message,
       });
 
       //alert(error.response.data);

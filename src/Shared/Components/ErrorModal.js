@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import "./ErrorModal.css";
 
 const ErrorModal = (props) => {
   const [show, setShow] = useState(true);
@@ -20,7 +21,7 @@ const ErrorModal = (props) => {
       <Modal.Footer>
         <Button
           onClick={handleClose}
-          className="btn btn-block text-white text-center"
+          className="btn btn-block text-white text-center errorBtn"
           style={{
             marginTop: "20px",
             marginBottom: "10px",
@@ -29,7 +30,7 @@ const ErrorModal = (props) => {
             width: "150px",
             borderRadius: "1em",
             height: "35px",
-            backgroundColor: "#020624",
+
             fontSize: "14px",
           }}
         >
