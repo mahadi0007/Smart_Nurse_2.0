@@ -5,9 +5,9 @@ import "./RoutineTable.css";
 class RoutineTable extends React.Component {
   render() {
     return (
-      <div>
+      
         <div className="container tableDesign">
-          <table className="table table-striped table-hover table-responsive">
+          <table className="table table-striped table-bordered table-hover table-responsive-sm">
             <thead className="thead-dark">
               <tr>
                 <th>Routine Item</th>
@@ -36,7 +36,7 @@ class RoutineTable extends React.Component {
             </tbody>
           </table>
         </div>
-      </div>
+      
     );
   }
 }

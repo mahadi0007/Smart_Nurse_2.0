@@ -1,6 +1,7 @@
 .forLabel {
-  margin-left: 90px;
+  margin-left: 50px;
 }
+
 
 .inputBckColor {
   background-color: #e6e6e6 !important;
@@ -28,7 +29,34 @@
 }
 
 .routineBtn {
-  margin-top: 100px;
+  margin-top: 80px;
+  margin-left: -50px !important;
+}
+
+.forRdobtn{
+  font-size: 18px !important;
+  margin-top: -8px;
+}
+
+.forNotification{
+  margin-top: 90px;
+}
+
+.forNotificationTo{
+  margin-top: -30px;
+}
+
+
+
+.forDoses{
+  margin-left: 40px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .forInput{
+    margin-left: 0px !important;
+  }
+  
 }
 
 @media only screen and (max-width: 765px) {
@@ -36,6 +64,22 @@
     margin-top: 10px;
   }
   .forLabel {
-    margin-left: 90px;
+    margin-left: 80px;
+    margin-top: -60px;
   }
+  .forDoses{
+    margin-left: 25px;
+  }
+  
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  
+  .forInput{
+    margin-left: 50px !important;
+  }
+  .forDoses{
+    margin-left: 0px !important;
+  }
+  
 }

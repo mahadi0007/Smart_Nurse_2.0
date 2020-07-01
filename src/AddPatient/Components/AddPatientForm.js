@@ -47,7 +47,7 @@ class AddPatientForm extends React.Component{
                         </div>
                         </div>
                         <div className="col-sm-6">
-                        <div className="input-field">
+                        <div className="input-field forInput">
                             <input
                             type="text"
                             className="form-control rounded-pill   form-input-background "
@@ -86,9 +86,9 @@ class AddPatientForm extends React.Component{
                         </div>
                         </div>
                         <div className="col-sm-6">
-                        <div className="input-field">
+                        <div className="input-field forInput">
                             <input
-                            type="text"
+                            type="tel"
                             className="form-control rounded-pill   form-input-background "
                             name="phnNo"
                             value={this.state.phn}
@@ -125,9 +125,9 @@ class AddPatientForm extends React.Component{
                         </div>
                         </div>
                         <div className="col-sm-6">
-                        <div className="input-field">
+                        <div className="input-field forInput">
                             <input
-                            type="text"
+                            type="number"
                             className="form-control rounded-pill   form-input-background "
                             name="age"
                             value={this.state.age}
@@ -146,7 +146,7 @@ class AddPatientForm extends React.Component{
                         <div className="col-sm-6">
                         <div className="input-field">
                             <input
-                            type="text"
+                            type="number"
                             className="form-control rounded-pill   form-input-background "
                             name="height"
                             value={this.state.height}
@@ -164,9 +164,9 @@ class AddPatientForm extends React.Component{
                         </div>
                         </div>
                         <div className="col-sm-6">
-                        <div className="input-field">
+                        <div className="input-field forInput">
                             <input
-                            type="text"
+                            type="number"
                             className="form-control rounded-pill   form-input-background "
                             name="weight"
                             value={this.state.weight}

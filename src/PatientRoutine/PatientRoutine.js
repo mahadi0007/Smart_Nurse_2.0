@@ -9,6 +9,8 @@ import RoutineImg from "./img/Patient_Routine.jpg";
 import "./PatientRoutine.css";
 
 class PatientRoutine extends React.Component {
+
+
   render() {
     return (
       <div>
@@ -29,10 +31,15 @@ class PatientRoutine extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-sm-8">
-            <PatinetRoutineForm />
+          <div className="col-11 col-sm-7 forPatientRoutine">
+         
+              <PatinetRoutineForm/>
+
           </div>
-          <div className="col-sm-4">
+
+
+
+          <div className="col-sm-3 col-md-4">
             <div>
               <img
                 className="d-none d-sm-block image-fluid routineImg"
@@ -44,7 +51,7 @@ class PatientRoutine extends React.Component {
           </div>
         </div>
 
-        <div className="container">
+        <div className="container-fluid row justify-content-center align-self-center">
           <RoutineTable />
         </div>
       </div>

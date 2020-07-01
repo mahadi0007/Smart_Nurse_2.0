@@ -6,6 +6,11 @@
 }
 .routineImg {
   margin-top: 80px;
+  
+}
+
+.forPatientRoutine{
+  margin-left: 20px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -17,5 +22,10 @@
 @media screen and (max-width: 1023px) and (min-width: 768px) {
   .routineImg {
     margin-top: 200px;
+    margin-left: 80px;
+    
+  }
+  .forPatientRoutine{
+    margin-left: 10px;
   }
 }

@@ -35,10 +35,13 @@ class AddPatient extends React.Component{
                 
 
                 <div className="row">
-                <div className="col-12 col-sm-8 forForm">
+                <div className="col-11 col-sm-7 forForm">
+                
                     <AddPatientForm/>
+              
+                    
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-3 col-md-4">
                     <div>
                     <img
                         className="d-none d-sm-block image-fluid AddPatientImg"
