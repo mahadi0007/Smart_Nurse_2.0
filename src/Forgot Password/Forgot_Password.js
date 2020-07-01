@@ -5,12 +5,17 @@ import Doctor from "../Shared/img/Nurse.png";
 import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import { Helmet } from "react-helmet";
+import axios from "axios";
+import ErrorModal from "../Shared/Components/ErrorModal";
 
 export default class Forgot_Password extends Component {
   constructor() {
     super();
     this.state = {
+      showSpinner: false, //loading spinner
+      showBtn: true, //submit Button
       email: "",
+      response_message: "", //response message from API
     };
   }
 
@@ -20,14 +25,53 @@ export default class Forgot_Password extends Component {
     });
   };
 
-  sendForm = (e) => {
+  errorHandler = () => {
+    this.setState({
+      response_message: "", //clear API response message after clicking okay
+    });
+  };
+
+  sendForm = async (e) => {
     e.preventDefault();
     console.log(this.state.email);
+
+    this.setState({
+      showBtn: false, //starts laoding
+      showSpinner: true,
+    });
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/forgot", //API Call
+        {
+          email: this.state.email,
+        }
+      );
+
+      this.setState({
+        response_message: response.data.message, //API response message store
+      });
+    } catch (error) {
+      this.setState({
+        response_message: error.response.data.message, //API error message store
+      });
+    }
+
+    this.setState({
+      showSpinner: false, //loading off
+      showBtn: true,
+    });
   };
 
   render() {
     return (
       <div>
+        {this.state.response_message && ( //API message
+          <ErrorModal
+            message={this.state.response_message}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
         <Helmet>
           <meta charSet="utf-8" />
           <title>Forgot Passowrd</title>
@@ -99,23 +143,31 @@ export default class Forgot_Password extends Component {
                     </label>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="btn btn-block text-white text-center"
-                    style={{
-                      marginTop: "15px",
-                      marginBottom: "20px",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      width: "150px",
-                      borderRadius: "1em",
-                      height: "35px",
-                      backgroundColor: "#0C0C52",
-                      fontSize: "14px",
-                    }}
-                  >
-                    SEND
-                  </button>
+                  {this.state.showSpinner ? (
+                    <div class="spinner-border m-auto" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  ) : null}
+
+                  {this.state.showBtn ? (
+                    <button
+                      type="submit"
+                      className="btn btn-block text-white text-center"
+                      style={{
+                        marginTop: "15px",
+                        marginBottom: "20px",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        width: "150px",
+                        borderRadius: "1em",
+                        height: "35px",
+                        backgroundColor: "#0C0C52",
+                        fontSize: "14px",
+                      }}
+                    >
+                      SEND
+                    </button>
+                  ) : null}
                 </form>
               </MDBCol>
             </div>
