@@ -11,6 +11,7 @@ import EditProfilePage from "./Edit Profile/Edit_Profile";
 import PatientRoutine from "./PatientRoutine/PatientRoutine";
 import AddPatient from "./AddPatient/AddPatient";
 import VerifyUser from "./Verify User/verifyUser";
+import VerifyUserResetPassword from "./Verify User Reset Password/verifyUserResetPass";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -24,15 +25,11 @@ function App() {
           <Switch>
             <Route path="/" component={HomePage} exact />
 
-            <Route path="/register" component={registrationPage} exact />
-            <Route path="/forgot_password" component={ForgotPassPage} exact />
-
-            <Route path="/reset_password" component={ResetPassPage} exact />
             <Route path="/edit_profile" component={EditProfilePage} exact />
 
             <Route path="/patientroutine" component={PatientRoutine} exact />
             <Route path="/addpatient" component={AddPatient} exact />
-            <Route path="/confirmation/:token" component={VerifyUser} exact />
+
             <Redirect to="/"></Redirect>
           </Switch>
         ) : (
@@ -48,6 +45,11 @@ function App() {
             <Route path="/patientroutine" component={PatientRoutine} exact />
             <Route path="/addpatient" component={AddPatient} exact />
             <Route path="/confirmation/:token" component={VerifyUser} exact />
+            <Route
+              path="/resetPassword/:token"
+              component={VerifyUserResetPassword}
+              exact
+            />
           </Switch>
         )}
       </BrowserRouter>

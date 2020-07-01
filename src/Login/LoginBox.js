@@ -16,8 +16,8 @@ export default class LoginBox extends Component {
     super();
 
     this.state = {
-      showSpinner: false,
-      showLoginBtn: true,
+      showSpinner: false, //spinner
+      showLoginBtn: true, //submit button
       email: "",
       password: "",
       response_message: "",
@@ -58,20 +58,23 @@ export default class LoginBox extends Component {
       );
 
       //alert(response.data.message); //login success
-      auth.isLoggedIn = true;
-      this.setState({ redirect: true });
-      console.log(auth.isLoggedIn);
-      auth.userId = response.data.user._id;
-      auth.token = response.data.Token;
 
-      auth.firstName = response.data.user.firstname;
-      this.cookies.set("userId", auth.userId, { path: "/", maxAge: 31536000 });
-      this.cookies.set("token", auth.token, { path: "/", maxAge: 31536000 });
+      auth.isLoggedIn = true; //set login condion true
+      this.setState({ redirect: true }); //redirect condion for home page
+      console.log(auth.isLoggedIn);
+      auth.userId = response.data.user._id; //user id store
+      auth.token = response.data.Token; //token store
+
+      auth.firstName = response.data.user.firstname; //first name store
+      this.cookies.set("userId", auth.userId, { path: "/", maxAge: 31536000 }); //set cookie for logged in user ID
+      this.cookies.set("token", auth.token, { path: "/", maxAge: 31536000 }); //set cookie for logged in Token
       this.cookies.set("isLoggedIn", auth.isLoggedIn, {
+        //set cookie for isloggedin
         path: "/",
         maxAge: 31536000,
       });
       this.cookies.set("firstName", auth.firstName, {
+        //first name store in cookie
         path: "/",
         maxAge: 31536000,
       });
@@ -91,6 +94,7 @@ export default class LoginBox extends Component {
   };
 
   render() {
+    //redirect to homepage after successful login
     const { redirect } = this.state;
     //alert(redirect);
     if (redirect) {
@@ -105,7 +109,7 @@ export default class LoginBox extends Component {
             />
           )}
 
-          {this.state.response_message && ( //error message
+          {this.state.response_message && ( //error message from API
             <ErrorModal
               message={this.state.response_message}
               onClear={this.errorHandler.bind(this)}
