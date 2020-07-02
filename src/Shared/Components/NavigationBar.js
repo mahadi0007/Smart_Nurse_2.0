@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Logo from "../img/logo.png";
 import Avatar from "../img/avatar.png";
 import LoginButton from "../img/Login Button.png";
@@ -8,7 +8,6 @@ import auth from "../Auth/auth";
 import { Cookies } from "react-cookie";
 import axios from "axios";
 import "./NavigationBar.css";
-import { withRouter } from "react-router-dom";
 
 export default class NavigationBar extends Component {
   cookies = new Cookies();
