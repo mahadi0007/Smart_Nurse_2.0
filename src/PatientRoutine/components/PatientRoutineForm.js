@@ -1,27 +1,22 @@
 import React from "react";
-import ReactDom from "react-dom";
+//import ReactDom from "react-dom";
 
 import { Form } from "react-bootstrap";
 import "./PatientRoutineForm.css";
 
-import moment from 'moment'
+import moment from "moment";
 
 // import moment from "react-moment";
 // import "moment-timezone";
 
-
 class PatientRoutineForm extends React.Component {
-
-  constructor(){
+  constructor() {
     super();
 
-   
-  
-    this.state= {
-      
+    this.state = {
       postArray: [],
-      Body : "",
-      id : "",
+      Body: "",
+      id: "",
       routineItem: "",
       item_name: "",
       unit: "",
@@ -31,30 +26,28 @@ class PatientRoutineForm extends React.Component {
       meal_time: "",
       dose: [
         {
-        time: ''
+          time: "",
         },
         {
-          time: ''
+          time: "",
         },
         {
-          time: ''
+          time: "",
         },
         {
-          time: ''
+          time: "",
         },
         {
-          time: ''
+          time: "",
         },
       ],
       notification: "",
-      dogeNumValue:0,
-      notify_to: ""
-    } 
+      dogeNumValue: 0,
+      notify_to: "",
+    };
   }
-  
-  
 
-/*
+  /*
    deleteEvent = (index)=>{
     const copyPostArray = Object.assign([], this.state.postArray);
     copyPostArray.splice(index, 1);
@@ -100,21 +93,19 @@ class PatientRoutineForm extends React.Component {
     console.log(this.state.dogeNumValue);
   };
 
-   handleTimeChange = (inputTime, index) => {
-    let newArr = [...this.state.dose]
+  handleTimeChange = (inputTime, index) => {
+    let newArr = [...this.state.dose];
     newArr[index].time = inputTime;
     // this.state.dose = newArr
     this.setState({
-      dose: newArr
-    })
+      dose: newArr,
+    });
   };
 
   render() {
     return (
       <div className="container">
         <form onSubmit={this.onSubmitForm}>
-
-           
           <Form.Group className="grp1">
             <Form.Row>
               <Form.Label className="forLabel">
@@ -127,7 +118,9 @@ class PatientRoutineForm extends React.Component {
                 onChange={(e) => this.setState({ routineItem: e.target.value })}
                 custom
               >
-                <option value="Medicine" defaultValue>Medicine</option>
+                <option value="Medicine" defaultValue>
+                  Medicine
+                </option>
                 <option value="Food">Food</option>
                 <option value="Excercise">Excercise</option>
               </Form.Control>
@@ -182,18 +175,17 @@ class PatientRoutineForm extends React.Component {
                   value={this.state.s_date}
                   id="startDate"
                   onChange={(e) => {
-                    this.setState({ s_date: e.target.value })
-                    if(this.state.e_date && e.target.value){
-                      let start = moment(e.target.value, "YYYY-MM-DD")
-                      let end = moment(this.state.e_date, "YYYY-MM-DD")
-                      console.log('Date Difference'+end.diff(start, 'days'))
+                    this.setState({ s_date: e.target.value });
+                    if (this.state.e_date && e.target.value) {
+                      let start = moment(e.target.value, "YYYY-MM-DD");
+                      let end = moment(this.state.e_date, "YYYY-MM-DD");
+                      console.log("Date Difference" + end.diff(start, "days"));
                       this.setState({
-                        continuity: end.diff(start, 'days')
-                      })
+                        continuity: end.diff(start, "days"),
+                      });
                     }
                   }}
                   required
-                  
                 />
                 <label className="login-input-label" htmlFor="startDate">
                   Start Date
@@ -205,22 +197,19 @@ class PatientRoutineForm extends React.Component {
                 <input
                   type="date"
                   className="form-control rounded-pill form-input-background forDate"
-                   
-                  
                   name="endDate"
                   value={this.state.e_date}
                   id="endDate"
                   onChange={(e) => {
-                    this.setState({ e_date: e.target.value })
-                    if(this.state.s_date && e.target.value){
-                      let start = moment(this.state.s_date, "YYYY-MM-DD")
-                      let end = moment(e.target.value, "YYYY-MM-DD")
-                      console.log('Date Difference'+end.diff(start, 'days'))
+                    this.setState({ e_date: e.target.value });
+                    if (this.state.s_date && e.target.value) {
+                      let start = moment(this.state.s_date, "YYYY-MM-DD");
+                      let end = moment(e.target.value, "YYYY-MM-DD");
+                      console.log("Date Difference" + end.diff(start, "days"));
                       this.setState({
-                        continuity: end.diff(start, 'days')
-                      })
+                        continuity: end.diff(start, "days"),
+                      });
                     }
-                    
                   }}
                   placeholder="End Date"
                   required
@@ -242,13 +231,13 @@ class PatientRoutineForm extends React.Component {
                   value={this.state.continuity}
                   id="continuity"
                   onChange={(e) => {
-                    //this field get day difference from above startDate and endDate field                      
+                    //this field get day difference from above startDate and endDate field
                   }}
                   readOnly
                   required
                 />
                 <label className="login-input-label" htmlFor="continuity">
-                Continuity
+                  Continuity
                 </label>
               </div>
             </div>
@@ -262,7 +251,9 @@ class PatientRoutineForm extends React.Component {
                   onChange={(e) => this.setState({ meal_time: e.target.value })}
                   custom="ture"
                 >
-                  <option value="before meal" defaultValue>Before meal</option>
+                  <option value="before meal" defaultValue>
+                    Before meal
+                  </option>
                   <option value="after meal">After meal</option>
                 </select>
               </div>
@@ -270,7 +261,6 @@ class PatientRoutineForm extends React.Component {
           </div>
 
           <div className="row">
-            
             <div className="col-sm-6">
               <div className="input-field">
                 <select
@@ -283,7 +273,7 @@ class PatientRoutineForm extends React.Component {
                   }
                   custom="trure"
                 >
-                  <option value="before 15 mins" >Before 15 mins</option>
+                  <option value="before 15 mins">Before 15 mins</option>
                   <option value="before 30 mins">Before 30 mins</option>
                   <option value="before 1 hour">Before 1 hour</option>
                 </select>
@@ -292,51 +282,46 @@ class PatientRoutineForm extends React.Component {
 
             <div className="col-sm-6">
               <div className="input-field forInput">
-              <input className="form-control rounded-pill form-input-background" type="number" min="1" max="5" value={this.state.dogeNumValue}  onChange={
-                //  this.addDose
-                (e) => {
-                        this.setState({
-                          dogeNumValue: e.target.value
-                        })
-                      console.log("dogeNumValue:"+this.state.dogeNumValue)
-                      }
-                }/>
-
-                
+                <input
+                  className="form-control rounded-pill form-input-background"
+                  type="number"
+                  min="1"
+                  max="5"
+                  value={this.state.dogeNumValue}
+                  onChange={
+                    //  this.addDose
+                    (e) => {
+                      this.setState({
+                        dogeNumValue: e.target.value,
+                      });
+                      console.log("dogeNumValue:" + this.state.dogeNumValue);
+                    }
+                  }
+                />
               </div>
             </div>
-              
-                {
-                  Array.from({ length: this.state.dogeNumValue }, (v, k) => (
-                    
-                    <div key={k}>
-                      <div className="col-12 col-sm-6">
-                        <div className="input-field forDoses">
-                          
-                          <input
-                            type="time"
-                            className="form-control rounded-pill   form-input-background "
-                            
-                            value={this.state.dose[k].time}
-                            
-                            onChange={(e) => {
-                              // this.setState({ dose: e.target.value })
-                              console.log('Dose Time:'+e.target.value)
-                              this.handleTimeChange(e.target.value, k)
-                            }}
-                            required
-                          />
-                          <label className="mt-0">{"Dose "+(k+1)}</label>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                }
-            
+
+            {Array.from({ length: this.state.dogeNumValue }, (v, k) => (
+              <div key={k}>
+                <div className="col-12 col-sm-6">
+                  <div className="input-field forDoses">
+                    <input
+                      type="time"
+                      className="form-control rounded-pill   form-input-background "
+                      value={this.state.dose[k].time}
+                      onChange={(e) => {
+                        // this.setState({ dose: e.target.value })
+                        console.log("Dose Time:" + e.target.value);
+                        this.handleTimeChange(e.target.value, k);
+                      }}
+                      required
+                    />
+                    <label className="mt-0">{"Dose " + (k + 1)}</label>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-
-
-          
 
           <div className="row">
             <div className="col-sm-6">
@@ -351,27 +336,41 @@ class PatientRoutineForm extends React.Component {
                   id="notifyTo"
                   onChange={(e) => this.setState({ notify_to: e.target.value })}
                 >
-                  
                   <div className="custom-control custom-radio custom-control-inline">
-                    <input type="radio" className="custom-control-input" id="radio1" 
+                    <input
+                      type="radio"
+                      className="custom-control-input"
+                      id="radio1"
                     />
-                    <label className="custom-control-label" htmlFor="radio1" value="me"><p className="forRdobtn">Me</p></label>
-                  </div>
-                  
-                  
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input type="radio" className="custom-control-input" id="radio2" name="radio"
-                    />
-                    <label className="custom-control-label" htmlFor="radio2" name="radio" value="gaurdian"><p className="forRdobtn">Gaurdian</p></label>
+                    <label
+                      className="custom-control-label"
+                      htmlFor="radio1"
+                      value="me"
+                    >
+                      <p className="forRdobtn">Me</p>
+                    </label>
                   </div>
 
-                  
+                  <div className="custom-control custom-radio custom-control-inline">
+                    <input
+                      type="radio"
+                      className="custom-control-input"
+                      id="radio2"
+                      name="radio"
+                    />
+                    <label
+                      className="custom-control-label"
+                      htmlFor="radio2"
+                      name="radio"
+                      value="gaurdian"
+                    >
+                      <p className="forRdobtn">Gaurdian</p>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-
 
           <div className="row routineBtn">
             <button
@@ -392,9 +391,6 @@ class PatientRoutineForm extends React.Component {
               ADD
             </button>
           </div>
-
-          
-
         </form>
       </div>
     );

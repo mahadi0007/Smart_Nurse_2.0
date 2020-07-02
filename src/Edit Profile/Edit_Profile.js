@@ -22,7 +22,7 @@ export default class Edit_Profile extends Component {
         <div className="container-fluid w-100 h-100 pt-5 header-background mb-5">
           <div className="container">
             <div className="row">
-              <p className="text-left text-light ml-3 mb-4 ml-lg-0 display-4 upload-prescription-header-text">
+              <p className="text-left text-light ml-3 mb-4 ml-lg-0 display-4">
                 Edit Profile
               </p>
             </div>
