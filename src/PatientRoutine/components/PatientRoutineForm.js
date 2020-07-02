@@ -300,35 +300,8 @@ class PatientRoutineForm extends React.Component {
                 />
               </div>
             </div>
-           <div>   
-                {
-                  Array.from({ length: this.state.dogeNumValue }, (v, k) => (
-                    
-                    <div key={k}>
-                      <div className="col-12 col-sm-6">
-                        <div className="input-field  forDoses">
-                          
-                          <input
-                            type="time"
-                            className="form-control rounded-pill  form-input-background "
-                            
-                            value={this.state.dose[k].time}
-                            
-                            onChange={(e) => {
-                              // this.setState({ dose: e.target.value })
-                              console.log('Dose Time:'+e.target.value)
-                              this.handleTimeChange(e.target.value, k)
-                            }}
-                            required
-                          />
-                          <label className="mt-0">{"Dose "+(k+1)}</label>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                }
+
             
-          </div>
 
 
             {Array.from({ length: this.state.dogeNumValue }, (v, k) => (
