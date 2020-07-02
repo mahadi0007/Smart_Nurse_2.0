@@ -27,7 +27,9 @@ class PatientRoutine extends React.Component {
             ></img>
           </div>
           <div className="headline">
-            <h3>Patient Routine</h3>
+              <p className="text-left text-light ml-3 mb-4 ml-lg-0 display-4">
+                Patient Routine
+              </p>
           </div>
         </div>
         <div className="row">

@@ -28,7 +28,9 @@ class AddPatient extends React.Component{
                         ></img>
                     </div>
                     <div className="headline">
-                        <h3>Add Patient</h3>
+                        <p className="text-center text-light ml-3 mb-4 ml-lg-0 headlineForXs display-4">
+                            Create Patient Manually
+                        </p>
                     </div>
                 </div>
                 
