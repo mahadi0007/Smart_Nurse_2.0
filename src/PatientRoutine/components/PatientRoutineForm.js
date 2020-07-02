@@ -301,7 +301,7 @@ class PatientRoutineForm extends React.Component {
               </div>
             </div>
 <<<<<<< HEAD
-              
+           <div>   
                 {
                   Array.from({ length: this.state.dogeNumValue }, (v, k) => (
                     
