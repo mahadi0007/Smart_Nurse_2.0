@@ -48,9 +48,7 @@
 
 
 
-.forDoses{
-  margin-left: 42px;
-}
+
 
 @media only screen and (min-width: 1024px) {
   .forInput{
@@ -88,7 +86,8 @@
   
   
   .forDoses{
-    margin-left: 42px;
+    margin-left: 32%;
+    margin-right: 40px;
   }
   
 }

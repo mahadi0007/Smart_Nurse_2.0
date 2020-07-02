@@ -1,0 +1,7 @@
+@media only screen and (max-width: 767px) {
+    .headlineForXs{
+        font-size: 40px !important;
+        margin-right: 120px !important;
+        
+    }
+  }

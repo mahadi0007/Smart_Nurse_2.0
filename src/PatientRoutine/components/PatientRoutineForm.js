@@ -311,11 +311,11 @@ class PatientRoutineForm extends React.Component {
                     
                     <div key={k}>
                       <div className="col-12 col-sm-6">
-                        <div className="input-field forDoses">
+                        <div className="input-field  forDoses">
                           
                           <input
                             type="time"
-                            className="form-control rounded-pill   form-input-background "
+                            className="form-control rounded-pill  form-input-background "
                             
                             value={this.state.dose[k].time}
                             

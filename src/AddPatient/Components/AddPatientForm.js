@@ -194,10 +194,10 @@ class AddPatientForm extends React.Component{
                             borderRadius: "1em",
                             height: "35px",
                             backgroundColor: "#0C0C52",
-                            fontSize: "14px",
+                            fontSize: "14px"
                         }}
                         >
-                        ADD
+                        CREATE
                         </button>
                     </div>
 
