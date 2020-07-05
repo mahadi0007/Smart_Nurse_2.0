@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./Edit_Profile_Form.css";
 import { MDBCol } from "mdbreact";
+import axios from "axios";
+import auth from "../../Shared/Auth/auth";
+import ErrorModal from "../../Shared/Components/ErrorModal";
 
 export default class extends Component {
   constructor() {
@@ -16,6 +19,7 @@ export default class extends Component {
       current_pass: "",
       new_pass: "",
       confirm_new_pass: "",
+      response_message: "",
     };
   }
 
@@ -23,6 +27,60 @@ export default class extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
+  };
+
+  errorHandler = () => {
+    this.setState({
+      response_message: "", //clear API response message after clicking okay
+    });
+  };
+
+  componentDidMount = async (e) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/" + "users/" + auth.userId
+      );
+      // console.log(response.data)
+
+      this.setState({
+        f_name: response.data.user.firstname,
+        l_name: response.data.user.lastname,
+        age: response.data.user.age,
+        weight: response.data.user.weight,
+        height: response.data.user.height,
+        phone: response.data.user.phone,
+        email: response.data.user.email,
+      });
+
+      if (response.data.profilePicture) {
+        this.props.parentCallback(
+          "data:image/png;base64," + response.data.profilePicture
+        );
+      }
+
+      /*
+      if (response.data.profilePicture) {
+        setImageFile("data:image/png;base64," + response.data.profilePicture);
+        setProfileImageFile(
+          "data:image/png;base64," + response.data.profilePicture
+        );
+      }
+      if (response.data.user.guardianList.length > 0) {
+        setUserRole("Patient");
+        setPatientName(response.data.user.guardianList[0].guardianName);
+      }
+      if (response.data.user.patientList.length > 0) {
+        setUserRole("Guardian");
+        setGuardianName(response.data.user.patientList[0].patientName);
+        setPatientId(response.data.user.patientList[0].patientId);
+      }
+      */
+    } catch (error) {
+      //setMessage(error.response.data.message);
+      this.setState({
+        response_message: error.response.data.message,
+      });
+    }
   };
 
   sendForm = (e) => {
@@ -42,6 +100,13 @@ export default class extends Component {
   render() {
     return (
       <div>
+        {this.state.response_message && ( //API message
+          <ErrorModal
+            message={this.state.response_message}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
+
         <form className="form-group-fPass" onSubmit={this.sendForm}>
           <p className="h4 pl-3 pb-3" style={{ color: "#000000" }}>
             General Information:
@@ -210,25 +275,13 @@ export default class extends Component {
           <div className="form-row">
             <MDBCol sm="5">
               <MDBCol sm="11">
-                <div className="input-field-editProfile">
-                  <input
-                    type="email"
-                    className="form-control rounded-pill   form-input-background "
-                    name="email"
-                    value={this.state.email}
-                    onInput={this.handleInput}
-                    id="email"
-                    onChange={(e) =>
-                      this.setState({
-                        email: e.target.value,
-                      })
-                    }
-                    required
-                  />
-                  <label className="editProfile-input-label" htmlFor="email">
-                    Email
-                  </label>
-                </div>
+                <label className="label" style={{ marginLeft: "10px" }}>
+                  Email
+                </label>
+
+                <label className="form-control rounded-pill   form-input-background ">
+                  {this.state.email}
+                </label>
               </MDBCol>
             </MDBCol>
           </div>

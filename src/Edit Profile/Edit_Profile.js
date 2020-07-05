@@ -7,11 +7,40 @@ import { MDBCol } from "mdbreact";
 import "mdbreact/dist/css/mdb.css";
 import Footer from "../Shared/Components/Footer";
 import avater from "../Shared/img/profile-pic.png";
+import axios from "axios";
+import auth from "../Shared/Auth/auth";
+import ErrorModal from "../Shared/Components/ErrorModal";
 
 export default class Edit_Profile extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imagefile: avater,
+      response_message: "",
+    };
+  }
+
+  callbackFunction = (childData) => {
+    //this will get profile pic image from Edit_profile_Form component
+    this.setState({ imagefile: childData });
+  };
+
+  errorHandler = () => {
+    this.setState({
+      response_message: "", //clear API response message after clicking okay
+    });
+  };
+
   render() {
     return (
       <div>
+        {this.state.response_message && ( //API message
+          <ErrorModal
+            message={this.state.response_message}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
         <Helmet>
           <meta charSet="utf-8" />
           <title>Edit Profile</title>
@@ -35,31 +64,61 @@ export default class Edit_Profile extends Component {
               <img
                 className="d-block mx-auto rounded-circle"
                 style={{ width: "250px", height: "250px" }}
-                src={avater}
+                src={this.state.imagefile}
                 alt="Profile"
               />
 
-              <button
-                type="submit"
-                className="btn btn-block text-white text-center"
-                style={{
-                  marginTop: "15px",
-                  marginBottom: "20px",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  width: "200px",
-                  borderRadius: "1em",
-                  height: "35px",
-                  backgroundColor: "#0C0C52",
-                  fontSize: "14px",
-                }}
-              >
-                Change Profile Image
-              </button>
+              <form>
+                <label
+                  htmlFor="files"
+                  className="btn btn-block text-white mx-auto mt-3 mt-4 rounded-pill justify-content-center"
+                  style={{ backgroundColor: "#0C0C52", width: "280px" }}
+                >
+                  Change Profile Picture
+                </label>
+
+                <input
+                  id="files"
+                  style={{ visibility: "hidden" }}
+                  type="file"
+                  onChange={async (e) => {
+                    this.setState({
+                      imagefile: URL.createObjectURL(e.target.files[0]),
+                    });
+
+                    var formData = new FormData();
+                    formData.append("updatepp", e.target.files[0]);
+                    formData.append("id", auth.userId);
+                    try {
+                      const response = await axios.patch(
+                        "http://localhost:5000/" +
+                          "users/profilePicture/" +
+                          auth.userId,
+                        formData,
+                        {
+                          headers: {
+                            "Content-Type": "multipart/form-data",
+                          },
+                        }
+                      );
+
+                      this.setState({
+                        response_message: response.data.message,
+                      });
+                    } catch (error) {
+                      this.setState({
+                        response_message: error.response.data.message,
+                        imagefile: avater,
+                      });
+                    }
+                  }}
+                />
+              </form>
             </MDBCol>
 
             <MDBCol lg="8" className="Edit_profile_column  pl-5">
-              <EditProfileForm />
+              <EditProfileForm parentCallback={this.callbackFunction} />{" "}
+              {/* calling child component with parentCallback function */}
             </MDBCol>
           </div>
         </div>
