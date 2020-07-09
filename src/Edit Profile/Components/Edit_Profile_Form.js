@@ -4,11 +4,15 @@ import { MDBCol } from "mdbreact";
 import axios from "axios";
 import auth from "../../Shared/Auth/auth";
 import ErrorModal from "../../Shared/Components/ErrorModal";
+import { Cookies } from "react-cookie";
 
 export default class extends Component {
+  cookies = new Cookies();
   constructor() {
     super();
     this.state = {
+      showSpinner: false, //loading spinner
+      showBtn: true, //submit Button
       f_name: "",
       l_name: "",
       age: "",
@@ -36,11 +40,11 @@ export default class extends Component {
   };
 
   componentDidMount = async (e) => {
+    //this function will retrive profile info when the page loads and after any change happens
     try {
       const response = await axios.get(
-        "http://localhost:5000/" + "users/" + auth.userId
+        "http://localhost:5000/users/" + auth.userId
       );
-      // console.log(response.data)
 
       this.setState({
         f_name: response.data.user.firstname,
@@ -53,8 +57,9 @@ export default class extends Component {
       });
 
       if (response.data.profilePicture) {
+        //get the value for profile picture
         this.props.parentCallback(
-          "data:image/png;base64," + response.data.profilePicture
+          "data:image/png;base64," + response.data.profilePicture //send the data to the parent component
         );
       }
 
@@ -76,14 +81,14 @@ export default class extends Component {
       }
       */
     } catch (error) {
-      //setMessage(error.response.data.message);
       this.setState({
-        response_message: error.response.data.message,
+        response_message: error.response.data.message, //error message when page loads
       });
     }
   };
 
-  sendForm = (e) => {
+  sendForm = async (e) => {
+    //update profile form action
     e.preventDefault();
     console.log(this.state.f_name);
     console.log(this.state.l_name);
@@ -95,6 +100,89 @@ export default class extends Component {
     console.log(this.state.current_pass);
     console.log(this.state.new_pass);
     console.log(this.state.confirm_new_pass);
+
+    this.setState({
+      showBtn: false, //starts laoding
+      showSpinner: true,
+    });
+
+    var crnt_pass = this.state.current_pass;
+
+    if (crnt_pass === "") {
+      console.log("current pass empty");
+      //if user just change general information
+      try {
+        const response = await axios.patch(
+          "http://localhost:5000/users/me/" + auth.userId,
+          {
+            firstname: this.state.f_name,
+            lastname: this.state.l_name,
+            age: this.state.age,
+            weight: this.state.weight,
+            height: this.state.height,
+            phone: this.state.phone,
+            newPassword: this.state.new_pass,
+            confirmPassword: this.state.confirm_new_pass,
+            id: auth.userId,
+          }
+        );
+
+        this.setState({
+          showSpinner: false, //loading off
+          showBtn: true,
+          response_message: response.data.message,
+        });
+
+        auth.firstName = this.state.firstName;
+
+        this.cookies.set("firstName", auth.firstName, {
+          path: "/",
+          maxAge: 31536000,
+        });
+      } catch (error) {
+        this.setState({
+          showSpinner: false, //loading off
+          showBtn: true,
+          response_message: error.response.data.message,
+        });
+      }
+    } else {
+      console.log("current pass is not empty");
+      //if user changes password as well as general info
+
+      try {
+        const response = await axios.patch(
+          "http://localhost:5000/users/me/" + auth.userId,
+          {
+            firstname: this.state.f_name,
+            lastname: this.state.l_name,
+            age: this.state.age,
+            weight: this.state.weight,
+            height: this.state.height,
+            phone: this.state.phone,
+            password: this.state.current_pass,
+            newPassword: this.state.new_pass,
+            confirmPassword: this.state.confirm_new_pass,
+            id: auth.userId,
+          }
+        );
+
+        this.setState({
+          showSpinner: false, //loading off
+          showBtn: true,
+          response_message: response.data.message,
+          current_pass: "",
+          new_pass: "",
+          confirm_new_pass: "",
+        });
+      } catch (error) {
+        this.setState({
+          showSpinner: false, //loading off
+          showBtn: true,
+          response_message: error.response.data.message,
+        });
+      }
+    }
   };
 
   render() {
@@ -127,7 +215,6 @@ export default class extends Component {
                         f_name: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="f_name">
                     First Name
@@ -151,7 +238,6 @@ export default class extends Component {
                         l_name: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="l_name">
                     Last Name
@@ -179,7 +265,6 @@ export default class extends Component {
                         age: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="age">
                     Age
@@ -203,7 +288,6 @@ export default class extends Component {
                         weight: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="weight">
                     Weight
@@ -231,7 +315,6 @@ export default class extends Component {
                         height: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="height">
                     Height
@@ -255,7 +338,6 @@ export default class extends Component {
                         phone: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="phone">
                     Phone Number
@@ -309,7 +391,6 @@ export default class extends Component {
                         current_pass: e.target.value,
                       })
                     }
-                    required
                   />
                   <label
                     className="editProfile-input-label"
@@ -336,7 +417,6 @@ export default class extends Component {
                         new_pass: e.target.value,
                       })
                     }
-                    required
                   />
                   <label className="editProfile-input-label" htmlFor="new_pass">
                     New Password
@@ -360,7 +440,6 @@ export default class extends Component {
                         confirm_new_pass: e.target.value,
                       })
                     }
-                    required
                   />
                   <label
                     className="editProfile-input-label"
@@ -377,23 +456,31 @@ export default class extends Component {
 
           <br />
 
-          <button
-            type="submit"
-            className="btn btn-block text-white text-center"
-            style={{
-              marginTop: "15px",
-              marginBottom: "20px",
-              marginLeft: "auto",
-              marginRight: "auto",
-              width: "150px",
-              borderRadius: "1em",
-              height: "35px",
-              backgroundColor: "#0C0C52",
-              fontSize: "14px",
-            }}
-          >
-            SAVE CHANGES
-          </button>
+          {this.state.showSpinner ? (
+            <div class="spinner-border m-auto" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          ) : null}
+
+          {this.state.showBtn ? (
+            <button
+              type="submit"
+              className="btn btn-block text-white text-center"
+              style={{
+                marginTop: "15px",
+                marginBottom: "20px",
+                marginLeft: "auto",
+                marginRight: "auto",
+                width: "150px",
+                borderRadius: "1em",
+                height: "35px",
+                backgroundColor: "#0C0C52",
+                fontSize: "14px",
+              }}
+            >
+              SAVE CHANGES
+            </button>
+          ) : null}
 
           <br />
           <br />
