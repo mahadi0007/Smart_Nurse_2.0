@@ -8,6 +8,7 @@ import auth from "../Auth/auth";
 import { Cookies } from "react-cookie";
 import axios from "axios";
 import "./NavigationBar.css";
+import { Redirect } from "react-router";
 
 export default class NavigationBar extends Component {
   cookies = new Cookies();
@@ -16,11 +17,18 @@ export default class NavigationBar extends Component {
 
     this.state = {
       loggedin: auth.isLoggedIn,
+      showSpinner: false, //loading spinner
+      showBtn: true, // Button
+      redirect: false, //redirect to homepage if logout
     };
     console.log("cookie1: " + auth.isLoggedIn);
   }
 
   logoutHandler = async (e) => {
+    this.setState({
+      showSpinner: true, //loading spinner
+      showBtn: false, // Button
+    });
     try {
       const response = await axios.post(
         "https://smart-nurse-test.herokuapp.com/logout",
@@ -28,6 +36,11 @@ export default class NavigationBar extends Component {
           id: auth.userId,
         }
       );
+
+      this.setState({
+        showSpinner: false, //loading spinner
+        showBtn: true, // Button
+      });
       console.log(response.data.message);
       auth.userId = null;
       auth.firstName = null;
@@ -39,15 +52,27 @@ export default class NavigationBar extends Component {
       this.cookies.remove("firstName", { path: "/" });
 
       this.setState({
+        redirect: true,
         loggedin: false,
       });
       console.log("cookie2: " + this.state.loggedin);
+      window.location.reload(false);
     } catch (error) {
+      this.setState({
+        showSpinner: false, //loading spinner
+        showBtn: true, // Button
+      });
       console.log(error);
     }
   };
 
   render() {
+    //redirect to homepage after logout
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <Navbar
         sticky="top"
@@ -112,41 +137,31 @@ export default class NavigationBar extends Component {
             Contact
           </Nav.Link>
 
-          {this.state.loggedin ? (
-            /*
-            <button
-              onClick={this.logoutHandler}
-              className="btn btn-block text-black text-center"
-              style={{
-                width: "100px",
-                borderRadius: "1.5em",
-                height: "30px",
-                backgroundColor: "#ffffff",
-                fontSize: "12px",
-                fontWeight: "700",
-              }}
-            >
-              Log Out
-            </button>
+          {this.state.showSpinner ? ( //show loading spinner
+            <div class="spinner-border  text-light" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          ) : null}
 
-            */
-
-            <img
-              itemType="Button"
-              src={LogoutButton}
-              onClick={this.logoutHandler}
-              className="ml-n2 ml-lg-0 login-button mt-lg-n1"
-              alt="Login Button"
-            />
-          ) : (
-            <Nav.Link className="text-light mt-lg-n2" href="/login">
+          {this.state.showBtn ? (
+            this.state.loggedin ? (
               <img
-                src={LoginButton}
-                className="ml-n2 ml-lg-0 login-button"
+                itemType="Button"
+                src={LogoutButton}
+                onClick={this.logoutHandler}
+                className="ml-n2 ml-lg-0 login-button mt-lg-n1"
                 alt="Login Button"
               />
-            </Nav.Link>
-          )}
+            ) : (
+              <Nav.Link className="text-light mt-lg-n2" href="/login">
+                <img
+                  src={LoginButton}
+                  className="ml-n2 ml-lg-0 login-button"
+                  alt="Login Button"
+                />
+              </Nav.Link>
+            )
+          ) : null}
 
           <Nav.Link className="text-light mt-lg-n2" href="/edit_profile">
             <img
