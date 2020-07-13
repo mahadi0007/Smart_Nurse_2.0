@@ -418,7 +418,7 @@ export default class Register_Form extends Component {
           >
             SIGN UP
           </button>
-        ) : null}
+         ) : null}
 
         <p className="h6  text-center" style={{ color: "#292A67" }}>
           Already have an account?

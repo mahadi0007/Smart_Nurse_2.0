@@ -114,7 +114,7 @@ export default class LoginBox extends Component {
               message={this.state.response_message}
               onClear={this.errorHandler.bind(this)}
             />
-          )}
+          )} 
 
           <br />
           <br />

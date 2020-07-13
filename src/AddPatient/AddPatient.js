@@ -15,7 +15,7 @@ class AddPatient extends React.Component{
     render(){
         return(
             <div>
-                <NavigationBar />
+                <NavigationBar/>
 
                 <div className="row">
                     <div className="col-12 col-sm-12">

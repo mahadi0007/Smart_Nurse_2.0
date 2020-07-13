@@ -1,12 +1,36 @@
 import React from "react";
-
+import axios from "axios";
+import ErrorModal from "../../Shared/Components/ErrorModal";
+import auth from "../../Shared/Auth/auth";
 
 class AddPatientForm extends React.Component{
-    state={
-        fName:"",lName:"",email:"",phn:"",address:"",age:"",height:"",weight:""
+
+    constructor(){
+        super();
+        this.state={
+            fName:"",lName:"",email:"",phn:"",
+            address:"",age:"",height:"",weight:"",
+            responseMessage: "",
+            showSpinner: false,
+            showSignUpBtn: true
+        }
+
     }
 
-    onSubmitForm = (event) => {
+    errorHandler = () =>{
+        this.setState({
+            responseMessage:""
+        });
+    };
+
+    handleInput = (e) =>{
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    
+
+    onSubmitForm = async (event) => {
         event.preventDefault();
     
         console.log(this.state.fName);
@@ -17,13 +41,71 @@ class AddPatientForm extends React.Component{
         console.log(this.state.age);
         console.log(this.state.height);
         console.log(this.state.weight);
-        
+
+        this.setState({
+            showSpinner: true,
+            showSignUpBtn: false
+        });
+
+        try{
+            const response = await axios.post(
+                "http://localhost:5000/users/patientRegister",
+                //process.env.REACT_APP_BACKEND_URL+"users/patientRegister",
+
+                {
+                    firstname: this.state.fName,
+                    lastname:this.state.lName,
+                    gender:this.state.address,
+                    age:this.state.age,
+                    email:this.state.email,
+                    phone:this.state.phn,
+                    height:this.state.height,
+                    weight:this.state.weight,
+                    guardianId: auth.userId
+
+                }
+
+            );
+            
+
+            this.setState({
+                responseMessage: response.data.message,
+                fName:"",
+                lName:"",
+                address:"",
+                age:"",
+                email:"",
+                phn:"",
+                height:"",
+                weight:""
+
+            });
+            console.log(response.data.message);
+            
+
+        }
+        catch(error){
+            this.setState({
+                responseMessage:error.response.data.message
+            });
+
+            console.log(error.response.data);
+        }
+        this.setState({
+            showSignUpBtn:true,
+            showSpinner:false
+        });
+
       };
 
     render(){
         return(
             <div className="container">
                 <form onSubmit={this.onSubmitForm}>
+                    {this.state.responseMessage && (<ErrorModal
+                    message={this.state.responseMessage}
+                    onClear={this.errorHandler.bind(this)}/>
+                    )}
                 
                     <div className="row">
                         <div className="col-sm-6">
@@ -31,9 +113,10 @@ class AddPatientForm extends React.Component{
                             <input
                             type="text"
                             className="form-control rounded-pill   form-input-background "
-                            name="firstName"
+                            name="fName"
                             value={this.state.fName}
-                            id="firstName"
+                            onInput={this.handleInput}
+                            id="fName"
                             onChange={(e) =>
                                 this.setState({
                                 fName: e.target.value,
@@ -41,7 +124,7 @@ class AddPatientForm extends React.Component{
                             }
                             required
                             />
-                            <label className="login-input-label" htmlFor="firstName">
+                            <label className="login-input-label" htmlFor="fName">
                             First Name
                             </label>
                         </div>
@@ -53,6 +136,7 @@ class AddPatientForm extends React.Component{
                             className="form-control rounded-pill   form-input-background "
                             name="lastName"
                             value={this.state.lName}
+                            onInput={this.handleInput}
                             id="lastName"
                             onChange={(e) => this.setState({ lName: e.target.value })}
                             required
@@ -72,6 +156,7 @@ class AddPatientForm extends React.Component{
                             className="form-control rounded-pill   form-input-background "
                             name="email"
                             value={this.state.email}
+                            onInput={this.handleInput}
                             id="email"
                             onChange={(e) =>
                                 this.setState({
@@ -92,6 +177,7 @@ class AddPatientForm extends React.Component{
                             className="form-control rounded-pill   form-input-background "
                             name="phnNo"
                             value={this.state.phn}
+                            onInput={this.handleInput}
                             id="phnNo"
                             onChange={(e) => this.setState({ phn: e.target.value })}
                             required
@@ -111,6 +197,7 @@ class AddPatientForm extends React.Component{
                             className="form-control rounded-pill   form-input-background "
                             name="address"
                             value={this.state.address}
+                            onInput={this.handleInput}
                             id="address"
                             onChange={(e) =>
                                 this.setState({
@@ -127,10 +214,11 @@ class AddPatientForm extends React.Component{
                         <div className="col-sm-6">
                         <div className="input-field forInput">
                             <input
-                            type="number"
+                            type="number" min="0"
                             className="form-control rounded-pill   form-input-background "
                             name="age"
                             value={this.state.age}
+                            onInput={this.handleInput}
                             id="age"
                             onChange={(e) => this.setState({ age: e.target.value })}
                             required
@@ -146,10 +234,11 @@ class AddPatientForm extends React.Component{
                         <div className="col-sm-6">
                         <div className="input-field">
                             <input
-                            type="number"
+                            type="number" min="0"
                             className="form-control rounded-pill   form-input-background "
                             name="height"
                             value={this.state.height}
+                            onInput={this.handleInput}
                             id="height"
                             onChange={(e) =>
                                 this.setState({
@@ -166,10 +255,11 @@ class AddPatientForm extends React.Component{
                         <div className="col-sm-6">
                         <div className="input-field forInput">
                             <input
-                            type="number"
+                            type="number" min="0"
                             className="form-control rounded-pill   form-input-background "
                             name="weight"
                             value={this.state.weight}
+                            onInput={this.handleInput}
                             id="weight"
                             onChange={(e) => this.setState({ weight: e.target.value })}
                             required
@@ -181,7 +271,16 @@ class AddPatientForm extends React.Component{
                         </div>
                     </div>
 
-                    <div className="row addPatientBtn">
+
+                    {this.state.showSpinner ? (
+                        <div className="spinner-border m-auto" role="status">
+                            <span className="sr-only">Loading..</span>
+                        </div>
+                    ) :null}
+
+
+                    {this.state.showSignUpBtn ? (
+                        <div className="row addPatientBtn">
                         <button
                         type="submit"
                         className="btn btn-block text-white text-center"
@@ -200,6 +299,8 @@ class AddPatientForm extends React.Component{
                         CREATE
                         </button>
                     </div>
+                    ): null}
+                    
 
                 </form>
             </div>

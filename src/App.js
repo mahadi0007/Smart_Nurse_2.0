@@ -10,10 +10,12 @@ import EditProfilePage from "./Edit Profile/Edit_Profile";
 
 import PatientRoutine from "./PatientRoutine/PatientRoutine";
 import CreateAddPatient from "./AddPatient/AddPatient";
+import AddPatientSetPass from "./addPatientSetPass/addPatientSetPass";
+import AddPatientVerifyUser from "./addPatientSetPass/addPatientVerifyUser";
+
 import AutoAddPatient from "./AutoAddPatient/AutoAddPatient";
 import VerifyUser from "./Verify User/verifyUser";
 import VerifyUserResetPassword from "./Verify User Reset Password/verifyUserResetPass";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import auth from "./Shared/Auth/auth";
@@ -25,6 +27,9 @@ function App() {
         {auth.isLoggedIn ? (
           <Switch>
             <Route path="/" component={HomePage} exact />
+            <Route path="/createpatientmanually" component={CreateAddPatient} exact />
+            <Route path="/createpatientmanuallysetpass" component={AddPatientSetPass} exact />
+            
 
             <Route path="/edit_profile" component={EditProfilePage} exact />
 
@@ -44,10 +49,12 @@ function App() {
             <Route path="/edit_profile" component={EditProfilePage} exact />
 
             <Route path="/patientroutine" component={PatientRoutine} exact />
-            <Route path="/createpatientmanually" component={CreateAddPatient} exact />
+            
             
             <Route path="/addpatient" component={AutoAddPatient} exact />
             <Route path="/confirmation/:token" component={VerifyUser} exact />
+            <Route path="/setPasswordForNewPatient/:token" component={AddPatientVerifyUser} exact />
+
             <Route
               path="/resetPassword/:token"
               component={VerifyUserResetPassword}

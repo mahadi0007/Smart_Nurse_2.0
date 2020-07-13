@@ -49,7 +49,7 @@ class AutoAddPatient extends React.Component{
                         >
                         CREATE PATIENT MANUALLY
                         </a>
-                    </div>
+                </div>
                 
             </div>
         );
