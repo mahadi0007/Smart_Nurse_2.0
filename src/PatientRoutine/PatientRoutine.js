@@ -7,17 +7,16 @@ import RoutineTable from "./components/RoutineTable";
 import Banner from "./img/Banner.png";
 import RoutineImg from "./img/Patient_Routine.jpg";
 import "./PatientRoutine.css";
+import { MDBCol } from "mdbreact";
 
 class PatientRoutine extends React.Component {
-
-
   render() {
     return (
       <div>
         <NavigationBar />
 
-        <div className="row">
-          <div className="col-12 col-sm-12">
+        <div className="container-fluid">
+          <div className="row">
             <img
               className="image-fluid banner"
               src={Banner}
@@ -25,32 +24,32 @@ class PatientRoutine extends React.Component {
               width="100%"
               alt="Banner"
             ></img>
-          </div>
-          <div className="headline">
+
+            <div className="headline">
               <p className="text-left text-light ml-3 mb-4 ml-lg-0 display-4">
                 Patient Routine
               </p>
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-11 col-sm-7 forPatientRoutine">
-         
-              <PatinetRoutineForm/>
 
-          </div>
+        <div className="container-fluid row">
+          <MDBCol sm="7">
+            <div className="forPatientRoutine">
+              <PatinetRoutineForm />
+            </div>
+          </MDBCol>
 
-
-
-          <div className="col-sm-3 col-md-4">
+          <MDBCol sm="5">
             <div>
               <img
-                className="d-none d-sm-block image-fluid routineImg"
+                className="d-none d-sm-block image-fluid routineImg m-auto pt-5"
                 src={RoutineImg}
-                width="100%"
+                width="70%"
                 alt="RoutineTime"
               ></img>
             </div>
-          </div>
+          </MDBCol>
         </div>
 
         <div className="container-fluid row justify-content-center align-self-center">

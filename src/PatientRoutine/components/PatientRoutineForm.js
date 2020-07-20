@@ -17,7 +17,7 @@ class PatientRoutineForm extends React.Component {
       postArray: [],
       Body: "",
       id: "",
-      routineItem: "",
+      routineItem: "Medicine",
       item_name: "",
       unit: "",
       s_date: "",
@@ -42,7 +42,7 @@ class PatientRoutineForm extends React.Component {
         },
       ],
       notification: "",
-      dogeNumValue: 0,
+      dogeNumValue: "",
       notify_to: "",
     };
   }
@@ -106,14 +106,16 @@ class PatientRoutineForm extends React.Component {
     return (
       <div className="container">
         <form onSubmit={this.onSubmitForm}>
-          <Form.Group className="grp1">
-            <Form.Row>
+          <div className="form-row pt-5">
+            <div className="col-12 col-sm-4">
               <Form.Label className="forLabel">
                 <h4>Routine Item</h4>
               </Form.Label>
+            </div>
+            <div className="col-12 col-sm-7 pl-5 pr-5 rotuine-dropDown">
               <Form.Control
                 as="select"
-                className="col-10 col-sm-4 offset-1 rounded-pill input1 inputBckColor"
+                className="form-control rounded-pill   form-input-background"
                 value={this.state.routineItem}
                 onChange={(e) => this.setState({ routineItem: e.target.value })}
                 custom
@@ -124,10 +126,11 @@ class PatientRoutineForm extends React.Component {
                 <option value="Food">Food</option>
                 <option value="Excercise">Excercise</option>
               </Form.Control>
-            </Form.Row>
-          </Form.Group>
-          <div className="row">
-            <div className="col-sm-6">
+            </div>
+          </div>
+
+          <div className="form-row pt-2">
+            <div className="col-12 col-sm-6">
               <div className="input-field">
                 <input
                   type="text"
@@ -143,30 +146,32 @@ class PatientRoutineForm extends React.Component {
                   required
                 />
                 <label className="login-input-label" htmlFor="itemName">
-                  Item Name
+                  {this.state.routineItem + " Name"}
                 </label>
               </div>
             </div>
-            <div className="col-sm-6">
-              <div className="input-field forInput">
-                <input
-                  type="number"
-                  className="form-control rounded-pill   form-input-background "
-                  name="unit"
-                  value={this.state.unit}
-                  id="unit"
-                  onChange={(e) => this.setState({ unit: e.target.value })}
-                  required
-                />
-                <label className="login-input-label" htmlFor="unit">
-                  Unit
-                </label>
-              </div>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col-sm-6">
+            {this.state.routineItem === "Medicine" ||
+            this.state.routineItem === "Food" ? (
+              <div className="col-12 col-sm-6">
+                <div className="input-field forInput">
+                  <input
+                    type="number"
+                    className="form-control rounded-pill   form-input-background "
+                    name="unit"
+                    value={this.state.unit}
+                    id="unit"
+                    onChange={(e) => this.setState({ unit: e.target.value })}
+                    required
+                  />
+                  <label className="login-input-label" htmlFor="unit">
+                    Unit
+                  </label>
+                </div>
+              </div>
+            ) : null}
+
+            <div className="col-12 col-sm-6">
               <div className="input-field">
                 <input
                   type="date"
@@ -192,7 +197,7 @@ class PatientRoutineForm extends React.Component {
                 </label>
               </div>
             </div>
-            <div className="col-sm-6">
+            <div className="col-12 col-sm-6">
               <div className="input-field forInput">
                 <input
                   type="date"
@@ -219,10 +224,8 @@ class PatientRoutineForm extends React.Component {
                 </label>
               </div>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="col-sm-6">
+            <div className="col-12 col-sm-6">
               <div className="input-field">
                 <input
                   type="text"
@@ -241,27 +244,30 @@ class PatientRoutineForm extends React.Component {
                 </label>
               </div>
             </div>
-            <div className="col-sm-6">
-              <div className="input-field-two forInput">
-                <select
-                  className="form-control rounded-pill   form-input-background "
-                  name="mealTime"
-                  value={this.state.meal_time}
-                  id="mealTime"
-                  onChange={(e) => this.setState({ meal_time: e.target.value })}
-                  custom="ture"
-                >
-                  <option value="before meal" defaultValue>
-                    Before meal
-                  </option>
-                  <option value="after meal">After meal</option>
-                </select>
-              </div>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col-sm-6">
+            {this.state.routineItem === "Medicine" ? (
+              <div className="col-12 col-sm-6">
+                <div className="input-field-two forInput">
+                  <select
+                    className="form-control rounded-pill   form-input-background "
+                    name="mealTime"
+                    value={this.state.meal_time}
+                    id="mealTime"
+                    onChange={(e) =>
+                      this.setState({ meal_time: e.target.value })
+                    }
+                    custom="ture"
+                  >
+                    <option value="before meal" defaultValue>
+                      Before meal
+                    </option>
+                    <option value="after meal">After meal</option>
+                  </select>
+                </div>
+              </div>
+            ) : null}
+
+            <div className="col-12 col-sm-6">
               <div className="input-field">
                 <select
                   className="form-control rounded-pill   form-input-background "
@@ -273,43 +279,41 @@ class PatientRoutineForm extends React.Component {
                   }
                   custom="trure"
                 >
-                  <option value="before 15 mins">Before 15 mins</option>
-                  <option value="before 30 mins">Before 30 mins</option>
-                  <option value="before 1 hour">Before 1 hour</option>
+                  <option value="before 15 mins">Notify Before 15 mins</option>
+                  <option value="before 30 mins">Notify Before 30 mins</option>
+                  <option value="before 1 hour">Notify Before 1 hour</option>
                 </select>
               </div>
             </div>
 
-            <div className="col-sm-6">
+            <div className="col-12 col-sm-6">
               <div className="input-field forInput">
                 <input
-                  className="form-control rounded-pill form-input-background"
                   type="number"
+                  className="form-control rounded-pill   form-input-background "
+                  name="timesPerDay"
                   min="1"
                   max="5"
                   value={this.state.dogeNumValue}
-                  onChange={
-                    //  this.addDose
-                    (e) => {
-                      this.setState({
-                        dogeNumValue: e.target.value,
-                      });
-                      console.log("dogeNumValue:" + this.state.dogeNumValue);
-                    }
+                  id="timesPerDay"
+                  onChange={(e) =>
+                    this.setState({ dogeNumValue: e.target.value })
                   }
+                  required
                 />
+                <label className="login-input-label" htmlFor="timesPerDay">
+                  Times Per Day
+                </label>
               </div>
             </div>
 
-            
-
-
             {Array.from({ length: this.state.dogeNumValue }, (v, k) => (
-              <div key={k}>
-                <div className="col-12 col-sm-6">
-                  <div className="input-field forDoses">
+              <div className="col-12 col-sm-6">
+                <div key={k}>
+                  <div className="input-field forInput">
                     <input
                       type="time"
+                      id={"doseTime" + k}
                       className="form-control rounded-pill   form-input-background "
                       value={this.state.dose[k].time}
                       onChange={(e) => {
@@ -319,57 +323,60 @@ class PatientRoutineForm extends React.Component {
                       }}
                       required
                     />
-                    <label className="mt-0">{"Dose " + (k + 1)}</label>
+                    <label
+                      className="login-input-label "
+                      htmlFor={"doseTime" + k}
+                    >
+                      {"Dose " + (k + 1)}
+                    </label>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="input-field forNotification">
-                <label className="col-12 col-sm-6">
-                  <h3>Notification</h3>
-                </label>
-                <div
-                  className="col-sm-10 forNotificationTo"
-                  name="notifyTo"
-                  value={this.state.notify_to}
-                  id="notifyTo"
-                  onChange={(e) => this.setState({ notify_to: e.target.value })}
-                >
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="radio1"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="radio1"
-                      value="me"
-                    >
-                      <p className="forRdobtn">Me</p>
-                    </label>
-                  </div>
+          <div className="col-sm-6">
+            <div className="input-field forNotification">
+              <label className="col-12 col-sm-6">
+                <h3>Notification</h3>
+              </label>
+              <div
+                className="col-sm-10 forNotificationTo"
+                name="notifyTo"
+                value={this.state.notify_to}
+                id="notifyTo"
+                onChange={(e) => this.setState({ notify_to: e.target.value })}
+              >
+                <div className="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    className="custom-control-input"
+                    id="radio1"
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="radio1"
+                    value="me"
+                  >
+                    <p className="forRdobtn">Me</p>
+                  </label>
+                </div>
 
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="radio2"
-                      name="radio"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="radio2"
-                      name="radio"
-                      value="gaurdian"
-                    >
-                      <p className="forRdobtn">Gaurdian</p>
-                    </label>
-                  </div>
+                <div className="custom-control custom-radio custom-control-inline">
+                  <input
+                    type="radio"
+                    className="custom-control-input"
+                    id="radio2"
+                    name="radio"
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="radio2"
+                    name="radio"
+                    value="gaurdian"
+                  >
+                    <p className="forRdobtn">Gaurdian</p>
+                  </label>
                 </div>
               </div>
             </div>
