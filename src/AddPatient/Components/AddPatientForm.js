@@ -9,7 +9,7 @@ class AddPatientForm extends React.Component{
         super();
         this.state={
             fName:"",lName:"",email:"",phn:"",
-            address:"",age:"",height:"",weight:"",
+            gender:"",age:"",height:"",weight:"",
             responseMessage: "",
             showSpinner: false,
             showSignUpBtn: true
@@ -37,7 +37,7 @@ class AddPatientForm extends React.Component{
         console.log(this.state.lName);
         console.log(this.state.email);
         console.log(this.state.phn);
-        console.log(this.state.address);
+        console.log(this.state.gender);
         console.log(this.state.age);
         console.log(this.state.height);
         console.log(this.state.weight);
@@ -55,7 +55,7 @@ class AddPatientForm extends React.Component{
                 {
                     firstname: this.state.fName,
                     lastname:this.state.lName,
-                    gender:this.state.address,
+                    gender:this.state.gender,
                     age:this.state.age,
                     email:this.state.email,
                     phone:this.state.phn,
@@ -72,7 +72,7 @@ class AddPatientForm extends React.Component{
                 responseMessage: response.data.message,
                 fName:"",
                 lName:"",
-                address:"",
+                gender:"",
                 age:"",
                 email:"",
                 phn:"",
@@ -192,23 +192,38 @@ class AddPatientForm extends React.Component{
                     <div className="row">
                         <div className="col-sm-6">
                         <div className="input-field">
-                            <input
+                            {/* <input
                             type="text"
                             className="form-control rounded-pill   form-input-background "
-                            name="address"
-                            value={this.state.address}
+                            name="gender"
+                            value={this.state.gender}
                             onInput={this.handleInput}
-                            id="address"
+                            id="gender"
                             onChange={(e) =>
                                 this.setState({
-                                address: e.target.value,
+                                    gender: e.target.value,
                                 })
                             }
                             required
-                            />
-                            <label className="login-input-label" htmlFor="address">
-                            Address
-                            </label>
+                            /> */}
+
+                            <select
+                            className="form-control rounded-pill   form-input-background "
+                            name="gender"
+                            value={this.state.gender}
+                            id="gender"
+                            onChange={(e) => this.setState({ gender: e.target.value })}
+                            custom="ture"
+                            >
+                            <option value="male" selected>
+                                Male
+                            </option>
+                            <option value="female">Female</option>
+                            </select>
+
+                            {/* <label className="login-input-label" htmlFor="gender">
+                            gender
+                            </label> */}
                         </div>
                         </div>
                         <div className="col-sm-6">

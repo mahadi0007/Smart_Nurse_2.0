@@ -6,5 +6,13 @@
     
     margin-right: 10px;
     float: right;
+    margin-top: -40px;
 }
 
+.selection-cell-header{
+    display: none;
+}
+
+.selection-cell{
+    display: none;
+}
