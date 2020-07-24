@@ -12,6 +12,7 @@ import PatientRoutine from "./PatientRoutine/PatientRoutine";
 import CreateAddPatient from "./AddPatient/AddPatient";
 import AddPatientSetPass from "./addPatientSetPass/addPatientSetPass";
 import AddPatientVerifyUser from "./addPatientSetPass/addPatientVerifyUser";
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 import AutoAddPatient from "./AutoAddPatient/AutoAddPatient";
 import VerifyUser from "./Verify User/verifyUser";

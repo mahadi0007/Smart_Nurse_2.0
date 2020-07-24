@@ -3,13 +3,120 @@ import NavigationBar from "../Shared/Components/NavigationBar";
 import Banner from "../Shared/img/Banner.png";
 import SearchPatientTable from "./Componets/SearchPatientTable";
 import "./AutoAddPatient.css";
+import axios from "axios";
+import auth from "../Shared/Auth/auth";
+import {Cookies} from "react-cookie";
+import ErrorModal from "../Shared/Components/ErrorModal";
+
+
+
 
 class AutoAddPatient extends React.Component{
+
+    cookies = new Cookies();
+    constructor(props){
+        super(props);
+        this.state={
+            showSpinner:false,
+            removeMessage:"",
+            
+            //userlist:[],
+            //search:"",
+            //setFilteredUserList:[]
+
+        }
+    }
+
+    addMeAsPatient = async(e)=>{
+        e.preventDefault();
+        console.log("entered")
+     
+            
+            this.setState({
+                showSpinner:true,
+            })
+            console.log(this.state.showSpinner);
+            console.log(auth.userRole);
+
+            if(auth.userRole ===""){
+
+                try {
+                    console.log("enter try block")
+                    const response =await axios.patch(
+                        "http://localhost:5000/addPatientMyself/"+auth.userId
+                    );               
+                    console.log(response.data)
+                        
+                    auth.userRole="Gaurdian/Patient"; //set userRole as gaurdian and patient both
+    
+                    this.cookies.set("userRole",auth.userRole, {path:"/",maxAge:31536000})
+
+                    this.setState({
+                        removeMessage:response.data.message
+                     })
+                    
+                } catch (error) {
+                    this.setState({
+                        showSpinner:false,
+                    })
+                    console.log(error.response.data)
+                    this.setState({
+                        removeMessage:error.response.data.message
+                     })
+                }
+
+                
+
+            }
+            else if(auth.userRole==="Guardian"){
+                this.setState({
+                    removeMessage:"You are already a gaurdian. Remove that relationship"
+                })
+                
+            }
+            else if(auth.userRole==="Patient"){
+                this.setState({
+                   removeMessage:"You are already a Patient. Remove that relationship"
+                })
+                
+            }
+            else if(auth.userRole==="Gaurdian/Patient"){
+                this.setState({
+                    removeMessage:"You are already Your Patient"
+                })
+               
+            }
+
+
+            this.setState({
+                showSpinner:false,
+            })
+            
+        
+    }
+    
+    
+    errorHandler = () => {
+        auth.authMessage = null; //clear auth message that comes from auth function
+        this.setState({
+            removeMessage: "", //clear API response message after clicking okay
+        });
+      };
+
+
+
     render(){
         return(
             <div>
-                <NavigationBar/>
+                {this.state.removeMessage && ( //message dialogue from auth
+                <ErrorModal
+                    message={this.state.removeMessage}
+                    onClear={this.errorHandler.bind(this)}
+                />
+                )}
 
+                <NavigationBar/>
+                
                 <div className="row">
                     <div className="col-12 col-sm-12">
                         <img
@@ -27,14 +134,21 @@ class AutoAddPatient extends React.Component{
                     </div>
                 </div>
                 <div>
-                    <SearchPatientTable/>
-                </div>
-                <div className="row">
-                        <a
-                        type="button" href="./createpatientmanually"
-                        className="btn text-white text-center"
+                   
+                {this.state.showSpinner ? (
+                    <div class="spinner-border m-auto" style={{marginTop:"50px"}} role="status">
+                      <span class="sr-only">Loading...</span>   {/*spinner code*/}
+                    </div>
+                  ) : (
+                  <div className="row addPatientBtn">
+                        <button
+                        
+                        type="submit"
+                        
+                        onClick={this.addMeAsPatient}
+                        className="btn btn-block text-white text-center"
                         style={{
-                            marginTop: "35px",
+                            marginTop: "15px",
                             marginBottom: "20px",
                             marginLeft: "auto",
                             marginRight: "auto",
@@ -42,14 +156,27 @@ class AutoAddPatient extends React.Component{
                             borderRadius: "1em",
                             height: "35px",
                             backgroundColor: "#0C0C52",
-                            fontSize: "14px",
+                            fontSize: "15px",
                             paddingLeft:"20px",
-                            paddingRight:"20px"
+                            paddingRight:"20px",
+                            
                         }}
                         >
-                        CREATE PATIENT MANUALLY
-                        </a>
+                        Add Me As A Patient
+                        </button>
+                    </div>
+                  )}
+                  
+                
+                    
+                    
+                        {/* <SearchPatientTable allUser={this.state.userlist} /> */}
+                        <SearchPatientTable />
+                    
                 </div>
+
+                
+                
                 
             </div>
         );
