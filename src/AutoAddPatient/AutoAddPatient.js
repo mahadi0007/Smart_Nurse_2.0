@@ -38,7 +38,13 @@ class AutoAddPatient extends React.Component{
             console.log(this.state.showSpinner);
             console.log(auth.userRole);
 
-            if(auth.userRole ===""){
+            if(auth.userRole === null){
+                console.log('if')
+            } else {
+                console.log('else')
+            }
+
+            if(auth.userRole === null){
 
                 try {
                     console.log("enter try block")
@@ -47,7 +53,7 @@ class AutoAddPatient extends React.Component{
                     );               
                     console.log(response.data)
                         
-                    auth.userRole="Gaurdian/Patient"; //set userRole as gaurdian and patient both
+                    auth.userRole="Guardian/Patient"; //set userRole as gaurdian and patient both
     
                     this.cookies.set("userRole",auth.userRole, {path:"/",maxAge:31536000})
 
@@ -70,7 +76,7 @@ class AutoAddPatient extends React.Component{
             }
             else if(auth.userRole==="Guardian"){
                 this.setState({
-                    removeMessage:"You are already a gaurdian. Remove that relationship"
+                    removeMessage:"You are already a Guardian. Remove that relationship"
                 })
                 
             }
@@ -80,7 +86,7 @@ class AutoAddPatient extends React.Component{
                 })
                 
             }
-            else if(auth.userRole==="Gaurdian/Patient"){
+            else if(auth.userRole==="Guardian/Patient"){
                 this.setState({
                     removeMessage:"You are already Your Patient"
                 })
@@ -140,7 +146,7 @@ class AutoAddPatient extends React.Component{
                       <span class="sr-only">Loading...</span>   {/*spinner code*/}
                     </div>
                   ) : (
-                  <div className="row addPatientBtn">
+                  <div className="row">
                         <button
                         
                         type="submit"

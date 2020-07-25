@@ -295,7 +295,7 @@ class AddPatientForm extends React.Component{
 
 
                     {this.state.showSignUpBtn ? (
-                        <div className="row addPatientBtn">
+                        <div className="row">
                         <button
                         type="submit"
                         className="btn btn-block text-white text-center"

@@ -90,8 +90,8 @@ class SearchPatientTable extends React.Component{
 
         if(this.state.patientSearch!==null){
             console.log("1st if")
-            
-            if(auth.userRole ===""){
+            console.log(auth.userRole)
+            if(auth.userRole ===null){
 
                 try {
                     console.log("enter try block")
@@ -124,7 +124,7 @@ class SearchPatientTable extends React.Component{
             }
             else if(auth.userRole==="Guardian"){
                 this.setState({
-                    removeMessage:"You are already a gaurdian. Remove that relationship"
+                    removeMessage:"You are already a Guardian. Remove that relationship"
                 })
                 console.log(this.state.removeMessage)
                 
@@ -136,7 +136,7 @@ class SearchPatientTable extends React.Component{
                 console.log(this.state.removeMessage)
                 
             }
-            else if(auth.userRole==="Gaurdian/Patient"){
+            else if(auth.userRole==="Guardian/Patient"){
                 this.setState({
                     removeMessage:"You are already Your Patient"
                 })
