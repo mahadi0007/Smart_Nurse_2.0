@@ -51,13 +51,20 @@ class SearchPatientTable extends React.Component{
                     
                     this.setState({
                         
-                        userlist:response.data.user
+                        userlist:response.data.user,
+                        showSpinner: false,
+
+                    })
+                    this.setState({
+                        setFilteredUserList :this.state.userlist.filter(
+                            (user)=>{
+                                return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                                || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                            }
+                        )
                     })
 
-                    this.setState({
-            
-                        showSpinner: false,
-                      });
+                    
         
         } 
 
@@ -243,12 +250,15 @@ class SearchPatientTable extends React.Component{
               
         };
 
-        this.state.setFilteredUserList =this.state.userlist.filter(
-            (user)=>{
-                return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-                || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-            }
-        );
+        
+            // this.state.setFilteredUserList =this.state.userlist.filter(
+            //     (user)=>{
+            //         return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+            //         || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+            //     }
+            // );
+        
+        
         
 
         return(
@@ -267,8 +277,8 @@ class SearchPatientTable extends React.Component{
             )}
             
                 <form>
-                    <div className="row">
-                        <div className="col-sm-12">
+                    <div className="container-fluid">
+                        <div className="row">
                             <div className="input-field forPatientSearch">
                                 <input
                                 type="search"
@@ -304,7 +314,10 @@ class SearchPatientTable extends React.Component{
                     
 
                 <div className="container tableDesign">
-                    <BootstrapTable keyField='_id'  columns={ columns } data={ this.state.setFilteredUserList } selectRow={ selectRow } pagination={ paginationFactory() } />
+                    
+                    <BootstrapTable keyField='_id'  columns={ columns } data={ this.state.setFilteredUserList } selectRow={ selectRow } pagination={ paginationFactory() } responsive />
+                    
+                    
                 </div>
 
                 {/* spinner code */}
@@ -324,7 +337,8 @@ class SearchPatientTable extends React.Component{
                 (
                     <div>
                 {this.state.search || this.state.rowSelect ? (
-                <div className="row">
+                    <div className="container-fluid">
+                        <div className="row">
                 <button
                 type="submit"
                 onClick={this.addPatientFromRow}
@@ -346,13 +360,17 @@ class SearchPatientTable extends React.Component{
                 ADD
                 </button>
                 </div>
+                
+                    </div>    
                 ) 
                 : 
-                (<div className="row">
-                <a
-                type="button" href="./createpatientmanually"
-                className="btn text-white text-center"
-                style={{
+                (
+                    <div className="container-fluid">
+                        <div className="row">
+                        <a
+                    type="button" href="./createpatientmanually"
+                    className="btn text-white text-center"
+                    style={{
                     marginTop: "35px",
                     marginBottom: "20px",
                     marginLeft: "auto",
@@ -368,7 +386,9 @@ class SearchPatientTable extends React.Component{
                 >
                 CREATE PATIENT MANUALLY
                 </a>
-                </div>
+                    </div>
+                
+                    </div>
                 )}
                     </div>
                 )}                    
