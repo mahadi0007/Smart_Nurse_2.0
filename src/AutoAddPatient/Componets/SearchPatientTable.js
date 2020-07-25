@@ -25,6 +25,7 @@ class SearchPatientTable extends React.Component{
             search:"",
             setFilteredUserList:[],
             removeMessage:"",
+            psearch:""
            
         }
         
@@ -52,17 +53,26 @@ class SearchPatientTable extends React.Component{
                     this.setState({
                         
                         userlist:response.data.user,
+
+                        // setFilteredUserList :this.state.userlist.filter(
+                        //     (user)=>{
+                        //         return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                        //         || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                        //     }
+                        // ),
+
                         showSpinner: false,
 
                     })
-                    this.setState({
-                        setFilteredUserList :this.state.userlist.filter(
-                            (user)=>{
-                                return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-                                || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-                            }
-                        )
-                    })
+
+                    // this.setState({
+                    //     setFilteredUserList :this.state.userlist.filter(
+                    //         (user)=>{
+                    //             return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                    //             || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                    //         }
+                    //     )
+                    // })
 
                     
         
@@ -251,12 +261,12 @@ class SearchPatientTable extends React.Component{
         };
 
         
-            // this.state.setFilteredUserList =this.state.userlist.filter(
-            //     (user)=>{
-            //         return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-            //         || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-            //     }
-            // );
+            this.state.setFilteredUserList =this.state.userlist.filter(
+                (user)=>{
+                    return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                    || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                }
+            );
         
         
         
@@ -278,6 +288,7 @@ class SearchPatientTable extends React.Component{
             
                 <form>
                     <div className="container-fluid">
+
                         <div className="row">
                             <div className="input-field forPatientSearch">
                                 <input
@@ -290,9 +301,8 @@ class SearchPatientTable extends React.Component{
                                
                                 onChange={this.updateSearch.bind(this)
 
-                                    
-                                    
                                 }
+                                required
                                 
                                 />
                                 {this.state.search ? null : 
@@ -308,8 +318,8 @@ class SearchPatientTable extends React.Component{
                                 </label>
                                   
                             </div>
-                        </div>
-                    </div>
+                            </div>
+                    </div> 
 
                     
 
