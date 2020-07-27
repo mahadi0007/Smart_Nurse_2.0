@@ -38,60 +38,82 @@ class AutoAddPatient extends React.Component{
             console.log(this.state.showSpinner);
             console.log(auth.userRole);
 
-            if(auth.userRole === null){
-                console.log('if')
-            } else {
-                console.log('else')
-            }
-
-            if(auth.userRole === null){
-
-                try {
-                    console.log("enter try block")
-                    const response =await axios.patch(
-                        "http://localhost:5000/addPatientMyself/"+auth.userId
-                    );               
-                    console.log(response.data)
-                        
-                    auth.userRole="Guardian/Patient"; //set userRole as gaurdian and patient both
-    
-                    this.cookies.set("userRole",auth.userRole, {path:"/",maxAge:31536000})
-
-                    this.setState({
-                        removeMessage:response.data.message
-                     })
+            try {
+                console.log("enter try block")
+                const response =await axios.patch(
+                    "http://localhost:5000/addPatientMyself/"+auth.userId
+                );               
+                console.log(response.data)
                     
-                } catch (error) {
-                    this.setState({
-                        showSpinner:false,
-                    })
-                    console.log(error.response.data)
-                    this.setState({
-                        removeMessage:error.response.data.message
-                     })
-                }
+                auth.userRole="Guardian/Patient"; //set userRole as gaurdian and patient both
+
+                this.cookies.set("userRole",auth.userRole, {path:"/",maxAge:31536000})
+
+                this.setState({
+                    removeMessage:response.data.message
+                 })
+                
+            } catch (error) {
+                this.setState({
+                    showSpinner:false,
+                })
+                console.log(error.response.data)
+                this.setState({
+                    removeMessage:error.response.data.message
+                 })
+            }
+
+
+
+
+            // if(auth.userRole === null){
+
+            //     try {
+            //         console.log("enter try block")
+            //         const response =await axios.patch(
+            //             "http://localhost:5000/addPatientMyself/"+auth.userId
+            //         );               
+            //         console.log(response.data)
+                        
+            //         auth.userRole="Guardian/Patient"; //set userRole as gaurdian and patient both
+    
+            //         this.cookies.set("userRole",auth.userRole, {path:"/",maxAge:31536000})
+
+            //         this.setState({
+            //             removeMessage:response.data.message
+            //          })
+                    
+            //     } catch (error) {
+            //         this.setState({
+            //             showSpinner:false,
+            //         })
+            //         console.log(error.response.data)
+            //         this.setState({
+            //             removeMessage:error.response.data.message
+            //          })
+            //     }
 
                 
 
-            }
-            else if(auth.userRole==="Guardian"){
-                this.setState({
-                    removeMessage:"You are already a Guardian. Remove that relationship"
-                })
+            // }
+            // else if(auth.userRole==="Guardian"){
+            //     this.setState({
+            //         removeMessage:"You are already a Guardian. Remove that relationship"
+            //     })
                 
-            }
-            else if(auth.userRole==="Patient"){
-                this.setState({
-                   removeMessage:"You are already a Patient. Remove that relationship"
-                })
+            // }
+            // else if(auth.userRole==="Patient"){
+            //     this.setState({
+            //        removeMessage:"You are already a Patient. Remove that relationship"
+            //     })
                 
-            }
-            else if(auth.userRole==="Guardian/Patient"){
-                this.setState({
-                    removeMessage:"You are already Your Patient"
-                })
+            // }
+            // else if(auth.userRole==="Guardian/Patient"){
+            //     this.setState({
+            //         removeMessage:"You are already Your Patient"
+            //     })
                
-            }
+            // }
 
 
             this.setState({

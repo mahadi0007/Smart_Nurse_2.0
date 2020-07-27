@@ -85,10 +85,13 @@ class SearchPatientTable extends React.Component{
                 showSpinner: false,
               });
         }
+        
+        
     }
 
     updateSearch(e){
         this.setState({search:e.target.value.substr(0,20)});
+        
     }
 
     
@@ -108,59 +111,37 @@ class SearchPatientTable extends React.Component{
         if(this.state.patientSearch!==null){
             console.log("1st if")
             console.log(auth.userRole)
-            if(auth.userRole ===null){
 
-                try {
-                    console.log("enter try block")
-                    const response =await axios.post(
-                        "http://localhost:5000/users/sendRequest/"+auth.userId,{
-                            recipients:[
-                                {
-                                    id:this.state.patientSearch
-                                }
-                            ]
-                        }
-                    );               
-                    console.log(response.data)
-                        
-                    console.log(response.data.message)
 
-                    this.setState({
-                        removeMessage:response.data.message
-                     })
-                    
-                    } catch (error) {
-                        this.setState({
-                            showSpinnerForBtn:false,
-                        })
-                        console.log(error.response.data)
-                        this.setState({
-                            removeMessage:error.response.data.message
-                        })
+            try {
+                console.log("enter try block")
+                const response =await axios.post(
+                    "http://localhost:5000/users/sendRequest/"+auth.userId,{
+                        recipients:[
+                            {
+                                id:this.state.patientSearch
+                            }
+                        ]
                     }
-            }
-            else if(auth.userRole==="Guardian"){
+                );               
+                console.log(response.data)
+                    
+                console.log(response.data.message)
+
                 this.setState({
-                    removeMessage:"You are already a Guardian. Remove that relationship"
-                })
-                console.log(this.state.removeMessage)
+                    removeMessage:response.data.message
+                 })
                 
-            }
-            else if(auth.userRole==="Patient"){
-                this.setState({
-                   removeMessage:"You are already a Patient. Remove that relationship"
-                })
-                console.log(this.state.removeMessage)
-                
-            }
-            else if(auth.userRole==="Guardian/Patient"){
-                this.setState({
-                    removeMessage:"You are already Your Patient"
-                })
-                console.log(this.state.removeMessage)
-               
-            }
-            
+                } catch (error) {
+                    this.setState({
+                        showSpinnerForBtn:false,
+                    })
+                    console.log(error.response.data)
+                    this.setState({
+                        removeMessage:error.response.data.message
+                    })
+                }
+
         }
         else{
             this.setState({
@@ -181,6 +162,9 @@ class SearchPatientTable extends React.Component{
             removeMessage: "", //clear API response message after clicking okay
         });
       };
+
+
+        
 
 
     render(){
@@ -261,19 +245,32 @@ class SearchPatientTable extends React.Component{
         };
 
         
-            this.state.setFilteredUserList =this.state.userlist.filter(
+        // const FilterUserList =async()=> {
+        //     this.setState({
+
+        //         setFilteredUserList : this.state.userlist.filter(
+        //             (user)=>{
+        //                 return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+        //                 || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+        //             }
+        //         )
+        //     })
+        // }
+            
+        this.state.setFilteredUserList =this.state.userlist.filter(
                 (user)=>{
                     return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
                     || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
                 }
             );
+
+            
         
         
         
 
         return(
             <div>
-
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Add Patient</title>
