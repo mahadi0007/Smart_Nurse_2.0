@@ -1,13 +1,15 @@
 import React from "react";
-//import ReactDom from "react-dom";
 
 import { Form } from "react-bootstrap";
 import "./PatientRoutineForm.css";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import moment from "moment";
 
-// import moment from "react-moment";
-// import "moment-timezone";
+import { Cookies } from "react-cookie";
+import ApiCalendar from "./ApiCalendar";
+import auth from "../../Shared/Auth/auth";
 
 class PatientRoutineForm extends React.Component {
   constructor() {
@@ -43,39 +45,30 @@ class PatientRoutineForm extends React.Component {
       ],
       notification: "",
       dogeNumValue: "",
-      notify_to: "",
+
+      PatientCheck: true,
+      GuardianCheck: "",
     };
   }
 
-  /*
-   deleteEvent = (index)=>{
-    const copyPostArray = Object.assign([], this.state.postArray);
-    copyPostArray.splice(index, 1);
-    this.setState({
-      postArray: copyPostArray
-    })
-  }
+  componentDidMount = async (e) => {
+    console.log("auth google sign in " + auth.googleSignedIn);
+    if (!auth.googleSignedIn) {
+      console.log("auth google sign in if " + auth.googleSignedIn);
+      setTimeout(function () {
+        console.log("wait 3 seconds");
+        ApiCalendar.handleAuthClick();
+        auth.googleSignedIn = ApiCalendar.sign;
 
-  setPost=(e)=>{
-    this.setState({
-      Body: e.target.value
-    })
-  }
+        new Cookies().set("googleSignedIn", ApiCalendar.sign, {
+          path: "/",
+          maxAge: 31536000,
+        });
+      }, 3 * 1000);
 
-  addPost=(e)=>{
-  
-    this.postId = this.postId + 1;
-  const copyPostArray = Object.assign([],this.state.postArray)
-  copyPostArray.push({
-    id: this.postId,
-    body: this.state.Body
-  })
-  this.setState({
-    postArray: copyPostArray
-  })
-  console.log(this.state.numValue)
-}
-*/
+      console.log("finish 3 seconds wait");
+    }
+  };
 
   onSubmitForm = (event) => {
     event.preventDefault();
@@ -89,7 +82,9 @@ class PatientRoutineForm extends React.Component {
     console.log(this.state.meal_time);
     console.log(this.state.dose);
     console.log(this.state.notification);
-    console.log(this.state.notify_to);
+    console.log("Guardian Check " + this.state.GuardianCheck);
+    console.log("Patient Check " + this.state.PatientCheck);
+
     console.log(this.state.dogeNumValue);
   };
 
@@ -340,49 +335,53 @@ class PatientRoutineForm extends React.Component {
               <label className="col-12 col-sm-6">
                 <h3>Notification</h3>
               </label>
-              <div
-                className="col-sm-10 forNotificationTo"
-                name="notifyTo"
-                value={this.state.notify_to}
-                id="notifyTo"
-                onChange={(e) => this.setState({ notify_to: e.target.value })}
-              >
-                <div className="custom-control custom-radio custom-control-inline">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    id="radio1"
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor="radio1"
-                    value="me"
-                  >
-                    <p className="forRdobtn">Me</p>
-                  </label>
-                </div>
+              <div className="col-sm-12 pt-5 forNotificationTo">
+                <div className="row">
+                  <div className="col-sm-6">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              this.setState({ PatientCheck: "true" });
+                            } else {
+                              this.setState({ PatientCheck: "false" });
+                            }
+                          }}
+                          defaultChecked
+                          required
+                          name="patient Check"
+                          color="primary"
+                        />
+                      }
+                      label="Patient"
+                    />
+                  </div>
 
-                <div className="custom-control custom-radio custom-control-inline">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    id="radio2"
-                    name="radio"
-                  />
-                  <label
-                    className="custom-control-label"
-                    htmlFor="radio2"
-                    name="radio"
-                    value="gaurdian"
-                  >
-                    <p className="forRdobtn">Gaurdian</p>
-                  </label>
+                  <div className="col-sm-6">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              this.setState({ GuardianCheck: "true" });
+                            } else {
+                              this.setState({ GuardianCheck: "false" });
+                            }
+                          }}
+                          name="Guardian Check"
+                          color="primary"
+                        />
+                      }
+                      label="Guardian"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="row routineBtn">
+          <div className="row routineBtn pt-5">
             <button
               type="submit"
               className="btn btn-block text-white text-center"

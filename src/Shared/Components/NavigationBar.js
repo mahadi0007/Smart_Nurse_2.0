@@ -9,6 +9,7 @@ import { Cookies } from "react-cookie";
 import axios from "axios";
 import "./NavigationBar.css";
 import { Redirect } from "react-router";
+import apiCalendar from "../../PatientRoutine/components/ApiCalendar";
 
 export default class NavigationBar extends Component {
   cookies = new Cookies();
@@ -50,6 +51,10 @@ export default class NavigationBar extends Component {
       this.cookies.remove("token", { path: "/" });
       this.cookies.remove("isLoggedIn", { path: "/" });
       this.cookies.remove("firstName", { path: "/" });
+      if (apiCalendar.sign) {
+        apiCalendar.handleSignoutClick();
+        this.cookies.remove("googleSignedIn", { path: "/" });
+      }
 
       this.setState({
         redirect: true,

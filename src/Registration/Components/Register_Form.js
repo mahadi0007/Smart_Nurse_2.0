@@ -75,7 +75,7 @@ export default class Register_Form extends Component {
           phone: this.state.phone,
           height: this.state.height,
           weight: this.state.weight,
-          userType: this.state.userType,
+          userType: "",
         }
       );
 
@@ -349,7 +349,8 @@ export default class Register_Form extends Component {
             </div>
           </div>
         </div>
-        {/* --------------------- 5th Input Row finish -------------------------------- */}
+
+        {/* --------------------- 5th Input Row finish -------------------------------- 
         <label className="Register-as pl-2">Register As</label>
         <div className="form-row pl-2">
           <MDBCol size="1">
@@ -390,6 +391,8 @@ export default class Register_Form extends Component {
             <label htmlFor="userRole2">Patient</label>
           </MDBCol>
         </div>
+
+        */}
         {/* --------------------- 6th Input Row finish -------------------------------- */}
 
         <br />
@@ -418,7 +421,7 @@ export default class Register_Form extends Component {
           >
             SIGN UP
           </button>
-         ) : null}
+        ) : null}
 
         <p className="h6  text-center" style={{ color: "#292A67" }}>
           Already have an account?
