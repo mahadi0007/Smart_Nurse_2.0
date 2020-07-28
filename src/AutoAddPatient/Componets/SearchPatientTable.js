@@ -25,6 +25,7 @@ class SearchPatientTable extends React.Component{
             search:"",
             setFilteredUserList:[],
             removeMessage:"",
+            psearch:""
            
         }
         
@@ -51,13 +52,29 @@ class SearchPatientTable extends React.Component{
                     
                     this.setState({
                         
-                        userlist:response.data.user
+                        userlist:response.data.user,
+
+                        // setFilteredUserList :this.state.userlist.filter(
+                        //     (user)=>{
+                        //         return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                        //         || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                        //     }
+                        // ),
+
+                        showSpinner: false,
+
                     })
 
-                    this.setState({
-            
-                        showSpinner: false,
-                      });
+                    // this.setState({
+                    //     setFilteredUserList :this.state.userlist.filter(
+                    //         (user)=>{
+                    //             return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                    //             || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                    //         }
+                    //     )
+                    // })
+
+                    
         
         } 
 
@@ -68,10 +85,13 @@ class SearchPatientTable extends React.Component{
                 showSpinner: false,
               });
         }
+        
+        
     }
 
     updateSearch(e){
         this.setState({search:e.target.value.substr(0,20)});
+        
     }
 
     
@@ -91,59 +111,37 @@ class SearchPatientTable extends React.Component{
         if(this.state.patientSearch!==null){
             console.log("1st if")
             console.log(auth.userRole)
-            if(auth.userRole ===null){
 
-                try {
-                    console.log("enter try block")
-                    const response =await axios.post(
-                        "http://localhost:5000/users/sendRequest/"+auth.userId,{
-                            recipients:[
-                                {
-                                    id:this.state.patientSearch
-                                }
-                            ]
-                        }
-                    );               
-                    console.log(response.data)
-                        
-                    console.log(response.data.message)
 
-                    this.setState({
-                        removeMessage:response.data.message
-                     })
-                    
-                    } catch (error) {
-                        this.setState({
-                            showSpinnerForBtn:false,
-                        })
-                        console.log(error.response.data)
-                        this.setState({
-                            removeMessage:error.response.data.message
-                        })
+            try {
+                console.log("enter try block")
+                const response =await axios.post(
+                    "http://localhost:5000/users/sendRequest/"+auth.userId,{
+                        recipients:[
+                            {
+                                id:this.state.patientSearch
+                            }
+                        ]
                     }
-            }
-            else if(auth.userRole==="Guardian"){
+                );               
+                console.log(response.data)
+                    
+                console.log(response.data.message)
+
                 this.setState({
-                    removeMessage:"You are already a Guardian. Remove that relationship"
-                })
-                console.log(this.state.removeMessage)
+                    removeMessage:response.data.message
+                 })
                 
-            }
-            else if(auth.userRole==="Patient"){
-                this.setState({
-                   removeMessage:"You are already a Patient. Remove that relationship"
-                })
-                console.log(this.state.removeMessage)
-                
-            }
-            else if(auth.userRole==="Guardian/Patient"){
-                this.setState({
-                    removeMessage:"You are already Your Patient"
-                })
-                console.log(this.state.removeMessage)
-               
-            }
-            
+                } catch (error) {
+                    this.setState({
+                        showSpinnerForBtn:false,
+                    })
+                    console.log(error.response.data)
+                    this.setState({
+                        removeMessage:error.response.data.message
+                    })
+                }
+
         }
         else{
             this.setState({
@@ -164,6 +162,9 @@ class SearchPatientTable extends React.Component{
             removeMessage: "", //clear API response message after clicking okay
         });
       };
+
+
+        
 
 
     render(){
@@ -243,17 +244,33 @@ class SearchPatientTable extends React.Component{
               
         };
 
+        
+        // const FilterUserList =async()=> {
+        //     this.setState({
+
+        //         setFilteredUserList : this.state.userlist.filter(
+        //             (user)=>{
+        //                 return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+        //                 || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+        //             }
+        //         )
+        //     })
+        // }
+            
         this.state.setFilteredUserList =this.state.userlist.filter(
-            (user)=>{
-                return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-                || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-            }
-        );
+                (user)=>{
+                    return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
+                    || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
+                }
+            );
+
+            
+        
+        
         
 
         return(
             <div>
-
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Add Patient</title>
@@ -267,8 +284,9 @@ class SearchPatientTable extends React.Component{
             )}
             
                 <form>
-                    <div className="row">
-                        <div className="col-sm-12">
+                    <div className="container-fluid">
+
+                        <div className="row">
                             <div className="input-field forPatientSearch">
                                 <input
                                 type="search"
@@ -280,9 +298,8 @@ class SearchPatientTable extends React.Component{
                                
                                 onChange={this.updateSearch.bind(this)
 
-                                    
-                                    
                                 }
+                                required
                                 
                                 />
                                 {this.state.search ? null : 
@@ -298,13 +315,16 @@ class SearchPatientTable extends React.Component{
                                 </label>
                                   
                             </div>
-                        </div>
-                    </div>
+                            </div>
+                    </div> 
 
                     
 
                 <div className="container tableDesign">
-                    <BootstrapTable keyField='_id'  columns={ columns } data={ this.state.setFilteredUserList } selectRow={ selectRow } pagination={ paginationFactory() } />
+                    
+                    <BootstrapTable keyField='_id'  columns={ columns } data={ this.state.setFilteredUserList } selectRow={ selectRow } pagination={ paginationFactory() } responsive />
+                    
+                    
                 </div>
 
                 {/* spinner code */}
@@ -324,7 +344,8 @@ class SearchPatientTable extends React.Component{
                 (
                     <div>
                 {this.state.search || this.state.rowSelect ? (
-                <div className="row">
+                    <div className="container-fluid">
+                        <div className="row">
                 <button
                 type="submit"
                 onClick={this.addPatientFromRow}
@@ -346,13 +367,17 @@ class SearchPatientTable extends React.Component{
                 ADD
                 </button>
                 </div>
+                
+                    </div>    
                 ) 
                 : 
-                (<div className="row">
-                <a
-                type="button" href="./createpatientmanually"
-                className="btn text-white text-center"
-                style={{
+                (
+                    <div className="container-fluid">
+                        <div className="row">
+                        <a
+                    type="button" href="./createpatientmanually"
+                    className="btn text-white text-center"
+                    style={{
                     marginTop: "35px",
                     marginBottom: "20px",
                     marginLeft: "auto",
@@ -368,7 +393,9 @@ class SearchPatientTable extends React.Component{
                 >
                 CREATE PATIENT MANUALLY
                 </a>
-                </div>
+                    </div>
+                
+                    </div>
                 )}
                     </div>
                 )}                    

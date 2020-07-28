@@ -17,16 +17,18 @@ class AddPatient extends React.Component{
             <div>
                 <NavigationBar/>
 
+        
+                <div className="container-fluid">
                 <div className="row">
-                    <div className="col-12 col-sm-12">
-                        <img
+                   
+                    <img
                         className="image-fluid banner"
                         src={Banner}
                         height="200px"
                         width="100%"
                         alt="Banner"
                         ></img>
-                    </div>
+                    
                     <div className="headline">
                         <p className="text-center text-light ml-3 mb-4 ml-lg-0 headlineForXs display-4">
                             Create Patient Manually
@@ -34,9 +36,14 @@ class AddPatient extends React.Component{
                     </div>
                 </div>
                 
+                </div>
+       
+
+                
                 
 
-                <div className="row">
+                <div className="container-fluid">
+                    <div className="row">
                 <div className="col-11 col-sm-7 forForm">
                     
                 
@@ -56,6 +63,8 @@ class AddPatient extends React.Component{
                 </div>
                 </div>
                 
+
+                </div>
 
                 
 

@@ -15,7 +15,7 @@ function AddPatientVerifyUser () {
                 //process.env.REACT_APP_BACKEND_URL+'conformation/request/'+token,
                 "http://localhost:5000/conformation/request/" + token
             );
-            // auth.authMessage = response.data.message;
+            auth.authMessage = response.data.message;
             console.log(auth.authMessage);
             auth.tempToken= token;
 
