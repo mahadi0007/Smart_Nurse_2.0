@@ -2,6 +2,7 @@ import React from "react";
 
 import "react-bootstrap";
 import NavigationBar from "../Shared/Components/NavigationBar";
+import Footer from "../Shared/Components/Footer";
 import PatinetRoutineForm from "./components/PatientRoutineForm";
 import RoutineTable from "./components/RoutineTable";
 import Banner from "./img/Banner.png";
@@ -10,6 +11,28 @@ import "./PatientRoutine.css";
 import { MDBCol } from "mdbreact";
 
 class PatientRoutine extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      renderPage: false,
+    };
+
+    this.pageRender = this.pageRender.bind(this);
+    this.pageNotRender = this.pageNotRender.bind(this);
+  }
+
+  // const [renderPage, setRenderPage] = useState(false)
+  pageRender = () => {
+    this.setState({
+      renderPage: true,
+    });
+  };
+
+  pageNotRender = () => {
+    this.setState({
+      renderPage: false,
+    });
+  };
   render() {
     return (
       <div>
@@ -53,7 +76,15 @@ class PatientRoutine extends React.Component {
         </div>
 
         <div className="container-fluid row justify-content-center align-self-center">
-          <RoutineTable />
+          <RoutineTable
+            renderPage={this.renderPage}
+            pageRender={this.pageRender}
+            pageNotRender={this.pageNotRender}
+          />
+        </div>
+
+        <div className="mt-5 pt-5">
+          <Footer />
         </div>
       </div>
     );

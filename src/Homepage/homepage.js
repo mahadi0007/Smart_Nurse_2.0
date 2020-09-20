@@ -16,12 +16,12 @@ class Homepage extends Component {
         <NavigationBar />
         <Fade top cascade>
           <Slider />
-          <Service />
+          <Service id="services" />
 
-          <AboutTeresa />
+          <AboutTeresa id="about" />
 
           <AboutApp />
-          <Process />
+          <Process id="process" />
         </Fade>
 
         <Footer />

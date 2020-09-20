@@ -4,12 +4,15 @@ import { Form } from "react-bootstrap";
 import "./PatientRoutineForm.css";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import axios from "axios";
 
 import moment from "moment";
+import ErrorModal from "../../Shared/Components/ErrorModal";
 
 import { Cookies } from "react-cookie";
 import ApiCalendar from "./ApiCalendar";
 import auth from "../../Shared/Auth/auth";
+import apiCalendar from "./ApiCalendar";
 
 class PatientRoutineForm extends React.Component {
   constructor() {
@@ -43,17 +46,20 @@ class PatientRoutineForm extends React.Component {
           time: "",
         },
       ],
-      notification: "",
-      dogeNumValue: "",
+      notification: "before 15 mins",
+      dogeNumValue: "", //Times Per Day
 
       PatientCheck: true,
       GuardianCheck: "",
+      response_message: "",
+      showSpinner: false, //spinner
+      showLoginBtn: true, //submit button
     };
   }
 
   componentDidMount = async (e) => {
     console.log("auth google sign in " + auth.googleSignedIn);
-    if (!auth.googleSignedIn) {
+    if (auth.googleSignedIn === "false") {
       console.log("auth google sign in if " + auth.googleSignedIn);
       setTimeout(function () {
         console.log("wait 3 seconds");
@@ -68,11 +74,17 @@ class PatientRoutineForm extends React.Component {
 
       console.log("finish 3 seconds wait");
     }
+    console.log("auth google sign in " + auth.googleSignedIn);
   };
 
-  onSubmitForm = (event) => {
-    event.preventDefault();
+  errorHandler = () => {
+    this.setState({
+      response_message: "", //clear API response message after clicking okay
+    });
+  };
 
+  onSubmitForm = async (event) => {
+    event.preventDefault();
     console.log(this.state.routineItem);
     console.log(this.state.item_name);
     console.log(this.state.unit);
@@ -84,8 +96,532 @@ class PatientRoutineForm extends React.Component {
     console.log(this.state.notification);
     console.log("Guardian Check " + this.state.GuardianCheck);
     console.log("Patient Check " + this.state.PatientCheck);
-
     console.log(this.state.dogeNumValue);
+
+    if (apiCalendar.sign) {
+      if (moment(this.state.s_date).isSameOrBefore(this.state.e_date)) {
+        console.log("User Role " + auth.userRole);
+        if (auth.userRole === null) {
+          this.setState({
+            response_message:
+              "You don't have any patient and also you are not a patient to create a routine",
+          });
+        }
+
+        //------------------------- For Self Patient/ Guardian User role -------------------------
+        else if (auth.userRole === "Guardian/Patient") {
+          this.setState({
+            showLoginBtn: false, //starts laoding
+            showSpinner: true,
+          });
+
+          let times = this.state.dose.slice(0, this.state.dogeNumValue);
+          console.log("Time array ");
+          console.log(times);
+
+          let notificationTime = this.state.notification.split(" ");
+          let i;
+
+          try {
+            const response = await axios.post(
+              process.env.REACT_APP_BACKEND_URL + "routine/" + auth.userId,
+              {
+                routineItem: this.state.routineItem,
+                itemName: this.state.item_name,
+                unit: this.state.unit ? this.state.unit : undefined,
+                startDate: moment(this.state.s_date).format("YYYY/MM/DD"),
+                endDate: moment(this.state.e_date).format("YYYY/MM/DD"),
+                timesPerDay: this.state.dogeNumValue,
+                beforeAfterMeal: this.state.meal_time,
+                times,
+                notification: this.state.notification,
+                notificationFor: "Me",
+              }
+            );
+
+            console.log("Before For Loop");
+            console.log("auth google sign in " + ApiCalendar.sign);
+
+            // this function will set each time as event from start date to end date
+
+            for (i = 0; i < this.state.dogeNumValue; i++) {
+              const eventStartTime = new Date(this.state.s_date); //convert startDate String to date time object
+              let input = times[i].time; //We have made this array at 118 line keeping all times
+
+              console.log(this.state.s_date);
+              console.log(input);
+
+              //Seprate the times into hour min sec
+
+              var fields = input.split(":");
+              var hour = fields[0];
+              var minute = fields[1];
+              eventStartTime.setHours(hour);
+              eventStartTime.setMinutes(minute);
+              eventStartTime.setSeconds(0);
+
+              console.log("eventStartTime) : " + eventStartTime);
+
+              //We have set the end time same
+              const eventEndTime = new Date(this.state.e_date);
+              eventEndTime.setHours(hour);
+              eventEndTime.setMinutes(minute);
+              eventEndTime.setSeconds(0);
+
+              console.log("end time: " + eventEndTime);
+
+              //So every day from start date to end date, i time will be set as event
+
+              const event = {
+                summary: `${this.state.item_name} ${this.state.unit}`,
+                description: `Routine Item: ${this.state.routineItem}\nItem Name: ${this.state.item_name}\nTimes Per Day: ${this.state.dogeNumValue}\n${this.state.notification}\nNotification For: Me
+                  `,
+                start: {
+                  dateTime: eventStartTime,
+                  timeZone: "Asia/Dhaka",
+                },
+                end: {
+                  dateTime: eventEndTime,
+                  timeZone: "Asia/Dhaka",
+                },
+                reminders: {
+                  useDefault: false,
+                  overrides: [
+                    {
+                      method: "popup",
+                      minutes: notificationTime[1],
+                    },
+                  ],
+                },
+                colorId: 9,
+              };
+              await ApiCalendar.createEvent(event)
+                .then((result) => {
+                  this.setState({
+                    response_message: "Your Routine is created successfully.",
+                  });
+                })
+                .catch((error) => {
+                  this.setState({
+                    response_message:
+                      "Your Routine is not created successfully.",
+                  });
+                });
+            }
+
+            this.setState({
+              showLoginBtn: true, //stops laoding
+              showSpinner: false,
+              //response_message: response.data.message,
+
+              //Clear the Routine form
+
+              routineItem: "Medicine",
+              item_name: "",
+              unit: "",
+              s_date: "",
+              e_date: "",
+              continuity: "",
+              meal_time: "",
+              dose: [
+                {
+                  time: "",
+                },
+                {
+                  time: "",
+                },
+                {
+                  time: "",
+                },
+                {
+                  time: "",
+                },
+                {
+                  time: "",
+                },
+              ],
+              notification: "before 15 mins",
+              dogeNumValue: "",
+
+              PatientCheck: true,
+              GuardianCheck: "",
+            });
+          } catch (error) {
+            this.setState({
+              response_message: error.response.data.message,
+            });
+          }
+        }
+
+        //--------------------------------------For Guardian User Role ---------------------------
+        else if (auth.userRole === "Guardian") {
+          //Guardian Works
+
+          try {
+            const userDetails = await axios.get(
+              process.env.REACT_APP_BACKEND_URL + "getUser/" + auth.userId
+            );
+            // console.log(response)
+            let patientEmail =
+              userDetails.data.user.patientList[0].patientEmail;
+            console.log("Patient Email:" + patientEmail);
+
+            this.setState({
+              showLoginBtn: false, //starts laoding
+              showSpinner: true,
+            });
+
+            let times = this.state.dose.slice(0, this.state.dogeNumValue);
+            console.log("Time array ");
+            console.log(times);
+
+            let notificationTime = this.state.notification.split(" ");
+            let i;
+
+            try {
+              const response = await axios.post(
+                process.env.REACT_APP_BACKEND_URL + "routine/" + auth.userId,
+                {
+                  routineItem: this.state.routineItem,
+                  itemName: this.state.item_name,
+                  unit: this.state.unit ? this.state.unit : undefined,
+                  startDate: moment(this.state.s_date).format("YYYY/MM/DD"),
+                  endDate: moment(this.state.e_date).format("YYYY/MM/DD"),
+                  timesPerDay: this.state.dogeNumValue,
+                  beforeAfterMeal: this.state.meal_time,
+                  times,
+                  notification: this.state.notification,
+                  notificationFor:
+                    this.state.PatientCheck && this.state.GuardianCheck
+                      ? "Guradian&Patient"
+                      : "Patient",
+                }
+              );
+
+              this.setState({
+                response_message: response.data.message,
+              });
+
+              //calender
+
+              // this function will set each time as event from start date to end date
+
+              for (i = 0; i < this.state.dogeNumValue; i++) {
+                const eventStartTime = new Date(this.state.s_date); //convert startDate String to date time object
+                let input = times[i].time; //We have made this array at 118 line keeping all times
+
+                console.log(this.state.s_date);
+                console.log(input);
+
+                //Seprate the times into hour min sec
+
+                var fields = input.split(":");
+                var hour = fields[0];
+                var minute = fields[1];
+                eventStartTime.setHours(hour);
+                eventStartTime.setMinutes(minute);
+                eventStartTime.setSeconds(0);
+
+                console.log("eventStartTime) : " + eventStartTime);
+
+                //We have set the end time same
+                const eventEndTime = new Date(this.state.e_date);
+                eventEndTime.setHours(hour);
+                eventEndTime.setMinutes(minute);
+                eventEndTime.setSeconds(0);
+
+                console.log("end time: " + eventEndTime);
+
+                //So every day from start date to end date, i time will be set as event
+
+                const event = {
+                  summary: `${this.state.item_name} ${this.state.unit}`,
+                  description: `Routine Item: ${
+                    this.state.routineItem
+                  }\nItem Name: ${this.state.item_name}\nTimes Per Day: ${
+                    this.state.dogeNumValue
+                  }\n${this.state.notification}\nNotification For: ${
+                    this.state.GuardianCheck && this.state.PatientCheck
+                      ? "Guradian&Patient"
+                      : "Patient"
+                  }`,
+                  start: {
+                    dateTime: eventStartTime,
+                    timeZone: "Asia/Dhaka",
+                  },
+                  end: {
+                    dateTime: eventEndTime,
+                    timeZone: "Asia/Dhaka",
+                  },
+
+                  attendees: [{ email: patientEmail }],
+                  reminders: {
+                    useDefault: false,
+                    overrides: [
+                      {
+                        method: "popup",
+                        minutes: notificationTime[1],
+                      },
+                    ],
+                  },
+                  colorId: 9,
+                };
+                await ApiCalendar.createEvent(event)
+                  .then((result) => {
+                    this.setState({
+                      response_message: "Your Routine is created successfully.",
+                    });
+                  })
+                  .catch((error) => {
+                    this.setState({
+                      response_message:
+                        "Your Routine is not created successfully.",
+                    });
+                  });
+              }
+
+              //ends calender
+
+              this.setState({
+                showLoginBtn: true, //stops laoding
+                showSpinner: false,
+                //response_message: response.data.message,
+
+                //Clear the Routine form
+
+                routineItem: "Medicine",
+                item_name: "",
+                unit: "",
+                s_date: "",
+                e_date: "",
+                continuity: "",
+                meal_time: "",
+                dose: [
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                ],
+                notification: "before 15 mins",
+                dogeNumValue: "",
+
+                PatientCheck: true,
+                GuardianCheck: "",
+              });
+            } catch (error) {
+              this.setState({
+                showLoginBtn: true, //starts laoding
+                showSpinner: false,
+                response_message: error.response.data.message,
+              });
+            }
+          } catch (error) {
+            console.log(error.userDetails.data.message);
+            // setMessage(error.response.data.message)
+          }
+        }
+
+        //--------------------------------------For Patient User Role ---------------------------
+        else if (auth.userRole === "Patient") {
+          //Patient Works
+
+          try {
+            const userDetails = await axios.get(
+              process.env.REACT_APP_BACKEND_URL + "getUser/" + auth.userId
+            );
+            // console.log(response)
+            let guardianEmail =
+              userDetails.data.user.guardianList[0].guardianEmail;
+            console.log("Guardian Email:" + guardianEmail);
+
+            this.setState({
+              showLoginBtn: false, //starts laoding
+              showSpinner: true,
+            });
+
+            let times = this.state.dose.slice(0, this.state.dogeNumValue);
+            console.log("Time array ");
+            console.log(times);
+
+            let notificationTime = this.state.notification.split(" ");
+            let i;
+
+            try {
+              const response = await axios.post(
+                process.env.REACT_APP_BACKEND_URL + "routine/" + auth.userId,
+                {
+                  routineItem: this.state.routineItem,
+                  itemName: this.state.item_name,
+                  unit: this.state.unit ? this.state.unit : undefined,
+                  startDate: moment(this.state.s_date).format("YYYY/MM/DD"),
+                  endDate: moment(this.state.e_date).format("YYYY/MM/DD"),
+                  timesPerDay: this.state.dogeNumValue,
+                  beforeAfterMeal: this.state.meal_time,
+                  times,
+                  notification: this.state.notification,
+                  notificationFor:
+                    this.state.PatientCheck && this.state.GuardianCheck
+                      ? "Guradian&Patient"
+                      : "Patient",
+                }
+              );
+
+              this.setState({
+                response_message: response.data.message,
+              });
+
+              //calender
+
+              // this function will set each time as event from start date to end date
+
+              for (i = 0; i < this.state.dogeNumValue; i++) {
+                const eventStartTime = new Date(this.state.s_date); //convert startDate String to date time object
+                let input = times[i].time; //We have made this array at 118 line keeping all times
+
+                console.log(this.state.s_date);
+                console.log(input);
+
+                //Seprate the times into hour min sec
+
+                var fields = input.split(":");
+                var hour = fields[0];
+                var minute = fields[1];
+                eventStartTime.setHours(hour);
+                eventStartTime.setMinutes(minute);
+                eventStartTime.setSeconds(0);
+
+                console.log("eventStartTime) : " + eventStartTime);
+
+                //We have set the end time same
+                const eventEndTime = new Date(this.state.e_date);
+                eventEndTime.setHours(hour);
+                eventEndTime.setMinutes(minute);
+                eventEndTime.setSeconds(0);
+
+                console.log("end time: " + eventEndTime);
+
+                //So every day from start date to end date, i time will be set as event
+
+                const event = {
+                  summary: `${this.state.item_name} ${this.state.unit}`,
+                  description: `Routine Item: ${
+                    this.state.routineItem
+                  }\nItem Name: ${this.state.item_name}\nTimes Per Day: ${
+                    this.state.dogeNumValue
+                  }\n${this.state.notification}\nNotification For: ${
+                    this.state.GuardianCheck && this.state.PatientCheck
+                      ? "Guradian&Patient"
+                      : "Patient"
+                  }`,
+                  start: {
+                    dateTime: eventStartTime,
+                    timeZone: "Asia/Dhaka",
+                  },
+                  end: {
+                    dateTime: eventEndTime,
+                    timeZone: "Asia/Dhaka",
+                  },
+
+                  attendees: [{ email: guardianEmail }],
+                  reminders: {
+                    useDefault: false,
+                    overrides: [
+                      {
+                        method: "popup",
+                        minutes: notificationTime[1],
+                      },
+                    ],
+                  },
+                  colorId: 9,
+                };
+                await ApiCalendar.createEvent(event)
+                  .then((result) => {
+                    this.setState({
+                      response_message: "Your Routine is created successfully.",
+                    });
+                  })
+                  .catch((error) => {
+                    this.setState({
+                      response_message:
+                        "Your Routine is not created successfully.",
+                    });
+                  });
+              }
+
+              //ends calender
+
+              this.setState({
+                showLoginBtn: true, //stops laoding
+                showSpinner: false,
+                //response_message: response.data.message,
+
+                //Clear the Routine form
+
+                routineItem: "Medicine",
+                item_name: "",
+                unit: "",
+                s_date: "",
+                e_date: "",
+                continuity: "",
+                meal_time: "",
+                dose: [
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                  {
+                    time: "",
+                  },
+                ],
+                notification: "before 15 mins",
+                dogeNumValue: "",
+
+                PatientCheck: true,
+                GuardianCheck: "",
+              });
+            } catch (error) {
+              this.setState({
+                showLoginBtn: true, //starts laoding
+                showSpinner: false,
+                response_message: error.response.data.message,
+              });
+            }
+          } catch (error) {
+            console.log(error.userDetails.data.message);
+            // setMessage(error.response.data.message)
+          }
+        }
+      } else {
+        this.setState({
+          response_message: "Start Date should not be greater than End Date.",
+        });
+      }
+    } else {
+      console.log("Else");
+      this.setState({
+        response_message:
+          "Please sign in with your google account to create event and get notification of that routine in google calendar.",
+      });
+    }
   };
 
   handleTimeChange = (inputTime, index) => {
@@ -100,27 +636,45 @@ class PatientRoutineForm extends React.Component {
   render() {
     return (
       <div className="container">
+        {this.state.response_message && ( //error message from API
+          <ErrorModal
+            message={this.state.response_message}
+            onClear={this.errorHandler.bind(this)}
+          />
+        )}
+
         <form onSubmit={this.onSubmitForm}>
-          <div className="form-row pt-5">
-            <div className="col-12 col-sm-4">
-              <Form.Label className="forLabel">
-                <h4>Routine Item</h4>
-              </Form.Label>
-            </div>
-            <div className="col-12 col-sm-7 pl-5 pr-5 rotuine-dropDown">
-              <Form.Control
-                as="select"
-                className="form-control rounded-pill   form-input-background"
+          <div className="col-sm-6 col-12">
+            <div className="input-field forNotification">
+              <label className="pb-3">
+                <h4>Routine Type</h4>
+              </label>
+              <br />
+
+              <select
+                className="form-control rounded-pill   form-input-background "
+                name="mealTime"
                 value={this.state.routineItem}
+                id="mealTime"
                 onChange={(e) => this.setState({ routineItem: e.target.value })}
-                custom
+                custom="ture"
               >
                 <option value="Medicine" defaultValue>
                   Medicine
                 </option>
                 <option value="Food">Food</option>
                 <option value="Excercise">Excercise</option>
-              </Form.Control>
+              </select>
+            </div>
+          </div>
+          <br />
+          <br />
+
+          <div className="col-sm-6 col-12">
+            <div className="input-field forNotification">
+              <label className="">
+                <h4>Routine Details</h4>
+              </label>
             </div>
           </div>
 
@@ -138,7 +692,7 @@ class PatientRoutineForm extends React.Component {
                       item_name: e.target.value,
                     })
                   }
-                  required
+                  //required
                 />
                 <label className="login-input-label" htmlFor="itemName">
                   {this.state.routineItem + " Name"}
@@ -157,7 +711,7 @@ class PatientRoutineForm extends React.Component {
                     value={this.state.unit}
                     id="unit"
                     onChange={(e) => this.setState({ unit: e.target.value })}
-                    required
+                    //required
                   />
                   <label className="login-input-label" htmlFor="unit">
                     Unit
@@ -185,7 +739,7 @@ class PatientRoutineForm extends React.Component {
                       });
                     }
                   }}
-                  required
+                  //required
                 />
                 <label className="login-input-label" htmlFor="startDate">
                   Start Date
@@ -212,7 +766,7 @@ class PatientRoutineForm extends React.Component {
                     }
                   }}
                   placeholder="End Date"
-                  required
+                  //required
                 />
                 <label className="login-input-label" htmlFor="endDate">
                   End Date
@@ -232,7 +786,7 @@ class PatientRoutineForm extends React.Component {
                     //this field get day difference from above startDate and endDate field
                   }}
                   readOnly
-                  required
+                  //required
                 />
                 <label className="login-input-label" htmlFor="continuity">
                   Continuity
@@ -294,7 +848,7 @@ class PatientRoutineForm extends React.Component {
                   onChange={(e) =>
                     this.setState({ dogeNumValue: e.target.value })
                   }
-                  required
+                  //required
                 />
                 <label className="login-input-label" htmlFor="timesPerDay">
                   Times Per Day
@@ -316,7 +870,7 @@ class PatientRoutineForm extends React.Component {
                         console.log("Dose Time:" + e.target.value);
                         this.handleTimeChange(e.target.value, k);
                       }}
-                      required
+                      //required
                     />
                     <label
                       className="login-input-label "
@@ -382,23 +936,31 @@ class PatientRoutineForm extends React.Component {
           </div>
 
           <div className="row routineBtn pt-5">
-            <button
-              type="submit"
-              className="btn btn-block text-white text-center"
-              style={{
-                marginTop: "15px",
-                marginBottom: "20px",
-                marginLeft: "auto",
-                marginRight: "auto",
-                width: "150px",
-                borderRadius: "1em",
-                height: "35px",
-                backgroundColor: "#0C0C52",
-                fontSize: "14px",
-              }}
-            >
-              ADD
-            </button>
+            {this.state.showSpinner ? (
+              <div class="spinner-border m-auto" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            ) : null}
+
+            {this.state.showLoginBtn ? (
+              <button
+                type="submit"
+                className="btn btn-block text-white text-center"
+                style={{
+                  marginTop: "15px",
+                  marginBottom: "20px",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  width: "150px",
+                  borderRadius: "1em",
+                  height: "35px",
+                  backgroundColor: "#0C0C52",
+                  fontSize: "14px",
+                }}
+              >
+                ADD
+              </button>
+            ) : null}
           </div>
         </form>
       </div>

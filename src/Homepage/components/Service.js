@@ -10,6 +10,12 @@ import "aos/dist/aos.css";
 import "./Service.css";
 
 class Service extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   componentDidMount() {
     AOS.init({
       duration: 2000,
@@ -18,7 +24,11 @@ class Service extends Component {
 
   render() {
     return (
-      <div data-aos="fade-up" className="container mb-5 mt-2 pt-5">
+      <div
+        id={this.props.id}
+        data-aos="fade-up"
+        className="container mb-5 mt-2 pt-5"
+      >
         <p
           className="h1 text-center font-weight-bold mb-5"
           style={{ color: "#19184E" }}

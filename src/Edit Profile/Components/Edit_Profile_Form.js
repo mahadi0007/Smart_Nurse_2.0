@@ -24,6 +24,7 @@ export default class extends Component {
       new_pass: "",
       confirm_new_pass: "",
       response_message: "",
+      childData: ["image", "Pic", "Role", "POGname", "patientID"],
     };
   }
 
@@ -56,20 +57,64 @@ export default class extends Component {
         email: response.data.user.email,
       });
 
+      this.state.childData[0] =
+        response.data.user.firstname + " " + response.data.user.lastname;
+
       if (response.data.profilePicture) {
+        this.state.childData[1] =
+          "data:image/png;base64," + response.data.profilePicture; //clear API response message after clicking okay
         //get the value for profile picture
         this.props.parentCallback(
-          "data:image/png;base64," + response.data.profilePicture //send the data to the parent component
+          this.state.childData //send the data to the parent component
+        );
+      }
+
+      if (response.data.user.guardianList.length > 0) {
+        this.state.childData[2] = "Patient";
+        this.state.childData[3] =
+          response.data.user.guardianList[0].guardianName;
+
+        this.props.parentCallback(
+          this.state.childData //send the data to the parent component
+        );
+      }
+
+      if (response.data.user.patientList.length > 0) {
+        this.state.childData[2] = "Guardian";
+        this.state.childData[3] = response.data.user.patientList[0].patientName;
+        this.state.childData[4] = response.data.user.patientList[0].patientId;
+
+        this.props.parentCallback(
+          this.state.childData //send the data to the parent component
+        );
+      }
+
+      if (
+        response.data.user.guardianList.length > 0 &&
+        response.data.user.patientList.length > 0
+      ) {
+        auth.userRole = "Guardian/Patient";
+        this.state.childData[2] = "Guardian/Patient";
+
+        this.props.parentCallback(
+          this.state.childData //send the data to the parent component
+        );
+      }
+
+      if (
+        response.data.user.guardianList.length === 0 &&
+        response.data.user.patientList.length === 0
+      ) {
+        this.state.childData[2] = "";
+        this.state.childData[3] = "";
+        this.state.childData[3] = "";
+        this.props.parentCallback(
+          this.state.childData //send the data to the parent component
         );
       }
 
       /*
-      if (response.data.profilePicture) {
-        setImageFile("data:image/png;base64," + response.data.profilePicture);
-        setProfileImageFile(
-          "data:image/png;base64," + response.data.profilePicture
-        );
-      }
+     
       if (response.data.user.guardianList.length > 0) {
         setUserRole("Patient");
         setPatientName(response.data.user.guardianList[0].guardianName);
@@ -183,6 +228,10 @@ export default class extends Component {
         });
       }
     }
+
+    this.props.parentCallback(
+      this.state.childData //send the data to the parent component
+    );
   };
 
   render() {

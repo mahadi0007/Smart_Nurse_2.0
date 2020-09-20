@@ -10,10 +10,16 @@ class Process extends Component {
       duration: 2000,
     });
   }
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
 
   render() {
     return (
       <div
+        id={this.props.id}
         data-aos="fade-up"
         className="container-fluid process-section"
         style={{ backgroundColor: "#FBF8F4" }}

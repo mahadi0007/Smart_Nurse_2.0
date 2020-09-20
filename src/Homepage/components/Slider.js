@@ -4,6 +4,7 @@ import Slider1 from "../../Shared/img/front 1.jpg";
 import Slider2 from "../../Shared/img/front 2.jpg";
 import Slider3 from "../../Shared/img/front 3.jpg";
 import "./Slider.css";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 const Slider = () => {
   return (
@@ -11,57 +12,51 @@ const Slider = () => {
       <Carousel.Item>
         <img className="d-block sliderimage" src={Slider1} alt="First slide" />
         <Carousel.Caption>
-          <button
+          <Link
             className="btn bg-white float-left rounded-pill font-weight-bold marginSliderButton mb-lg-5"
-            style={{ color: "#080808" }}
+            to="services"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            style={{ color: "#080808", cursor: "pointer" }}
           >
             Learn More
-          </button>
-          {/* <div className="container">
-                    <div className="row">
-                        <div className="col-6">
-                            <button className="btn btn-sm bg-white float-left rounded-pill font-weight-bold" style={{color: '#080808'}}>Learn More</button>
-                        </div>
-                    </div>
-                </div> */}
+          </Link>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img className="d-block sliderimage" src={Slider2} alt="Second slide" />
 
         <Carousel.Caption>
-          <button
+          <Link
             className="btn bg-white float-left rounded-pill font-weight-bold marginSliderButton mb-lg-5"
-            style={{ color: "#080808" }}
+            to="services"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            style={{ color: "#080808", cursor: "pointer" }}
           >
             Learn More
-          </button>
-          {/* <div className="container">
-                    <div className="row">
-                        <div className="col-6">
-                            <button className="btn btn-sm bg-white float-left rounded-pill font-weight-bold" style={{color: '#080808'}}>Learn More</button>
-                        </div>
-                    </div>
-                </div> */}
+          </Link>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img className="d-block sliderimage" src={Slider3} alt="Third slide" />
 
         <Carousel.Caption>
-          <button
+          <Link
             className="btn bg-white float-left rounded-pill font-weight-bold marginSliderButton mb-lg-5"
-            style={{ color: "#080808" }}
+            to="services"
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            style={{ color: "#080808", cursor: "pointer" }}
           >
             Learn More
-          </button>
-          {/* <div className="container">
-                    <div className="row">
-                        <div className="col-6">
-                            
-                        </div>
-                    </div>
-                </div> */}
+          </Link>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

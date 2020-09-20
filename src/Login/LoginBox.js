@@ -50,7 +50,7 @@ export default class LoginBox extends Component {
 
     try {
       const response = await axios.post(
-        "https://smart-nurse-test.herokuapp.com/login", //API Call
+        process.env.REACT_APP_BACKEND_URL + "login", //API Call
         {
           email: this.state.email,
           password: this.state.password,
@@ -64,13 +64,16 @@ export default class LoginBox extends Component {
       console.log(auth.isLoggedIn);
       auth.userId = response.data.user._id; //user id store
       auth.token = response.data.Token; //token store
-      auth.userRole=response.data.user.userType;
+      auth.userRole = response.data.user.userType;
       console.log(response.data.user.userType);
 
       auth.firstName = response.data.user.firstname; //first name store
       this.cookies.set("userId", auth.userId, { path: "/", maxAge: 31536000 }); //set cookie for logged in user ID
       this.cookies.set("token", auth.token, { path: "/", maxAge: 31536000 }); //set cookie for logged in Token
-      this.cookies.set("userRole", auth.userRole, { path: "/", maxAge: 31536000 });
+      this.cookies.set("userRole", auth.userRole, {
+        path: "/",
+        maxAge: 31536000,
+      });
       this.cookies.set("isLoggedIn", auth.isLoggedIn, {
         //set cookie for isloggedin
         path: "/",
@@ -78,6 +81,11 @@ export default class LoginBox extends Component {
       });
       this.cookies.set("firstName", auth.firstName, {
         //first name store in cookie
+        path: "/",
+        maxAge: 31536000,
+      });
+
+      this.cookies.set("googleSignedIn", false, {
         path: "/",
         maxAge: 31536000,
       });
@@ -117,7 +125,7 @@ export default class LoginBox extends Component {
               message={this.state.response_message}
               onClear={this.errorHandler.bind(this)}
             />
-          )} 
+          )}
 
           <br />
           <br />

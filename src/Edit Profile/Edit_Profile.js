@@ -4,32 +4,84 @@ import NavigationBar from "../Shared/Components/NavigationBar";
 import EditProfileForm from "./Components/Edit_Profile_Form";
 import "./Edit_Profile.css";
 import { MDBCol } from "mdbreact";
+import Delete from "../Shared/img/Delete.png";
 import "mdbreact/dist/css/mdb.css";
 import Footer from "../Shared/Components/Footer";
 import avater from "../Shared/img/profile-pic.png";
 import axios from "axios";
 import auth from "../Shared/Auth/auth";
 import ErrorModal from "../Shared/Components/ErrorModal";
+import { Cookies } from "react-cookie";
 
 export default class Edit_Profile extends Component {
+  cookies = new Cookies();
   constructor(props) {
     super(props);
 
     this.state = {
+      UserName: "",
       imagefile: avater,
       response_message: "",
+      POGName: "",
+      userRole: "",
+      patientID: "",
+      deletPatientConfirm: false,
     };
+
+    this.handleDeletPatientConfirm = this.handleDeletPatientConfirm.bind(this);
   }
 
   callbackFunction = (childData) => {
     //this will get profile pic image from Edit_profile_Form component
-    this.setState({ imagefile: childData });
+
+    if (childData[1] == "image") {
+      this.setState({
+        UserName: childData[0],
+        userRole: childData[2],
+        POGName: childData[3],
+        patientID: childData[3],
+      });
+    } else {
+      this.setState({
+        imagefile: childData[1],
+        UserName: childData[0],
+        userRole: childData[2],
+        POGName: childData[3],
+        patientID: childData[3],
+      });
+    }
   };
 
   errorHandler = () => {
     this.setState({
       response_message: "", //clear API response message after clicking okay
     });
+  };
+
+  handleDeletPatientConfirm = () => {
+    this.setState({
+      deletPatientConfirm: true,
+    });
+  };
+
+  deletePatientHandler = async () => {
+    try {
+      const response = await axios.patch(
+        process.env.REACT_APP_BACKEND_URL + "removePatientMyself/" + auth.userId
+      );
+
+      this.setState({
+        response_message: response.data.message,
+      });
+
+      console.log(response.data);
+      auth.userRole = null;
+      this.cookies.remove("userRole", { path: "/" });
+    } catch (error) {
+      this.setState({
+        response_message: error.response.data.message,
+      });
+    }
   };
 
   render() {
@@ -41,6 +93,14 @@ export default class Edit_Profile extends Component {
             onClear={this.errorHandler.bind(this)}
           />
         )}
+
+        {this.state.deletPatientConfirm === true && ( //API message
+          <ErrorModal
+            message="Are you sure you want to delete the patient guardian relationship? If you delete then all routine created by both of them has been deleted"
+            onClear={this.deletePatientHandler.bind(this)}
+          />
+        )}
+
         <Helmet>
           <meta charSet="utf-8" />
           <title>Edit Profile</title>
@@ -113,6 +173,50 @@ export default class Edit_Profile extends Component {
                     }
                   }}
                 />
+
+                <p className="ml-5">Name: {this.state.UserName}</p>
+
+                {this.state.userRole == "" ? (
+                  <div className="ml-5">
+                    {" "}
+                    You are not a Patient or a Guardian
+                  </div>
+                ) : (
+                  <div>
+                    <p className="ml-5">Role: {this.state.userRole} </p>
+
+                    {this.state.userRole == "Guardian/Patient" ? (
+                      <div className="row ml-5">
+                        <p>Guardian/Patient Name: {this.state.POGName}</p>
+
+                        <img
+                          className="ml-2"
+                          src={Delete}
+                          style={{ width: "20px", height: "20px" }}
+                          alt="Delete"
+                          onClick={this.handleDeletPatientConfirm}
+                        />
+                      </div>
+                    ) : (
+                      <div className="row ml-5">
+                        <p>
+                          {this.state.userRole == "Guardian"
+                            ? "Patient Name: "
+                            : "Gaurdian Name: "}
+                          {this.state.POGName}
+                        </p>
+
+                        <img
+                          className="ml-2"
+                          src={Delete}
+                          style={{ width: "20px", height: "20px" }}
+                          alt="Delete"
+                          onClick={this.handleDeletPatientConfirm}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
               </form>
             </MDBCol>
 
