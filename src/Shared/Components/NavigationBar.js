@@ -35,7 +35,7 @@ export default class NavigationBar extends Component {
     });
     try {
       const response = await axios.post(
-        "https://smart-nurse-test.herokuapp.com/logout",
+        process.env.REACT_APP_BACKEND_URL + "logout",
         {
           id: auth.userId,
         }
@@ -238,6 +238,18 @@ export default class NavigationBar extends Component {
             <div></div>
           )}
 
+          {this.state.loggedin ? (
+            <Nav.Link className="text-light mt-lg-n2" href="/edit_profile">
+              <img
+                src={Avatar}
+                className="ml-n2 ml-lg-0 profile"
+                alt="avatar"
+              />
+            </Nav.Link>
+          ) : (
+            <div></div>
+          )}
+
           {this.state.showSpinner ? ( //show loading spinner
             <div class="spinner-border  text-light" role="status">
               <span class="sr-only">Loading...</span>
@@ -263,14 +275,6 @@ export default class NavigationBar extends Component {
               </Nav.Link>
             )
           ) : null}
-
-          <Nav.Link className="text-light mt-lg-n2" href="/edit_profile">
-            <img
-              src={Avatar}
-              className="ml-n2 ml-lg-0 profile"
-              alt="Login Button"
-            />
-          </Nav.Link>
         </Navbar.Collapse>
       </Navbar>
     );
