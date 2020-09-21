@@ -15,12 +15,14 @@ class AddPatient extends React.Component{
     render(){
         return(
             <div>
+            {/* navigation bar Component */}
                 <NavigationBar/>
 
         
                 <div className="container-fluid">
                 <div className="row">
-                   
+
+                {/* code for banner */}   
                     <img
                         className="image-fluid banner"
                         src={Banner}
@@ -37,16 +39,13 @@ class AddPatient extends React.Component{
                 </div>
                 
                 </div>
-       
-
-                
-                
+              
 
                 <div className="container-fluid">
                     <div className="row">
                 <div className="col-11 col-sm-7 forForm">
                     
-                
+                {/* add patient form  Component */}
                     <AddPatientForm/>
               
                     

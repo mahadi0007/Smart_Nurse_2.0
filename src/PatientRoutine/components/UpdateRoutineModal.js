@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import moment from "moment";
 // import DatePicker from "react-date-picker";
@@ -43,7 +43,7 @@ const UpdateRoutineModal = (props) => {
   const [notificationState, setNotificationState] = useState(
     props.rowInfo.notificationState
   );
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [disable, setDisable] = useState(false);
   const [message, setMessage] = useState("");
   const [guardianCheck, setGuardianCheck] = useState(
@@ -56,6 +56,8 @@ const UpdateRoutineModal = (props) => {
     props.onClear();
   };
 
+
+  //to convert  the date in string
   function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -66,8 +68,10 @@ const UpdateRoutineModal = (props) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (ApiCalendar.sign) {
+
+      //Check given start date is less or same with end date  
       if (moment(startDate).isSameOrBefore(endDate)) {
-        setIsLoading(true);
+        // setIsLoading(true);
         setDisable(true);
         let times = timeList.slice(0, timesPerDay);
         let startingDate;
@@ -83,6 +87,9 @@ const UpdateRoutineModal = (props) => {
           endingDate = moment(endDate).format("YYYY/MM/DD");
         }
         try {
+
+          //get user routine info with rowInfo id
+
           const response = await axios.get(
             process.env.REACT_APP_BACKEND_URL + "routine/" + props.rowInfo.id
           );
@@ -136,6 +143,7 @@ const UpdateRoutineModal = (props) => {
             let updateId = [];
             for (i = 0; i < events.length; i++) {
               if (
+                //////////
                 eventMinTimeUTC.indexOf(events[i].start.dateTime) > -1 &&
                 eventMaxTimeUTC.indexOf(events[i].end.dateTime) > -1
               ) {
@@ -189,6 +197,8 @@ const UpdateRoutineModal = (props) => {
                 });
             }
             const updateResponse = await axios.patch(
+
+              //to get the individual routine info with row id
               process.env.REACT_APP_BACKEND_URL + "routine/" + props.rowInfo.id,
               {
                 routineItem,
@@ -309,6 +319,7 @@ const UpdateRoutineModal = (props) => {
                   setMessage("Your Event is not updated successfully.");
                 });
             }
+            ////
             const updateResponse = await axios.patch(
               process.env.REACT_APP_BACKEND_URL + "routine/" + props.rowInfo.id,
               {
@@ -329,11 +340,11 @@ const UpdateRoutineModal = (props) => {
             );
             setMessage(updateResponse.data.message);
           }
-          setIsLoading(false);
+          // setIsLoading(false);
           setDisable(false);
         } catch (error) {
           console.log(error.response.data);
-          setIsLoading(false);
+          // setIsLoading(false);
           setDisable(false);
         }
       } else {
@@ -356,6 +367,7 @@ const UpdateRoutineModal = (props) => {
     }
   };
 
+  // if routine item == activity then unit field will become hidden
   const unitClassHandler = () => {
     if (routineItem === "Activity") {
       return "d-none";
@@ -366,6 +378,7 @@ const UpdateRoutineModal = (props) => {
     setMessage(null);
   };
 
+  //to hanlde times per day array
   const handleTimeChange = (inputTime, index) => {
     let newArr = [...timeList];
     newArr[index].time = inputTime;
@@ -517,6 +530,9 @@ const UpdateRoutineModal = (props) => {
                         </select>
                       </div>
                     </div>
+
+                    
+                    {/* to render dynamically timesperday array */}
                     {Array.from({ length: timesPerDay }, (v, k) => (
                       <div className="col-12 col-sm-6 mb-4" key={k}>
                         <div className="lg-form mr-4 mb-4 mb-sm-0">

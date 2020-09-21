@@ -19,6 +19,7 @@ class Process extends Component {
   render() {
     return (
       <div
+      //id using for 
         id={this.props.id}
         data-aos="fade-up"
         className="container-fluid process-section"

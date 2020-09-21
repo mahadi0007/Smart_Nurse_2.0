@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 // import DatePicker from "react-date-picker";
 import { Modal, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -32,6 +32,7 @@ const ViewRoutineModal = (props) => {
     props.onClear();
   };
 
+  //To select the routineItem type(Medicine or Activity or Food).
   const itemNamePlaceHolder = () => {
     if (routineItem === "Medicine") {
       return "Medicine Name";
@@ -44,12 +45,14 @@ const ViewRoutineModal = (props) => {
     }
   };
 
+  //If routine item == activity then unit field will become hidden. 
   const unitClassHandler = () => {
     if (routineItem === "Activity") {
       return "d-none";
     }
   };
 
+  //to convert the date in string.
   function convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -82,6 +85,7 @@ const ViewRoutineModal = (props) => {
                         onChange={(e) => setRoutineItem(e.target.value)}
                         disabled
                       >
+                        {/*To select the routineItem type(Medicine or Activity or Food). */}
                         <option value="Medicine">Medicine</option>
                         <option value="Activity">Activity</option>
                         <option value="Food">Food</option>

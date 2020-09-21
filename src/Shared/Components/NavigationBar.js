@@ -11,7 +11,7 @@ import axios from "axios";
 import "./NavigationBar.css";
 import { Redirect } from "react-router";
 import apiCalendar from "../../PatientRoutine/components/ApiCalendar";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 
 export default class NavigationBar extends Component {
   cookies = new Cookies();

@@ -23,6 +23,7 @@ class AddPatientForm extends React.Component{
         });
     };
 
+    /* to set target value on input field */
     handleInput = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
@@ -49,7 +50,7 @@ class AddPatientForm extends React.Component{
 
         try{
             const response = await axios.post(
-                "http://localhost:5000/users/patientRegister",
+                process.env.REACT_APP_BACKEND_URL +"users/patientRegister",
                 //process.env.REACT_APP_BACKEND_URL+"users/patientRegister",
 
                 {

@@ -23,17 +23,20 @@ const RoutineTable = (props) => {
   const [rowInfo, setRowInfo] = useState([]);
   const [rowSelect, setRowSelect] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [testBool, setTestBool] = useState(false);
   const [signBool, setSignBool] = useState(ApiCalendar.sign);
 
+  //in fuctional component useEffect use to render. useEffect will be called when given parameter is changed.
   useEffect(() => {
     ApiCalendar.onLoad(() => {
       ApiCalendar.listenSign(signUpdate());
     });
     const getRoutine = async () => {
       try {
+
+        //current user's routine list
         const response = await axios.get(
           process.env.REACT_APP_BACKEND_URL + "routines/" + auth.userId
         );
@@ -43,8 +46,10 @@ const RoutineTable = (props) => {
         console.log(error.response.data);
       }
     };
-    getRoutine();
+    getRoutine(); // call the function 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.userId]);
+  //auth.userId-----
 
   useEffect(() => {
     ApiCalendar.onLoad(() => {
@@ -52,6 +57,7 @@ const RoutineTable = (props) => {
     });
     const getRoutine = async () => {
       try {
+        //current user's routine
         const response = await axios.get(
           process.env.REACT_APP_BACKEND_URL + "routines/" + auth.userId
         );
@@ -65,6 +71,7 @@ const RoutineTable = (props) => {
     setTestBool(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [testBool]);
+  //change testbool for new render
 
   useEffect(() => {
     ApiCalendar.onLoad(() => {
@@ -84,6 +91,7 @@ const RoutineTable = (props) => {
     props.pageNotRender();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.renderPage]);
+ //change props for new render
 
   useEffect(() => {
     console.log("Effect in sign");
@@ -96,14 +104,17 @@ const RoutineTable = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signBool]);
 
+  //set sign from google calendar api.
   const signUpdate = () => {
     setSign(ApiCalendar.sign);
   };
 
+  //update the state
   const [sign, setSign] = useState(ApiCalendar.sign);
 
   const { SearchBar } = Search;
 
+  //here code inside rankformatter there are 3 button of the table(view, update, delete)
   const rankFormatter = (cell, row, rowIndex, formatExtraData) => {
     return (
       <React.Fragment>
@@ -134,6 +145,7 @@ const RoutineTable = (props) => {
     );
   };
 
+  //table column and attribute
   const columns = [
     {
       dataField: "_id",
@@ -239,8 +251,12 @@ const RoutineTable = (props) => {
 
   const deleteRow = async (row) => {
     if (ApiCalendar.sign) {
-      setIsLoading(true);
+      // setIsLoading(true);
+
       try {
+
+        //to get the individual routine info with row id.
+
         const response = await axios.get(
           process.env.REACT_APP_BACKEND_URL + "routine/" + row._id
         );
@@ -264,6 +280,8 @@ const RoutineTable = (props) => {
           eventMaxTime[i].setMinutes(minute);
           eventMaxTimeUTC[i] = moment(eventMaxTime[i]).format();
         }
+        //??????????
+        //check timesPerDay >1 or not  to ensure that how many timesPerDay will be deleted. 
         if (response.data.timesPerDay > 1) {
           if (!moment(response.data.startDate).isSame(response.data.endDate)) {
             await ApiCalendar.listUpcomingEvents(
@@ -287,6 +305,8 @@ const RoutineTable = (props) => {
             }
           );
         }
+
+        //take the id to delete
         let deleteId = [];
         for (i = 0; i < events.length; i++) {
           if (
@@ -296,6 +316,7 @@ const RoutineTable = (props) => {
             deleteId.push(events[i].id);
           }
         }
+        
         const deleteResponse = await axios.delete(
           process.env.REACT_APP_BACKEND_URL + "routine/" + row._id
         );
@@ -305,11 +326,11 @@ const RoutineTable = (props) => {
         }
         setRowSelect(false);
         setMessage(response.data.message);
-        setIsLoading(false);
+        // setIsLoading(false);
         setTestBool(true);
       } catch (error) {
         setMessage(error.response.data.message);
-        setIsLoading(false);
+        // setIsLoading(false);
         setTestBool(true);
       }
     } else {
@@ -393,6 +414,8 @@ const RoutineTable = (props) => {
       let patientCheck = true;
       if (row.times[timesPerDay - 1]) {
         console.log("if");
+
+        //take the information of the row
         const setRowInfoFunction = async () => {
           await setRowInfo({
             id: row._id,
@@ -433,17 +456,19 @@ const RoutineTable = (props) => {
         <p className="h2 text-center font-weight-bold mt-5">Your Routine</p>
         {rowInfo && rowSelect && (
           <UpdateRoutineModal
-            rowInfo={rowInfo}
+            rowInfo={rowInfo}  //pass the row value as props
             onClear={errorHandler.bind(this)}
           />
         )}
         {rowInfo && viewDetails && (
           <ViewRoutineModal
-            rowInfo={rowInfo}
+            rowInfo={rowInfo}  ////pass the row value as props
             onClear={errorHandler.bind(this)}
           />
         )}
         {/* {isLoading && <LoadingSpinner />} */}
+
+      {/*default code from documentation for search*/}
         <ToolkitProvider
           keyField="_id"
           data={userRoutine}

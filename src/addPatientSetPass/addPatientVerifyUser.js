@@ -13,7 +13,7 @@ function AddPatientVerifyUser () {
         try{
             const response = await axios.get(
                 //process.env.REACT_APP_BACKEND_URL+'conformation/request/'+token,
-                "http://localhost:5000/conformation/request/" + token
+                process.env.REACT_APP_BACKEND_URL +"conformation/request/" + token
             );
             auth.authMessage = response.data.message;
             console.log(auth.authMessage);

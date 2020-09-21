@@ -16,6 +16,7 @@ class Service extends Component {
     this.state = {};
   }
 
+  //AOS for scrolling animation design.
   componentDidMount() {
     AOS.init({
       duration: 2000,

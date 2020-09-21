@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../Registration.css";
-
 import "mdbreact/dist/css/mdb.css";
 
 import ErrorModal from "../../Shared/Components/ErrorModal";

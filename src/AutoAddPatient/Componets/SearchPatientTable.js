@@ -24,7 +24,10 @@ class SearchPatientTable extends React.Component {
       setFilteredUserList: [],
       removeMessage: "",
       psearch: "",
+      
     };
+
+    //this.filterFORSearch = this.filterFORSearch.bind(this);
   }
 
   componentDidMount = async (e) => {
@@ -35,6 +38,9 @@ class SearchPatientTable extends React.Component {
     });
 
     try {
+
+        //to fetch all the user from database and show them on the table excluding the present user
+
       const response = await axios.get(
         "http://localhost:5000/userListExcludingMyself/" + auth.userId
       );
@@ -44,24 +50,11 @@ class SearchPatientTable extends React.Component {
       this.setState({
         userlist: response.data.user,
 
-        // setFilteredUserList :this.state.userlist.filter(
-        //     (user)=>{
-        //         return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-        //         || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-        //     }
-        // ),
-
+        
         showSpinner: false,
       });
 
-      // this.setState({
-      //     setFilteredUserList :this.state.userlist.filter(
-      //         (user)=>{
-      //             return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-      //             || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-      //         }
-      //     )
-      // })
+      
     } catch (error) {
       console.log(error.response.data);
       this.setState({
@@ -70,6 +63,26 @@ class SearchPatientTable extends React.Component {
     }
   };
 
+  // filterFORSearch (){
+  //   this.setState({
+  //     setFilteredUserList: this.state.userlist.filter((user) => {
+  //       return (
+  //         user.firstname
+  //           .toLowerCase()
+  //           .indexOf(this.state.search.toLocaleLowerCase()) !== -1 ||
+  //         user.lastname
+  //           .toLowerCase()
+  //           .indexOf(this.state.search.toLocaleLowerCase()) !== -1 ||
+  //         user.email
+  //           .toLowerCase()
+  //           .indexOf(this.state.search.toLocaleLowerCase()) !== -1
+  //       );
+  //     }) 
+  //   });
+  // }
+
+  /*to set the target value to search the user from table.
+ */
   updateSearch(e) {
     this.setState({ search: e.target.value.substr(0, 20) });
   }
@@ -88,6 +101,9 @@ class SearchPatientTable extends React.Component {
       console.log(auth.userRole);
 
       try {
+
+        // to send a request to other user to become a patient of present user  after search and select the user from table
+
         console.log("enter try block");
         const response = await axios.post(
           "http://localhost:5000/users/sendRequest/" + auth.userId,
@@ -204,19 +220,25 @@ class SearchPatientTable extends React.Component {
       },
     };
 
-    // const FilterUserList =async()=> {
-    //     this.setState({
-
-    //         setFilteredUserList : this.state.userlist.filter(
-    //             (user)=>{
-    //                 return user.firstname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1 || user.lastname.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1
-    //                 || user.email.toLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-    //             }
-    //         )
-    //     })
-    // }
-
-    this.state.setFilteredUserList = this.state.userlist.filter((user) => {
+    
+    
+    // this.setState({
+    //   setFilteredUserList: this.state.userlist.filter((user) => {
+    //     return (
+    //       user.firstname
+    //         .toLowerCase()
+    //         .indexOf(this.state.search.toLocaleLowerCase()) !== -1 ||
+    //       user.lastname
+    //         .toLowerCase()
+    //         .indexOf(this.state.search.toLocaleLowerCase()) !== -1 ||
+    //       user.email
+    //         .toLowerCase()
+    //         .indexOf(this.state.search.toLocaleLowerCase()) !== -1
+    //     );
+    //   }) 
+    // });
+    
+     this.state.setFilteredUserList = this.state.userlist.filter((user) => {
       return (
         user.firstname
           .toLowerCase()
@@ -276,6 +298,7 @@ class SearchPatientTable extends React.Component {
           <br />
           <br />
 
+{/*Code for table pagination */}
           <div className="container tableDesign">
             <BootstrapTable
               keyField="_id"
@@ -304,6 +327,8 @@ class SearchPatientTable extends React.Component {
             </div>
           ) : (
             <div>
+
+{/*Code and condition for ADD btn and CREATE PATIENT MANUALLY btn. Only one btn can be seen at time . when a row is selected then only show ADD btn and when any row is Not selected then only CREATE PATIENT MANUALLY btn can be seen */}
               {this.state.search || this.state.rowSelect ? (
                 <div className="container-fluid">
                   <div className="row">

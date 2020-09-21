@@ -137,7 +137,7 @@ class PatientRoutineForm extends React.Component {
                 notificationFor: "Me",
               }
             );
-
+            console.log(response.data);
             console.log("Before For Loop");
             console.log("auth google sign in " + ApiCalendar.sign);
 
@@ -863,6 +863,7 @@ class PatientRoutineForm extends React.Component {
               </div>
             </div>
 
+                  {/*to rendar the timesPerDay dynamically */}
             {Array.from({ length: this.state.dogeNumValue }, (v, k) => (
               <div className="col-12 col-sm-6">
                 <div key={k}>

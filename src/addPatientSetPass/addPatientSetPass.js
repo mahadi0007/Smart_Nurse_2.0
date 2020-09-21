@@ -27,7 +27,7 @@ class AddPatientSetPass extends React.Component{
         this.setState({
             [e.target.name]: e.target.value
         });
-    };
+    }; 
 
     errorHandle =()=>{
         //auth.authMessage=null; //clear the previous auth message
@@ -48,9 +48,11 @@ class AddPatientSetPass extends React.Component{
 
         console.log(auth.tempToken);
 
+        /*to send a token to the patients email to add and veryfiy his password as a newly created patient manually. */
         try{
+            
             const response = await  axios.post(
-                "http://localhost:5000/conformation/request/"+auth.tempToken,
+                process.env.REACT_APP_BACKEND_URL +"conformation/request/"+auth.tempToken,
                 {
                     password: this.state.password,
                     confirm: this.state.confirmPass
@@ -84,49 +86,7 @@ class AddPatientSetPass extends React.Component{
         });
     }
 
-    /*onSubmitForm = (e) =>{
-        e.preventdefault();
-
-        console.log(this.state.password);
-        console.log(this.state.confirmPass);
-
-        this.setState({
-            showBtn:false,
-            showSpinner:true
-        });
-
-        console.log(auth.tempToken); */
-
-        /* try{
-            const response =  axios.post(
-                "http://localhost:5000/conformation/request/"+auth.tempToken,
-                {
-                    password: this.state.password,
-                    confirm: this.state.confirmPass
-                }
-            )
-            .then(function(resp){
-                console.log(resp);
-            });
-
-            auth.authMessage= response.data.message;
-
-            this.setState({
-                redirect:true //redirect true because condition gets fullfiled
-            });
-            console.log(response.data);
-        }
-        catch(error){
-            this.setState({
-                response_message: error.response.data.message
-            });
-            console.log(error.response.data);
-        } */
-        /* this.setState({
-            showSpinner:false,
-            showBtn:true
-        }); 
-    };*/
+   
 
 
 
