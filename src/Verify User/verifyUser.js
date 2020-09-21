@@ -11,7 +11,7 @@ function VerifyUser() {
     try {
       const response = await axios.get(
         //call API
-        "http://localhost:5000/conformation/" + token
+        process.env.REACT_APP_BACKEND_URL + "conformation/" + token
       );
       auth.authMessage = response.data.message;
 

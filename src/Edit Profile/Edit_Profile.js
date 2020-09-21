@@ -34,7 +34,7 @@ export default class Edit_Profile extends Component {
   callbackFunction = (childData) => {
     //this will get profile pic image from Edit_profile_Form component
 
-    if (childData[1] == "image") {
+    if (childData[1] === "image") {
       this.setState({
         UserName: childData[0],
         userRole: childData[2],
@@ -151,7 +151,7 @@ export default class Edit_Profile extends Component {
                     formData.append("id", auth.userId);
                     try {
                       const response = await axios.patch(
-                        "http://localhost:5000/" +
+                        process.env.REACT_APP_BACKEND_URL +
                           "users/profilePicture/" +
                           auth.userId,
                         formData,
@@ -176,16 +176,18 @@ export default class Edit_Profile extends Component {
 
                 <p className="ml-5">Name: {this.state.UserName}</p>
 
-                {this.state.userRole == "" ? (
+                {this.state.userRole === "" ? (
                   <div className="ml-5">
                     {" "}
                     You are not a Patient or a Guardian
                   </div>
                 ) : (
                   <div>
-                    <p className="ml-5">Role: {this.state.userRole} </p>
+                    <p className="UserRole_Details ml-5">
+                      Role: {this.state.userRole}{" "}
+                    </p>
 
-                    {this.state.userRole == "Guardian/Patient" ? (
+                    {this.state.userRole === "Guardian/Patient" ? (
                       <div className="row ml-5">
                         <p>Guardian/Patient Name: {this.state.POGName}</p>
 
@@ -200,7 +202,7 @@ export default class Edit_Profile extends Component {
                     ) : (
                       <div className="row ml-5">
                         <p>
-                          {this.state.userRole == "Guardian"
+                          {this.state.userRole === "Guardian"
                             ? "Patient Name: "
                             : "Gaurdian Name: "}
                           {this.state.POGName}

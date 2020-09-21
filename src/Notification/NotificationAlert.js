@@ -261,7 +261,7 @@ const NotificationAlert = (props) => {
                   >
                     <div class="container">
                       <div class="row">
-                        {item.notificationArray.routineItem == "Activity" ? (
+                        {item.notificationArray.routineItem === "Activity" ? (
                           <div class="col-9">
                             <i
                               className="fas fa-circle"
@@ -275,7 +275,7 @@ const NotificationAlert = (props) => {
                           </div>
                         ) : null}
 
-                        {item.notificationArray.routineItem == "Food" ? (
+                        {item.notificationArray.routineItem === "Food" ? (
                           <div class="col-9">
                             <i
                               className="fas fa-circle"
@@ -290,7 +290,7 @@ const NotificationAlert = (props) => {
                           </div>
                         ) : null}
 
-                        {item.notificationArray.routineItem == "Medicine" ? (
+                        {item.notificationArray.routineItem === "Medicine" ? (
                           <div class="col-9">
                             <i
                               className="fas fa-circle"

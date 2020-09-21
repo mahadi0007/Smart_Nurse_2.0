@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Helmet } from "react-helmet";
 import "react-bootstrap";
 import NavigationBar from "../Shared/Components/NavigationBar";
 import Footer from "../Shared/Components/Footer";
@@ -36,6 +36,10 @@ class PatientRoutine extends React.Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Patient Routine</title>
+        </Helmet>
         <NavigationBar />
 
         <div className="container-fluid">

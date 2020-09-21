@@ -11,7 +11,7 @@ function VerifyUserResetPass() {
     try {
       const response = await axios.get(
         //call API
-        "http://localhost:5000/reset/" + token
+        process.env.REACT_APP_BACKEND_URL + "reset/" + token
       );
       auth.authMessage = response.data.message; //send auth message to show in reset password page
       console.log(auth.authMessage);

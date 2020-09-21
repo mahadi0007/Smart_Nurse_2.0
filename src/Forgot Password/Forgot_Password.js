@@ -42,7 +42,8 @@ export default class Forgot_Password extends Component {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/forgot", //API Call
+        process.env.REACT_APP_BACKEND_URL + "forgot",
+        //API Call
         {
           email: this.state.email,
         }

@@ -4,7 +4,7 @@ import Slider1 from "../../Shared/img/front 1.jpg";
 import Slider2 from "../../Shared/img/front 2.jpg";
 import Slider3 from "../../Shared/img/front 3.jpg";
 import "./Slider.css";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
 
 const Slider = () => {
   return (

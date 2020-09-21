@@ -24,7 +24,7 @@ export default class extends Component {
       new_pass: "",
       confirm_new_pass: "",
       response_message: "",
-      childData: ["image", "Pic", "Role", "POGname", "patientID"],
+      childData: ["Name", "Pic", "Role", "POGname", "patientID"],
     };
   }
 
@@ -44,7 +44,7 @@ export default class extends Component {
     //this function will retrive profile info when the page loads and after any change happens
     try {
       const response = await axios.get(
-        "http://localhost:5000/users/" + auth.userId
+        process.env.REACT_APP_BACKEND_URL + "users/" + auth.userId
       );
 
       this.setState({
@@ -112,19 +112,6 @@ export default class extends Component {
           this.state.childData //send the data to the parent component
         );
       }
-
-      /*
-     
-      if (response.data.user.guardianList.length > 0) {
-        setUserRole("Patient");
-        setPatientName(response.data.user.guardianList[0].guardianName);
-      }
-      if (response.data.user.patientList.length > 0) {
-        setUserRole("Guardian");
-        setGuardianName(response.data.user.patientList[0].patientName);
-        setPatientId(response.data.user.patientList[0].patientId);
-      }
-      */
     } catch (error) {
       this.setState({
         response_message: error.response.data.message, //error message when page loads
@@ -158,7 +145,8 @@ export default class extends Component {
       //if user just change general information
       try {
         const response = await axios.patch(
-          "http://localhost:5000/users/me/" + auth.userId,
+          process.env.REACT_APP_BACKEND_URL + "users/me/" + auth.userId,
+
           {
             firstname: this.state.f_name,
             lastname: this.state.l_name,
@@ -197,7 +185,8 @@ export default class extends Component {
 
       try {
         const response = await axios.patch(
-          "http://localhost:5000/users/me/" + auth.userId,
+          process.env.REACT_APP_BACKEND_URL + "users/me/" + auth.userId,
+
           {
             firstname: this.state.f_name,
             lastname: this.state.l_name,

@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Form } from "react-bootstrap";
 import "./PatientRoutineForm.css";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -149,6 +148,7 @@ class PatientRoutineForm extends React.Component {
               let input = times[i].time; //We have made this array at 118 line keeping all times
 
               console.log(this.state.s_date);
+              console.log(response.data);
               console.log(input);
 
               //Seprate the times into hour min sec
@@ -315,9 +315,9 @@ class PatientRoutineForm extends React.Component {
 
                 //Seprate the times into hour min sec
 
-                var fields = input.split(":");
-                var hour = fields[0];
-                var minute = fields[1];
+                fields = input.split(":");
+                hour = fields[0];
+                minute = fields[1];
                 eventStartTime.setHours(hour);
                 eventStartTime.setMinutes(minute);
                 eventStartTime.setSeconds(0);
@@ -494,9 +494,9 @@ class PatientRoutineForm extends React.Component {
 
                 //Seprate the times into hour min sec
 
-                var fields = input.split(":");
-                var hour = fields[0];
-                var minute = fields[1];
+                fields = input.split(":");
+                hour = fields[0];
+                minute = fields[1];
                 eventStartTime.setHours(hour);
                 eventStartTime.setMinutes(minute);
                 eventStartTime.setSeconds(0);

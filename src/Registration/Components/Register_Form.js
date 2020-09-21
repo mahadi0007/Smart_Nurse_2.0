@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../Registration.css";
-import { MDBCol } from "mdbreact";
+
 import "mdbreact/dist/css/mdb.css";
 
 import ErrorModal from "../../Shared/Components/ErrorModal";
@@ -61,8 +61,7 @@ export default class Register_Form extends Component {
 
     try {
       const response = await axios.post(
-        //"https://smart-nurse-test.herokuapp.com/register",
-        "http://localhost:5000/register",
+        process.env.REACT_APP_BACKEND_URL + "register",
 
         {
           firstname: this.state.f_name,
