@@ -11,7 +11,10 @@ const Footer = () => {
           <div className="col-sm-4 mx-auto">
             <ListGroup>
               <ListGroup.Item className="listgroup-style">
-                <a className="font-weight-normal text-light" href="#!">
+                <a
+                  className="font-weight-normal text-light"
+                  href="/patientroutine"
+                >
                   My Health Record
                 </a>
               </ListGroup.Item>
@@ -21,12 +24,15 @@ const Footer = () => {
                 </a>
               </ListGroup.Item>
               <ListGroup.Item className="listgroup-style">
-                <a className="font-weight-normal text-light" href="#!">
+                <a
+                  className="font-weight-normal text-light"
+                  href="/patientroutine"
+                >
                   Set Reminder
                 </a>
               </ListGroup.Item>
               <ListGroup.Item className="listgroup-style">
-                <a className="font-weight-normal text-light" href="#!">
+                <a className="font-weight-normal text-light" href="/#process">
                   Services
                 </a>
               </ListGroup.Item>
@@ -46,7 +52,7 @@ const Footer = () => {
                 </a>
               </ListGroup.Item>
               <ListGroup.Item className="listgroup-style">
-                <a className="font-weight-normal text-light" href="#!">
+                <a className="font-weight-normal text-light" href="/#about">
                   About Us
                 </a>
               </ListGroup.Item>

@@ -140,7 +140,7 @@ export default class NavigationBar extends Component {
           className="justify-content-end"
           id="responsive-navbar-nav"
         >
-          <Nav.Link className="text-light" href="#features">
+          <Nav.Link className="text-light" href="/">
             Home
           </Nav.Link>
 

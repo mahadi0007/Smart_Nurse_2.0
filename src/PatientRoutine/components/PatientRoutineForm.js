@@ -634,6 +634,7 @@ class PatientRoutineForm extends React.Component {
   };
 
   render() {
+    let conti = 0;
     return (
       <div className="container">
         {this.state.response_message && ( //error message from API
@@ -734,8 +735,11 @@ class PatientRoutineForm extends React.Component {
                       let start = moment(e.target.value, "YYYY-MM-DD");
                       let end = moment(this.state.e_date, "YYYY-MM-DD");
                       console.log("Date Difference" + end.diff(start, "days"));
+                      conti = end.diff(start, "days");
+                      conti = conti + 1;
+                      console.log("Date Difference conti " + conti);
                       this.setState({
-                        continuity: end.diff(start, "days"),
+                        continuity: conti,
                       });
                     }
                   }}
@@ -760,8 +764,11 @@ class PatientRoutineForm extends React.Component {
                       let start = moment(this.state.s_date, "YYYY-MM-DD");
                       let end = moment(e.target.value, "YYYY-MM-DD");
                       console.log("Date Difference" + end.diff(start, "days"));
+                      conti = end.diff(start, "days");
+                      conti = conti + 1;
+                      console.log("Date Difference conti " + conti);
                       this.setState({
-                        continuity: end.diff(start, "days"),
+                        continuity: conti,
                       });
                     }
                   }}
