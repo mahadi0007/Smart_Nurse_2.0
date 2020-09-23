@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 // import DatePicker from "react-date-picker";
 import { Modal, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -45,7 +45,7 @@ const ViewRoutineModal = (props) => {
     }
   };
 
-  //If routine item == activity then unit field will become hidden. 
+  //If routine item == activity then unit field will become hidden.
   const unitClassHandler = () => {
     if (routineItem === "Activity") {
       return "d-none";
@@ -87,7 +87,7 @@ const ViewRoutineModal = (props) => {
                       >
                         {/*To select the routineItem type(Medicine or Activity or Food). */}
                         <option value="Medicine">Medicine</option>
-                        <option value="Activity">Activity</option>
+                        <option value="Excercise">Excercise</option>
                         <option value="Food">Food</option>
                       </select>
                     </div>

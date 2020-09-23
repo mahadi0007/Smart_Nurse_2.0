@@ -6,6 +6,7 @@ import "./AutoAddPatient.css";
 import axios from "axios";
 import auth from "../Shared/Auth/auth";
 import { Cookies } from "react-cookie";
+import Footer from "../Shared/Components/Footer";
 import ErrorModal from "../Shared/Components/ErrorModal";
 
 import addMeAsPatientImage from "../Shared/img/addmep.jpg";
@@ -17,8 +18,6 @@ class AutoAddPatient extends React.Component {
     this.state = {
       showSpinner: false,
       removeMessage: "",
-
-      
     };
   }
 
@@ -58,7 +57,6 @@ class AutoAddPatient extends React.Component {
         removeMessage: error.response.data.message,
       });
     }
-
 
     //manual code for errorhandling and set user Roll
 
@@ -130,9 +128,7 @@ class AutoAddPatient extends React.Component {
             onClear={this.errorHandler.bind(this)}
           />
         )}
-
         <NavigationBar />
-
         <div className="container-fluid">
           <div className="row">
             <img
@@ -150,7 +146,6 @@ class AutoAddPatient extends React.Component {
             </div>
           </div>
         </div>
-
         <div>
           <img
             className="mx-auto d-block ml-3"
@@ -159,7 +154,6 @@ class AutoAddPatient extends React.Component {
             alt="patient"
           />
         </div>
-
         <div>
           {this.state.showSpinner ? (
             <div
@@ -199,6 +193,9 @@ class AutoAddPatient extends React.Component {
           {/* <SearchPatientTable allUser={this.state.userlist} /> */}
           <SearchPatientTable />
         </div>
+        <br />
+        <br />
+        <Footer />
       </div>
     );
   }

@@ -47,7 +47,7 @@ export default class Edit_Profile extends Component {
         UserName: childData[0],
         userRole: childData[2],
         POGName: childData[3],
-        patientID: childData[3],
+        patientID: childData[4],
       });
     }
   };
@@ -65,22 +65,49 @@ export default class Edit_Profile extends Component {
   };
 
   deletePatientHandler = async () => {
-    try {
-      const response = await axios.patch(
-        process.env.REACT_APP_BACKEND_URL + "removePatientMyself/" + auth.userId
-      );
+    if (this.state.userRole === "Guardian") {
+      try {
+        const response = await axios.patch(
+          process.env.REACT_APP_BACKEND_URL +
+            "users/cancelRequest/" +
+            auth.userId,
+          {
+            patientId: this.state.patientID,
+          }
+        );
 
-      this.setState({
-        response_message: response.data.message,
-      });
+        this.setState({
+          response_message: response.data.message,
+        });
 
-      console.log(response.data);
-      auth.userRole = null;
-      this.cookies.remove("userRole", { path: "/" });
-    } catch (error) {
-      this.setState({
-        response_message: error.response.data.message,
-      });
+        console.log(response.data);
+        auth.userRole = null;
+        this.cookies.remove("userRole", { path: "/" });
+      } catch (error) {
+        this.setState({
+          response_message: error.response.data.message,
+        });
+      }
+    } else {
+      try {
+        const response = await axios.patch(
+          process.env.REACT_APP_BACKEND_URL +
+            "removePatientMyself/" +
+            auth.userId
+        );
+
+        this.setState({
+          response_message: response.data.message,
+        });
+
+        console.log(response.data);
+        auth.userRole = null;
+        this.cookies.remove("userRole", { path: "/" });
+      } catch (error) {
+        this.setState({
+          response_message: error.response.data.message,
+        });
+      }
     }
   };
 
@@ -208,13 +235,16 @@ export default class Edit_Profile extends Component {
                           {this.state.POGName}
                         </p>
 
-                        <img
-                          className="ml-2"
-                          src={Delete}
-                          style={{ width: "20px", height: "20px" }}
-                          alt="Delete"
-                          onClick={this.handleDeletPatientConfirm}
-                        />
+                        {this.state.userRole === "Guardian" ||
+                        this.state.userRole === "Guardian/Patient" ? (
+                          <img
+                            className="ml-2"
+                            src={Delete}
+                            style={{ width: "20px", height: "20px" }}
+                            alt="Delete"
+                            onClick={this.handleDeletPatientConfirm}
+                          />
+                        ) : null}
                       </div>
                     )}
                   </div>

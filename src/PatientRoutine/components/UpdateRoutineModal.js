@@ -56,7 +56,6 @@ const UpdateRoutineModal = (props) => {
     props.onClear();
   };
 
-
   //to convert  the date in string
   function convert(str) {
     var date = new Date(str),
@@ -68,8 +67,7 @@ const UpdateRoutineModal = (props) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (ApiCalendar.sign) {
-
-      //Check given start date is less or same with end date  
+      //Check given start date is less or same with end date
       if (moment(startDate).isSameOrBefore(endDate)) {
         // setIsLoading(true);
         setDisable(true);
@@ -87,7 +85,6 @@ const UpdateRoutineModal = (props) => {
           endingDate = moment(endDate).format("YYYY/MM/DD");
         }
         try {
-
           //get user routine info with rowInfo id
 
           const response = await axios.get(
@@ -197,7 +194,6 @@ const UpdateRoutineModal = (props) => {
                 });
             }
             const updateResponse = await axios.patch(
-
               //to get the individual routine info with row id
               process.env.REACT_APP_BACKEND_URL + "routine/" + props.rowInfo.id,
               {
@@ -414,7 +410,7 @@ const UpdateRoutineModal = (props) => {
                         onChange={(e) => setRoutineItem(e.target.value)}
                       >
                         <option value="Medicine">Medicine</option>
-                        <option value="Activity">Activity</option>
+                        <option value="Excercise">Excercise</option>
                         <option value="Food">Food</option>
                       </select>
                     </div>
@@ -531,7 +527,6 @@ const UpdateRoutineModal = (props) => {
                       </div>
                     </div>
 
-                    
                     {/* to render dynamically timesperday array */}
                     {Array.from({ length: timesPerDay }, (v, k) => (
                       <div className="col-12 col-sm-6 mb-4" key={k}>

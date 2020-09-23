@@ -261,7 +261,7 @@ const NotificationAlert = (props) => {
                   >
                     <div class="container">
                       <div class="row">
-                        {item.notificationArray.routineItem === "Activity" ? (
+                        {item.notificationArray.routineItem === "Excercise" ? (
                           <div class="col-9">
                             <i
                               className="fas fa-circle"
